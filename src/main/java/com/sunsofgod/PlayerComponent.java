@@ -4,6 +4,9 @@ import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
@@ -13,15 +16,14 @@ import static com.almasb.fxgl.dsl.FXGL.image;
 public class PlayerComponent extends Component {
 
     private PhysicsComponent physics;
-
     private AnimatedTexture texture;
-
     private AnimationChannel animIdle, animWalk;
+    private int jumps = 1;
 
-    private int jumps = 2;
+    private IntegerProperty mailsDelivered = new SimpleIntegerProperty(0);
+    private int totalMails = 3;
 
     public PlayerComponent() {
-
         Image image = image("player.png");
 
         animIdle = new AnimationChannel(image, 4, 32, 42, Duration.seconds(1), 1, 1);
@@ -73,9 +75,24 @@ public class PlayerComponent extends Component {
     public void jump() {
         if (jumps == 0)
             return;
-
         physics.setVelocityY(-300);
-
         jumps--;
+    }
+
+    // Property for binding the mail count
+    public IntegerProperty mailsDeliveredProperty() {
+        return mailsDelivered;
+    }
+
+    public void collectMail() {
+        mailsDelivered.set(mailsDelivered.get() + 1);
+    }
+
+    public int getMailsDelivered() {
+        return mailsDelivered.get();
+    }
+
+    public int getTotalMails() {
+        return totalMails;
     }
 }

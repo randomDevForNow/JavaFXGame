@@ -30,25 +30,29 @@ import static com.sunsofgod.EntityType.*;
 public class PlatformerApp extends GameApplication {
 
     private static final int MAX_LEVEL = 5;
-    private static final int STARTING_LEVEL = 0;
+    private static final int STARTING_LEVEL = 3;
 
     @Override
     protected void initSettings(GameSettings settings) {
         settings.setWidth(1280);
         settings.setHeight(720);
 
+        settings.setMainMenuEnabled(true);
+
         /* Set Loading Screen Here: */
 
         // settings.setSceneFactory(new SceneFactory() {
-        //     @Override
-        //     public LoadingScene newLoadingScene() {
-        //         return new MainLoadingScene();
-        //     }
+        // @Override
+        // public LoadingScene newLoadingScene() {
+        // return new MainLoadingScene();
+        // }
         // });
         // settings.setApplicationMode(ApplicationMode.DEVELOPER);
     }
 
-    private LazyValue<LevelEndScene> levelEndScene = new LazyValue<>(() -> new LevelEndScene());
+    /* Get for ending the game (Init level refunds and scoreboard) */
+    // private LazyValue<LevelEndScene> levelEndScene = new LazyValue<>(() -> new
+    // LevelEndScene());
     private Entity player;
 
     @Override
@@ -84,9 +88,10 @@ public class PlatformerApp extends GameApplication {
             }
         }, KeyCode.W, VirtualButton.A);
 
-        getInput().addAction(new UserAction("Use") {   
+        getInput().addAction(new UserAction("Use") {
             @Override
             protected void onActionBegin() {
+                /* For Getting Mail */
                 getGameWorld().getEntitiesByType(BUTTON)
                         .stream()
                         .filter(btn -> btn.hasComponent(CollidableComponent.class) && player.isColliding(btn))
@@ -105,17 +110,19 @@ public class PlatformerApp extends GameApplication {
         }, KeyCode.E, VirtualButton.B);
     }
 
+    /* For Global Variables (Refunds of each player) */
     @Override
     protected void initGameVars(Map<String, Object> vars) {
         vars.put("level", STARTING_LEVEL);
-        vars.put("levelTime", 0.0);
-        vars.put("score", 0);
+        // vars.put("levelTime", 0.0);
+        // vars.put("score", 0);
     }
 
     @Override
     protected void onPreInit() {
         getSettings().setGlobalMusicVolume(0.25);
-        loopBGM("BGM_dash_runner.wav");
+        // loopBGM("BGM_dash_runner.wav");
+        /* Add Media Player Code here that loops */
     }
 
     @Override
@@ -133,6 +140,7 @@ public class PlatformerApp extends GameApplication {
 
         spawn("background");
 
+        /* Follows the player (can be turned off) */
         Viewport viewport = getGameScene().getViewport();
         viewport.setBounds(-1500, 0, 250 * 70, getAppHeight());
         viewport.bindToEntity(player, getAppWidth() / 2, getAppHeight() / 2);
@@ -144,48 +152,57 @@ public class PlatformerApp extends GameApplication {
         getPhysicsWorld().setGravity(0, 760);
         getPhysicsWorld().addCollisionHandler(new PlayerButtonHandler());
 
-        onCollisionOneTimeOnly(PLAYER, EXIT_SIGN, (player, sign) -> {
-            var texture = texture("exit_sign.png").brighter();
-            texture.setTranslateX(sign.getX() + 9);
-            texture.setTranslateY(sign.getY() + 13);
+        // Set collision of player and mail here:
 
-            var gameView = new GameView(texture, 150);
-
-            getGameScene().addGameView(gameView);
-
-            runOnce(() -> getGameScene().removeGameView(gameView), Duration.seconds(1.6));
-        });
-
-        onCollisionOneTimeOnly(PLAYER, EXIT_TRIGGER, (player, trigger) -> {
-            makeExitDoor();
-        });
-
-        onCollisionOneTimeOnly(PLAYER, DOOR_BOT, (player, door) -> {
-            levelEndScene.get().onLevelFinish();
-
-            // the above runs in its own scene, so fade will wait until
-            // the user exits that scene
-            getGameScene().getViewport().fade(() -> {
-                nextLevel();
-            });
-        });
-
-        onCollisionOneTimeOnly(PLAYER, MESSAGE_PROMPT, (player, prompt) -> {
-            prompt.setOpacity(1);
-
-            despawnWithDelay(prompt, Duration.seconds(4.5));
-        });
-
-        onCollisionBegin(PLAYER, KEY_PROMPT, (player, prompt) -> {
-            String key = prompt.getString("key");
-
-            var entity = getGameWorld().create("keyCode", new SpawnData(prompt.getX(), prompt.getY()).put("key", key));
-            spawnWithScale(entity, Duration.seconds(1), Interpolators.ELASTIC.EASE_OUT());
-
-            runOnce(() -> {
-                despawnWithScale(entity, Duration.seconds(1), Interpolators.ELASTIC.EASE_IN());
-            }, Duration.seconds(2.5));
-        });
+        /* Physics Interaction */
+        /*
+         * onCollisionOneTimeOnly(PLAYER, EXIT_SIGN, (player, sign) -> {
+         * var texture = texture("exit_sign.png").brighter();
+         * texture.setTranslateX(sign.getX() + 9);
+         * texture.setTranslateY(sign.getY() + 13);
+         * 
+         * var gameView = new GameView(texture, 150);
+         * 
+         * getGameScene().addGameView(gameView);
+         * 
+         * runOnce(() -> getGameScene().removeGameView(gameView),
+         * Duration.seconds(1.6));
+         * });
+         * 
+         * onCollisionOneTimeOnly(PLAYER, EXIT_TRIGGER, (player, trigger) -> {
+         * makeExitDoor();
+         * });
+         * 
+         * onCollisionOneTimeOnly(PLAYER, DOOR_BOT, (player, door) -> {
+         * // levelEndScene.get().onLevelFinish();
+         * 
+         * // the above runs in its own scene, so fade will wait until
+         * // the user exits that scene
+         * getGameScene().getViewport().fade(() -> {
+         * nextLevel();
+         * });
+         * });
+         * 
+         * onCollisionOneTimeOnly(PLAYER, MESSAGE_PROMPT, (player, prompt) -> {
+         * prompt.setOpacity(1);
+         * 
+         * despawnWithDelay(prompt, Duration.seconds(4.5));
+         * });
+         * 
+         * onCollisionBegin(PLAYER, KEY_PROMPT, (player, prompt) -> {
+         * String key = prompt.getString("key");
+         * 
+         * var entity = getGameWorld().create("keyCode", new SpawnData(prompt.getX(),
+         * prompt.getY()).put("key", key));
+         * spawnWithScale(entity, Duration.seconds(1),
+         * Interpolators.ELASTIC.EASE_OUT());
+         * 
+         * runOnce(() -> {
+         * despawnWithScale(entity, Duration.seconds(1),
+         * Interpolators.ELASTIC.EASE_IN());
+         * }, Duration.seconds(2.5));
+         * });
+         */
     }
 
     private void makeExitDoor() {
@@ -209,6 +226,7 @@ public class PlatformerApp extends GameApplication {
         setLevel(geti("level"));
     }
 
+    /* REMOVE THIS */
     @Override
     protected void initUI() {
         if (isMobile()) {
@@ -222,7 +240,7 @@ public class PlatformerApp extends GameApplication {
 
     @Override
     protected void onUpdate(double tpf) {
-        inc("levelTime", tpf);
+        // inc("levelTime", tpf);
 
         if (player.getY() > getAppHeight()) {
             onPlayerDied();
@@ -239,15 +257,17 @@ public class PlatformerApp extends GameApplication {
             player.setZIndex(Integer.MAX_VALUE);
         }
 
-        set("levelTime", 0.0);
+        // set("levelTime", 0.0);
 
-        Level level = setLevelFromMap("tmx/level" + levelNum  + ".tmx");
+        Level level = setLevelFromMap("tmx/level" + levelNum + ".tmx");
 
-        var shortestTime = level.getProperties().getDouble("star1time");
-
-        var levelTimeData = new LevelEndScene.LevelTimeData(shortestTime * 2.4, shortestTime*1.3, shortestTime);
-
-        set("levelTimeData", levelTimeData);
+        /* For Global Vars */
+        // var shortestTime = level.getProperties().getDouble("star1time");
+        //
+        // var levelTimeData = new LevelEndScene.LevelTimeData(shortestTime * 2.4,
+        // shortestTime * 1.3, shortestTime);
+        //
+        // set("levelTimeData", levelTimeData);
     }
 
     public static void main(String[] args) {

@@ -15,10 +15,13 @@ import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
 import com.almasb.fxgl.ui.FontType;
+
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Point2D;
 import javafx.scene.CacheHint;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
@@ -78,19 +81,45 @@ public class PlatformerFactory implements EntityFactory {
         physics.setBodyType(BodyType.DYNAMIC);
         physics.addGroundSensor(new HitBox("GROUND_SENSOR", new Point2D(16, 38), BoundingShape.box(6, 8)));
 
-        // this avoids player sticking to walls
+        PlayerComponent playerComponent = new PlayerComponent();
+
+        // This avoids player sticking to walls
         physics.setFixtureDef(new FixtureDef().friction(0.0f));
 
-        return entityBuilder(data)
+        // Create the mail label and bind it to the player's mails delivered property
+        Text mailLabel = getUIFactoryService().newText("0/3", Color.BLACK, 18);
+        mailLabel.setTranslateX(-10); // Adjust as needed
+        mailLabel.setTranslateY(-25); // Adjust to position above the player
+
+        // Bind the mailLabel's text to the player's mails delivered property
+        mailLabel.textProperty().bind(
+                Bindings.createStringBinding(
+                        () -> playerComponent.getMailsDelivered() + "/" + playerComponent.getTotalMails(),
+                        playerComponent.mailsDeliveredProperty()));
+
+        // Build the player entity
+        Entity player = entityBuilder(data)
                 .type(PLAYER)
                 .bbox(new HitBox(new Point2D(5, 5), BoundingShape.circle(12)))
                 .bbox(new HitBox(new Point2D(10, 25), BoundingShape.box(10, 17)))
                 .with(physics)
                 .with(new CollidableComponent(true))
                 .with(new IrremovableComponent())
-                .with(new PlayerComponent())
+                .with(playerComponent)
                 .build();
+
+        // Add the mailLabel as a child to the player's view
+        player.getViewComponent().addChild(mailLabel);
+
+        // Return the player entity
+        return player;
     }
+
+    // spawn player 2
+
+    // spawn player 3
+
+    // spawn player 4
 
     @Spawns("exitSign")
     public Entity newExit(SpawnData data) {
@@ -131,6 +160,7 @@ public class PlatformerFactory implements EntityFactory {
                 .build();
     }
 
+    // TO EDIT
     @Spawns("button")
     public Entity newButton(SpawnData data) {
         var keyEntity = getGameWorld().create("keyCode", new SpawnData(data.getX(), data.getY() - 50).put("key", "E"));
