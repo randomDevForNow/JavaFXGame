@@ -30,7 +30,7 @@ import static com.sunsofgod.EntityType.*;
 public class PlatformerApp extends GameApplication {
 
     private static final int MAX_LEVEL = 5;
-    private static final int STARTING_LEVEL = 3;
+    private static final int STARTING_LEVEL = 0;
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -156,54 +156,54 @@ public class PlatformerApp extends GameApplication {
         // Set collision of player and mail here:
 
         /* Physics Interaction */
-        /*
-         * onCollisionOneTimeOnly(PLAYER, EXIT_SIGN, (player, sign) -> {
-         * var texture = texture("exit_sign.png").brighter();
-         * texture.setTranslateX(sign.getX() + 9);
-         * texture.setTranslateY(sign.getY() + 13);
-         * 
-         * var gameView = new GameView(texture, 150);
-         * 
-         * getGameScene().addGameView(gameView);
-         * 
-         * runOnce(() -> getGameScene().removeGameView(gameView),
-         * Duration.seconds(1.6));
-         * });
-         * 
-         * onCollisionOneTimeOnly(PLAYER, EXIT_TRIGGER, (player, trigger) -> {
-         * makeExitDoor();
-         * });
-         * 
-         * onCollisionOneTimeOnly(PLAYER, DOOR_BOT, (player, door) -> {
-         * // levelEndScene.get().onLevelFinish();
-         * 
-         * // the above runs in its own scene, so fade will wait until
-         * // the user exits that scene
-         * getGameScene().getViewport().fade(() -> {
-         * nextLevel();
-         * });
-         * });
-         * 
-         * onCollisionOneTimeOnly(PLAYER, MESSAGE_PROMPT, (player, prompt) -> {
-         * prompt.setOpacity(1);
-         * 
-         * despawnWithDelay(prompt, Duration.seconds(4.5));
-         * });
-         * 
-         * onCollisionBegin(PLAYER, KEY_PROMPT, (player, prompt) -> {
-         * String key = prompt.getString("key");
-         * 
-         * var entity = getGameWorld().create("keyCode", new SpawnData(prompt.getX(),
-         * prompt.getY()).put("key", key));
-         * spawnWithScale(entity, Duration.seconds(1),
-         * Interpolators.ELASTIC.EASE_OUT());
-         * 
-         * runOnce(() -> {
-         * despawnWithScale(entity, Duration.seconds(1),
-         * Interpolators.ELASTIC.EASE_IN());
-         * }, Duration.seconds(2.5));
-         * });
-         */
+
+        onCollisionOneTimeOnly(PLAYER, EXIT_SIGN, (player, sign) -> {
+            var texture = texture("exit_sign.png").brighter();
+            texture.setTranslateX(sign.getX() + 9);
+            texture.setTranslateY(sign.getY() + 13);
+
+            var gameView = new GameView(texture, 150);
+
+            getGameScene().addGameView(gameView);
+
+            runOnce(() -> getGameScene().removeGameView(gameView),
+                    Duration.seconds(1.6));
+        });
+
+        onCollisionOneTimeOnly(PLAYER, EXIT_TRIGGER, (player, trigger) -> {
+            makeExitDoor();
+        });
+
+        onCollisionOneTimeOnly(PLAYER, DOOR_BOT, (player, door) -> {
+            // levelEndScene.get().onLevelFinish();
+
+            // the above runs in its own scene, so fade will wait until
+            // the user exits that scene
+            getGameScene().getViewport().fade(() -> {
+                nextLevel();
+            });
+        });
+
+        onCollisionOneTimeOnly(PLAYER, MESSAGE_PROMPT, (player, prompt) -> {
+            prompt.setOpacity(1);
+
+            despawnWithDelay(prompt, Duration.seconds(4.5));
+        });
+
+        onCollisionBegin(PLAYER, KEY_PROMPT, (player, prompt) -> {
+            String key = prompt.getString("key");
+
+            var entity = getGameWorld().create("keyCode", new SpawnData(prompt.getX(),
+                    prompt.getY()).put("key", key));
+            spawnWithScale(entity, Duration.seconds(1),
+                    Interpolators.ELASTIC.EASE_OUT());
+
+            runOnce(() -> {
+                despawnWithScale(entity, Duration.seconds(1),
+                        Interpolators.ELASTIC.EASE_IN());
+            }, Duration.seconds(2.5));
+        });
+
     }
 
     private void makeExitDoor() {

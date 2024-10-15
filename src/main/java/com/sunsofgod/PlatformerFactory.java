@@ -29,164 +29,141 @@ import static com.sunsofgod.EntityType.*;
 
 public class PlatformerFactory implements EntityFactory {
 
-    @Spawns("background")
-    public Entity newBackground(SpawnData data) {
-        return entityBuilder()
-                .view(new ScrollingBackgroundView(texture("background/ph.png").getImage(), getAppWidth(),
-                        getAppHeight()))
-                .zIndex(-1)
-                .with(new IrremovableComponent())
-                .build();
-    }
+        @Spawns("background")
+        public Entity newBackground(SpawnData data) {
+                return entityBuilder()
+                                .view(new ScrollingBackgroundView(texture("background/manila.png").getImage(),
+                                                getAppWidth(),
+                                                getAppHeight()))
+                                .zIndex(-1)
+                                .with(new IrremovableComponent())
+                                .build();
+        }
 
-    @Spawns("platform")
-    public Entity newPlatform(SpawnData data) {
-        return entityBuilder(data)
-                .type(PLATFORM)
-                .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"), data.<Integer>get("height"))))
-                .with(new PhysicsComponent())
-                .build();
-    }
+        @Spawns("platform")
+        public Entity newPlatform(SpawnData data) {
+                return entityBuilder(data)
+                                .type(PLATFORM)
+                                .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"),
+                                                data.<Integer>get("height"))))
+                                .with(new PhysicsComponent())
+                                .build();
+        }
 
-    @Spawns("exitTrigger")
-    public Entity newExitTrigger(SpawnData data) {
-        return entityBuilder(data)
-                .type(EXIT_TRIGGER)
-                .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"), data.<Integer>get("height"))))
-                .with(new CollidableComponent(true))
-                .build();
-    }
+        @Spawns("exitTrigger")
+        public Entity newExitTrigger(SpawnData data) {
+                return entityBuilder(data)
+                                .type(EXIT_TRIGGER)
+                                .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"),
+                                                data.<Integer>get("height"))))
+                                .with(new CollidableComponent(true))
+                                .build();
+        }
 
-    @Spawns("doorTop")
-    public Entity newDoorTop(SpawnData data) {
-        return entityBuilder(data)
-                .type(DOOR_TOP)
-                .opacity(0)
-                .build();
-    }
+        @Spawns("doorTop")
+        public Entity newDoorTop(SpawnData data) {
+                return entityBuilder(data)
+                                .type(DOOR_TOP)
+                                .opacity(0)
+                                .build();
+        }
 
-    @Spawns("doorBot")
-    public Entity newDoorBot(SpawnData data) {
-        return entityBuilder(data)
-                .type(DOOR_BOT)
-                .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"), data.<Integer>get("height"))))
-                .opacity(0)
-                .with(new CollidableComponent(false))
-                .build();
-    }
+        @Spawns("doorBot")
+        public Entity newDoorBot(SpawnData data) {
+                return entityBuilder(data)
+                                .type(DOOR_BOT)
+                                .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"),
+                                                data.<Integer>get("height"))))
+                                .opacity(0)
+                                .with(new CollidableComponent(false))
+                                .build();
+        }
 
-    @Spawns("player")
-    public Entity newPlayer(SpawnData data) {
-        PhysicsComponent physics = new PhysicsComponent();
-        physics.setBodyType(BodyType.DYNAMIC);
-        physics.addGroundSensor(new HitBox("GROUND_SENSOR", new Point2D(16, 38), BoundingShape.box(6, 8)));
+        @Spawns("player")
+        public Entity newPlayer(SpawnData data) {
+                PhysicsComponent physics = new PhysicsComponent();
+                physics.setBodyType(BodyType.DYNAMIC);
+                physics.addGroundSensor(new HitBox("GROUND_SENSOR", new Point2D(16, 38), BoundingShape.box(6, 8)));
 
-        PlayerComponent playerComponent = new PlayerComponent();
+                PlayerComponent playerComponent = new PlayerComponent();
 
-        // This avoids player sticking to walls
-        physics.setFixtureDef(new FixtureDef().friction(0.0f));
+                // This avoids player sticking to walls
+                physics.setFixtureDef(new FixtureDef().friction(0.0f));
 
-        // Create the mail label and bind it to the player's mails delivered property
-        Text mailLabel = getUIFactoryService().newText("0/3", Color.BLACK, 18);
-        mailLabel.setTranslateX(-10); // Adjust as needed
-        mailLabel.setTranslateY(-25); // Adjust to position above the player
+                // Build the player entity
+                Entity player = entityBuilder(data)
+                                .type(PLAYER)
+                                .bbox(new HitBox(new Point2D(5, 5), BoundingShape.circle(12)))
+                                .bbox(new HitBox(new Point2D(10, 25), BoundingShape.box(10, 17)))
+                                .with(physics)
+                                .with(new CollidableComponent(true))
+                                .with(new IrremovableComponent())
+                                .with(playerComponent)
+                                .build();
 
-        // Bind the mailLabel's text to the player's mails delivered property
-        mailLabel.textProperty().bind(
-                Bindings.createStringBinding(
-                        () -> playerComponent.getMailsDelivered() + "/" + playerComponent.getTotalMails(),
-                        playerComponent.mailsDeliveredProperty()));
+                // Return the player entity
+                return player;
+        }
 
-        // Build the player entity
-        Entity player = entityBuilder(data)
-                .type(PLAYER)
-                .bbox(new HitBox(new Point2D(5, 5), BoundingShape.circle(12)))
-                .bbox(new HitBox(new Point2D(10, 25), BoundingShape.box(10, 17)))
-                .with(physics)
-                .with(new CollidableComponent(true))
-                .with(new IrremovableComponent())
-                .with(playerComponent)
-                .build();
+        // spawn player 2
 
-        // Add the mailLabel as a child to the player's view
-        player.getViewComponent().addChild(mailLabel);
+        // spawn player 3
 
-        // Return the player entity
-        return player;
-    }
+        // spawn player 4
 
-    // spawn player 2
+        @Spawns("exitSign")
+        public Entity newExit(SpawnData data) {
+                return entityBuilder(data)
+                                .type(EXIT_SIGN)
+                                .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"),
+                                                data.<Integer>get("height"))))
+                                .with(new CollidableComponent(true))
+                                .build();
+        }
 
-    // spawn player 3
+        @Spawns("keyPrompt")
+        public Entity newPrompt(SpawnData data) {
+                return entityBuilder(data)
+                                .type(KEY_PROMPT)
+                                .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"),
+                                                data.<Integer>get("height"))))
+                                .with(new CollidableComponent(true))
+                                .build();
+        }
 
-    // spawn player 4
+        @Spawns("keyCode")
+        public Entity newKeyCode(SpawnData data) {
+                String key = data.get("key");
 
-    @Spawns("exitSign")
-    public Entity newExit(SpawnData data) {
-        return entityBuilder(data)
-                .type(EXIT_SIGN)
-                .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"), data.<Integer>get("height"))))
-                .with(new CollidableComponent(true))
-                .build();
-    }
+                KeyCode keyCode = KeyCode.getKeyCode(key);
 
-    @Spawns("keyPrompt")
-    public Entity newPrompt(SpawnData data) {
-        return entityBuilder(data)
-                .type(KEY_PROMPT)
-                .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"), data.<Integer>get("height"))))
-                .with(new CollidableComponent(true))
-                .build();
-    }
+                var lift = new LiftComponent();
+                lift.setGoingUp(true);
+                lift.yAxisDistanceDuration(6, Duration.seconds(0.76));
 
-    @Spawns("keyCode")
-    public Entity newKeyCode(SpawnData data) {
-        String key = data.get("key");
+                var view = new KeyView(keyCode, Color.YELLOW, 24);
+                view.setCache(true);
+                view.setCacheHint(CacheHint.SCALE);
 
-        KeyCode keyCode = KeyCode.getKeyCode(key);
+                return entityBuilder(data)
+                                .view(view)
+                                .with(lift)
+                                .zIndex(100)
+                                .build();
+        }
 
-        var lift = new LiftComponent();
-        lift.setGoingUp(true);
-        lift.yAxisDistanceDuration(6, Duration.seconds(0.76));
+        // TO EDIT
+        @Spawns("button")
+        public Entity newButton(SpawnData data) {
+                var keyEntity = getGameWorld().create("keyCode",
+                                new SpawnData(data.getX(), data.getY() - 50).put("key", "E"));
+                keyEntity.getViewComponent().setOpacity(0);
 
-        var view = new KeyView(keyCode, Color.YELLOW, 24);
-        view.setCache(true);
-        view.setCacheHint(CacheHint.SCALE);
-
-        return entityBuilder(data)
-                .view(view)
-                .with(lift)
-                .zIndex(100)
-                .build();
-    }
-
-    // TO EDIT
-    @Spawns("button")
-    public Entity newButton(SpawnData data) {
-        var keyEntity = getGameWorld().create("keyCode", new SpawnData(data.getX(), data.getY() - 50).put("key", "E"));
-        keyEntity.getViewComponent().setOpacity(0);
-
-        return entityBuilder(data)
-                .type(BUTTON)
-                .viewWithBBox(texture("button.png", 20, 18))
-                .with(new CollidableComponent(true))
-                .with("keyEntity", keyEntity)
-                .build();
-    }
-
-    // @Spawns("messagePrompt")
-    // public Entity newMessagePrompt(SpawnData data) {
-    // var text = getUIFactoryService().newText(data.get("message"), Color.BLACK,
-    // FontType.GAME, 20.0);
-    // text.setStrokeWidth(2);
-    //
-    // return entityBuilder(data)
-    // .type(MESSAGE_PROMPT)
-    // .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"),
-    // data.<Integer>get("height"))))
-    // .view(text)
-    // .with(new CollidableComponent(true))
-    // .opacity(0)
-    // .build();
-    // }
+                return entityBuilder(data)
+                                .type(BUTTON)
+                                .viewWithBBox(texture("button.png", 20, 18))
+                                .with(new CollidableComponent(true))
+                                .with("keyEntity", keyEntity)
+                                .build();
+        }
 }

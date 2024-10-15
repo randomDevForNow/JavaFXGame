@@ -18,10 +18,7 @@ public class PlayerComponent extends Component {
     private PhysicsComponent physics;
     private AnimatedTexture texture;
     private AnimationChannel animIdle, animWalk;
-    private int jumps = 1;
-
-    private IntegerProperty mailsDelivered = new SimpleIntegerProperty(0);
-    private int totalMails = 3;
+    private int jumps = 2;
 
     public PlayerComponent() {
         Image image = image("player.png");
@@ -77,22 +74,5 @@ public class PlayerComponent extends Component {
             return;
         physics.setVelocityY(-300);
         jumps--;
-    }
-
-    // Property for binding the mail count
-    public IntegerProperty mailsDeliveredProperty() {
-        return mailsDelivered;
-    }
-
-    public void collectMail() {
-        mailsDelivered.set(mailsDelivered.get() + 1);
-    }
-
-    public int getMailsDelivered() {
-        return mailsDelivered.get();
-    }
-
-    public int getTotalMails() {
-        return totalMails;
     }
 }
