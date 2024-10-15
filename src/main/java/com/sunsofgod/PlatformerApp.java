@@ -38,6 +38,7 @@ public class PlatformerApp extends GameApplication {
         settings.setHeight(720);
 
         settings.setMainMenuEnabled(true);
+        System.out.println("Hello!");
 
         /* Set Loading Screen Here: */
 
