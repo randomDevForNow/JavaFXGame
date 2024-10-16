@@ -29,8 +29,8 @@ import static com.sunsofgod.EntityType.*;
 
 public class PlatformerApp extends GameApplication {
 
-    private static final int MAX_LEVEL = 5;
-    private static final int STARTING_LEVEL = 0;
+    private static final int MAX_LEVEL = 6;
+    private static final int STARTING_LEVEL = 5;
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -80,7 +80,7 @@ public class PlatformerApp extends GameApplication {
             protected void onActionEnd() {
                 player.getComponent(PlayerComponent.class).stop();
             }
-        }, KeyCode.D, VirtualButton.RIGHT);
+        }, KeyCode.S, VirtualButton.RIGHT);
 
         getInput().addAction(new UserAction("Jump") {
             @Override
@@ -108,7 +108,7 @@ public class PlatformerApp extends GameApplication {
                             makeExitDoor();
                         });
             }
-        }, KeyCode.E, VirtualButton.B);
+        }, KeyCode.F, VirtualButton.B);
     }
 
     /* For Global Variables (Refunds of each player) */

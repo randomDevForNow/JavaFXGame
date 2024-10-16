@@ -32,7 +32,7 @@ public class PlatformerFactory implements EntityFactory {
         @Spawns("background")
         public Entity newBackground(SpawnData data) {
                 return entityBuilder()
-                                .view(new ScrollingBackgroundView(texture("background/manila.png").getImage(),
+                                .view(new ScrollingBackgroundView(texture("background/baguio.png").getImage(),
                                                 getAppWidth(),
                                                 getAppHeight()))
                                 .zIndex(-1)
