@@ -30,7 +30,7 @@ import static com.sunsofgod.EntityType.*;
 public class PlatformerApp extends GameApplication {
 
     private static final int MAX_LEVEL = 5;
-    private static final int STARTING_LEVEL = 0;
+    private static final int STARTING_LEVEL = -1;
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -38,7 +38,8 @@ public class PlatformerApp extends GameApplication {
         settings.setHeight(720);
 
         settings.setMainMenuEnabled(true);
-        System.out.println("Hello!");
+
+        printLine();
 
         /* Set Loading Screen Here: */
 
@@ -51,6 +52,19 @@ public class PlatformerApp extends GameApplication {
         // settings.setApplicationMode(ApplicationMode.DEVELOPER);
     }
 
+    private void printLine() {
+        System.out.println("Hello!");
+    }
+
+    // Anonymous Function () -> { System.out.println("Hello")}
+    /*
+     * () -> {
+     * String s = "asfhafgad";
+     * return s;
+     * 
+     * 
+     * }
+     */
     /* Get for ending the game (Init level refunds and scoreboard) */
     // private LazyValue<LevelEndScene> levelEndScene = new LazyValue<>(() -> new
     // LevelEndScene());
@@ -68,7 +82,7 @@ public class PlatformerApp extends GameApplication {
             protected void onActionEnd() {
                 player.getComponent(PlayerComponent.class).stop();
             }
-        }, KeyCode.A, VirtualButton.LEFT);
+        }, KeyCode.A);
 
         getInput().addAction(new UserAction("Right") {
             @Override
@@ -80,14 +94,14 @@ public class PlatformerApp extends GameApplication {
             protected void onActionEnd() {
                 player.getComponent(PlayerComponent.class).stop();
             }
-        }, KeyCode.D, VirtualButton.RIGHT);
+        }, KeyCode.D);
 
         getInput().addAction(new UserAction("Jump") {
             @Override
             protected void onActionBegin() {
                 player.getComponent(PlayerComponent.class).jump();
             }
-        }, KeyCode.W, VirtualButton.A);
+        }, KeyCode.W);
 
         getInput().addAction(new UserAction("Use") {
             @Override
@@ -108,7 +122,7 @@ public class PlatformerApp extends GameApplication {
                             makeExitDoor();
                         });
             }
-        }, KeyCode.E, VirtualButton.B);
+        }, KeyCode.E);
     }
 
     /* For Global Variables (Refunds of each player) */
@@ -157,22 +171,23 @@ public class PlatformerApp extends GameApplication {
 
         /* Physics Interaction */
 
-        onCollisionOneTimeOnly(PLAYER, EXIT_SIGN, (player, sign) -> {
-            var texture = texture("exit_sign.png").brighter();
-            texture.setTranslateX(sign.getX() + 9);
-            texture.setTranslateY(sign.getY() + 13);
+        // onCollisionOneTimeOnly(PLAYER, EXIT_SIGN, (player, sign) -> {
+        // var texture = texture("exit_sign.png").brighter();
+        // texture.setTranslateX(sign.getX() + 9);
+        // texture.setTranslateY(sign.getY() + 13);
+        //
+        // var gameView = new GameView(texture, 150);
+        //
+        // getGameScene().addGameView(gameView);
+        //
+        // runOnce(() -> getGameScene().removeGameView(gameView),
+        // Duration.seconds(1.6));
+        // //runOnce(p1[GameScene gameScene], p2[Duration duration])
+        // });
 
-            var gameView = new GameView(texture, 150);
-
-            getGameScene().addGameView(gameView);
-
-            runOnce(() -> getGameScene().removeGameView(gameView),
-                    Duration.seconds(1.6));
-        });
-
-        onCollisionOneTimeOnly(PLAYER, EXIT_TRIGGER, (player, trigger) -> {
-            makeExitDoor();
-        });
+        // onCollisionOneTimeOnly(PLAYER, EXIT_TRIGGER, (player, trigger) -> {
+        // makeExitDoor();
+        // });
 
         onCollisionOneTimeOnly(PLAYER, DOOR_BOT, (player, door) -> {
             // levelEndScene.get().onLevelFinish();
@@ -184,25 +199,25 @@ public class PlatformerApp extends GameApplication {
             });
         });
 
-        onCollisionOneTimeOnly(PLAYER, MESSAGE_PROMPT, (player, prompt) -> {
-            prompt.setOpacity(1);
+        // onCollisionOneTimeOnly(PLAYER, MESSAGE_PROMPT, (player, prompt) -> {
+        // prompt.setOpacity(1);
 
-            despawnWithDelay(prompt, Duration.seconds(4.5));
-        });
+        // despawnWithDelay(prompt, Duration.seconds(4.5));
+        // });
 
-        onCollisionBegin(PLAYER, KEY_PROMPT, (player, prompt) -> {
-            String key = prompt.getString("key");
+        // onCollisionBegin(PLAYER, KEY_PROMPT, (player, prompt) -> {
+        // String key = prompt.getString("key");
 
-            var entity = getGameWorld().create("keyCode", new SpawnData(prompt.getX(),
-                    prompt.getY()).put("key", key));
-            spawnWithScale(entity, Duration.seconds(1),
-                    Interpolators.ELASTIC.EASE_OUT());
+        // var entity = getGameWorld().create("keyCode", new SpawnData(prompt.getX(),
+        // prompt.getY()).put("key", key));
+        // spawnWithScale(entity, Duration.seconds(1),
+        // Interpolators.ELASTIC.EASE_OUT());
 
-            runOnce(() -> {
-                despawnWithScale(entity, Duration.seconds(1),
-                        Interpolators.ELASTIC.EASE_IN());
-            }, Duration.seconds(2.5));
-        });
+        // runOnce(() -> {
+        // despawnWithScale(entity, Duration.seconds(1),
+        // Interpolators.ELASTIC.EASE_IN());
+        // }, Duration.seconds(2.5));
+        // });
 
     }
 

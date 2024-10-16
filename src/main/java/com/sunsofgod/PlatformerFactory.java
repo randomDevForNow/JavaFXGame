@@ -50,15 +50,15 @@ public class PlatformerFactory implements EntityFactory {
                                 .build();
         }
 
-        @Spawns("exitTrigger")
-        public Entity newExitTrigger(SpawnData data) {
-                return entityBuilder(data)
-                                .type(EXIT_TRIGGER)
-                                .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"),
-                                                data.<Integer>get("height"))))
-                                .with(new CollidableComponent(true))
-                                .build();
-        }
+        // @Spawns("exitTrigger")
+        // public Entity newExitTrigger(SpawnData data) {
+        //         return entityBuilder(data)
+        //                         .type(EXIT_TRIGGER)
+        //                         .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"),
+        //                                         data.<Integer>get("height"))))
+        //                         .with(new CollidableComponent(true))
+        //                         .build();
+        // }
 
         @Spawns("doorTop")
         public Entity newDoorTop(SpawnData data) {
@@ -111,46 +111,46 @@ public class PlatformerFactory implements EntityFactory {
 
         // spawn player 4
 
-        @Spawns("exitSign")
-        public Entity newExit(SpawnData data) {
-                return entityBuilder(data)
-                                .type(EXIT_SIGN)
-                                .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"),
-                                                data.<Integer>get("height"))))
-                                .with(new CollidableComponent(true))
-                                .build();
-        }
+        // @Spawns("exitSign")
+        // public Entity newExit(SpawnData data) {
+        //         return entityBuilder(data)
+        //                         .type(EXIT_SIGN)
+        //                         .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"),
+        //                                         data.<Integer>get("height"))))
+        //                         .with(new CollidableComponent(true))
+        //                         .build();
+        // }
 
-        @Spawns("keyPrompt")
-        public Entity newPrompt(SpawnData data) {
-                return entityBuilder(data)
-                                .type(KEY_PROMPT)
-                                .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"),
-                                                data.<Integer>get("height"))))
-                                .with(new CollidableComponent(true))
-                                .build();
-        }
+        // @Spawns("keyPrompt")
+        // public Entity newPrompt(SpawnData data) {
+        //         return entityBuilder(data)
+        //                         .type(KEY_PROMPT)
+        //                         .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"),
+        //                                         data.<Integer>get("height"))))
+        //                         .with(new CollidableComponent(true))
+        //                         .build();
+        // }
 
-        @Spawns("keyCode")
-        public Entity newKeyCode(SpawnData data) {
-                String key = data.get("key");
+        // @Spawns("keyCode")
+        // public Entity newKeyCode(SpawnData data) {
+        //         String key = data.get("key");
 
-                KeyCode keyCode = KeyCode.getKeyCode(key);
+        //         KeyCode keyCode = KeyCode.getKeyCode(key);
 
-                var lift = new LiftComponent();
-                lift.setGoingUp(true);
-                lift.yAxisDistanceDuration(6, Duration.seconds(0.76));
+        //         var lift = new LiftComponent();
+        //         lift.setGoingUp(true);
+        //         lift.yAxisDistanceDuration(6, Duration.seconds(0.76));
 
-                var view = new KeyView(keyCode, Color.YELLOW, 24);
-                view.setCache(true);
-                view.setCacheHint(CacheHint.SCALE);
+        //         var view = new KeyView(keyCode, Color.YELLOW, 24);
+        //         view.setCache(true);
+        //         view.setCacheHint(CacheHint.SCALE);
 
-                return entityBuilder(data)
-                                .view(view)
-                                .with(lift)
-                                .zIndex(100)
-                                .build();
-        }
+        //         return entityBuilder(data)
+        //                         .view(view)
+        //                         .with(lift)
+        //                         .zIndex(100)
+        //                         .build();
+        // }
 
         // TO EDIT
         @Spawns("button")
