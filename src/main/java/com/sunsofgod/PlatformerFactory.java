@@ -83,7 +83,7 @@ public class PlatformerFactory implements EntityFactory {
         public Entity newPlayer(SpawnData data) {
                 PhysicsComponent physics = new PhysicsComponent();
                 physics.setBodyType(BodyType.DYNAMIC);
-                physics.addGroundSensor(new HitBox("GROUND_SENSOR", new Point2D(16, 38), BoundingShape.box(6, 8)));
+                physics.addGroundSensor(new HitBox("GROUND_SENSOR", new Point2D(16, 38), BoundingShape.box(8, 8)));
 
                 PlayerComponent playerComponent = new PlayerComponent();
 

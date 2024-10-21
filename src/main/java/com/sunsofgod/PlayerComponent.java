@@ -40,7 +40,12 @@ public class PlayerComponent extends Component {
                 jumps = 2;
             }
         });
+
+
+    
+        
     }
+
 
     @Override
     public void onUpdate(double tpf) {
@@ -67,6 +72,8 @@ public class PlayerComponent extends Component {
 
     public void stop() {
         physics.setVelocityX(0);
+        physics.setAngularVelocity(0);
+        
     }
 
     public void jump() {
