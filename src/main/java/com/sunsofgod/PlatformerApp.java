@@ -17,6 +17,8 @@ import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.input.view.KeyView;
 import com.almasb.fxgl.input.virtual.VirtualButton;
 import com.almasb.fxgl.physics.PhysicsComponent;
+import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
+
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -40,6 +42,7 @@ public class PlatformerApp extends GameApplication {
         settings.setMainMenuEnabled(true);
         System.out.println("Hello!");
 
+        settings.setDeveloperMenuEnabled(true);
         /* Set Loading Screen Here: */
 
         // settings.setSceneFactory(new SceneFactory() {
@@ -54,52 +57,50 @@ public class PlatformerApp extends GameApplication {
     /* Get for ending the game (Init level refunds and scoreboard) */
     // private LazyValue<LevelEndScene> levelEndScene = new LazyValue<>(() -> new
     // LevelEndScene());
-    
 
     private Entity[] players = new Entity[2];
 
     private KeyCode[][] bindings = new KeyCode[][] {
-        {KeyCode.W, KeyCode.A, KeyCode.D, KeyCode.E },
-        {KeyCode.UP, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.SLASH },
-        
+            { KeyCode.W, KeyCode.A, KeyCode.D, KeyCode.E },
+            { KeyCode.UP, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.SLASH },
+
     };
 
-    private void bindKeys(){
+    private void bindKeys() {
         int counter = 0;
-        for (Entity player: players){
-            getInput().addAction(new UserAction("Jump"+ counter) {
+        for (Entity player : players) {
+            getInput().addAction(new UserAction("Jump" + counter) {
                 @Override
                 protected void onActionBegin() {
                     player.getComponent(PlayerComponent.class).jump();
                 }
-            },bindings[counter][0]);
-    
-            getInput().addAction(new UserAction("Left"+ counter) {
+            }, bindings[counter][0]);
+
+            getInput().addAction(new UserAction("Left" + counter) {
                 @Override
                 protected void onAction() {
                     player.getComponent(PlayerComponent.class).left();
                 }
-    
+
                 @Override
                 protected void onActionEnd() {
                     player.getComponent(PlayerComponent.class).stop();
                 }
             }, bindings[counter][1]);
-    
-            getInput().addAction(new UserAction("Right"+ counter) {
+
+            getInput().addAction(new UserAction("Right" + counter) {
                 @Override
                 protected void onAction() {
                     player.getComponent(PlayerComponent.class).right();
                 }
-    
+
                 @Override
                 protected void onActionEnd() {
                     player.getComponent(PlayerComponent.class).stop();
                 }
             }, bindings[counter][2]);
-    
-           
-            getInput().addAction(new UserAction("Use"+ counter) {
+
+            getInput().addAction(new UserAction("Use" + counter) {
                 @Override
                 protected void onActionBegin() {
                     /* For Getting Mail */
@@ -108,21 +109,20 @@ public class PlatformerApp extends GameApplication {
                             .filter(btn -> btn.hasComponent(CollidableComponent.class) && player.isColliding(btn))
                             .forEach(btn -> {
                                 btn.removeComponent(CollidableComponent.class);
-    
+
                                 Entity keyEntity = btn.getObject("keyEntity");
                                 keyEntity.setProperty("activated", true);
-    
+
                                 KeyView view = (KeyView) keyEntity.getViewComponent().getChildren().get(0);
                                 view.setKeyColor(Color.RED);
-    
+
                                 makeExitDoor();
                             });
                 }
             }, bindings[counter][3]);
-            counter ++;
+            counter++;
         }
     }
-
 
     /* For Global Variables (Refunds of each player) */
     @Override
@@ -143,7 +143,7 @@ public class PlatformerApp extends GameApplication {
     protected void initGame() {
         getGameWorld().addEntityFactory(new PlatformerFactory());
 
-        for (Entity player: players){
+        for (Entity player : players) {
             player = null;
         }
 
@@ -154,25 +154,24 @@ public class PlatformerApp extends GameApplication {
         // player must be spawned after call to nextLevel, otherwise player gets removed
         // before the update tick _actually_ adds the player to game world
         for (int i = 0; i < players.length; i++) {
-            players[i] = spawn("player", 50 + i * 100, 50);  // Spawn and assign players
-            set("player" + i, players[i]);  // Optionally store in the global map
+            players[i] = spawn("player", 50 + i * 100, 50); // Spawn and assign players
+            set("player" + i, players[i]); // Optionally store in the global map
         }
 
         bindKeys();
-        
 
         spawn("background");
 
         /* Follows the player (can be turned off) */
         Viewport viewport = getGameScene().getViewport();
         viewport.setBounds(-1500, 0, 250 * 70, getAppHeight());
-        //viewport.bindToEntity(player, getAppWidth() / 2, getAppHeight() / 2);
+        // viewport.bindToEntity(player, getAppWidth() / 2, getAppHeight() / 2);
         viewport.setLazy(true);
     }
 
     @Override
     protected void initPhysics() {
-        
+
         getPhysicsWorld().setGravity(0, 760);
         getPhysicsWorld().addCollisionHandler(new PlayerButtonHandler());
 
@@ -180,14 +179,15 @@ public class PlatformerApp extends GameApplication {
 
         /* Physics Interaction */
 
-        onCollision(PLAYER, PLAYER, (player1,player2)->{
+        /* PLAYER COLLISION HANLDERS */
+
+        onCollision(PLAYER, PLAYER, (player1, player2) -> {
             player1.getComponent(PlayerComponent.class).stop();
             player2.getComponent(PlayerComponent.class).stop();
-            
-           
-        });
 
-        
+            // if touching, stick
+
+        });
 
         onCollisionOneTimeOnly(PLAYER, EXIT_SIGN, (player, sign) -> {
             var texture = texture("exit_sign.png").brighter();
@@ -276,9 +276,9 @@ public class PlatformerApp extends GameApplication {
         // inc("levelTime", tpf);
 
         // for (Entity player: players){
-        //     if (player.getY() > getAppHeight()) {
-        //         onPlayerDied();
-        //     }
+        // if (player.getY() > getAppHeight()) {
+        // onPlayerDied();
+        // }
         // }
     }
 
@@ -288,14 +288,12 @@ public class PlatformerApp extends GameApplication {
 
     private void setLevel(int levelNum) {
 
-        for (Entity player:players){
+        for (Entity player : players) {
             if (player != null) {
                 player.getComponent(PhysicsComponent.class).overwritePosition(new Point2D(50, 50));
                 player.setZIndex(Integer.MAX_VALUE);
             }
         }
-
-        
 
         // set("levelTime", 0.0);
 

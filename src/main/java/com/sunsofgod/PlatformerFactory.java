@@ -12,6 +12,7 @@ import com.almasb.fxgl.input.view.KeyView;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
+import com.almasb.fxgl.physics.SensorCollisionHandler;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
 import com.almasb.fxgl.ui.FontType;
@@ -21,6 +22,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.CacheHint;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -83,18 +85,19 @@ public class PlatformerFactory implements EntityFactory {
         public Entity newPlayer(SpawnData data) {
                 PhysicsComponent physics = new PhysicsComponent();
                 physics.setBodyType(BodyType.DYNAMIC);
-                physics.addGroundSensor(new HitBox("GROUND_SENSOR", new Point2D(16, 38), BoundingShape.box(8, 8)));
+
+                // Add ground sensor for detecting ground contact
+                physics.addGroundSensor(new HitBox("GROUND_SENSOR", new Point2D(16, 30), BoundingShape.box(12, 16)));
 
                 PlayerComponent playerComponent = new PlayerComponent();
 
-                // This avoids player sticking to walls
+                // Avoid sticking to walls
                 physics.setFixtureDef(new FixtureDef().friction(0.0f));
 
                 // Build the player entity
                 Entity player = entityBuilder(data)
                                 .type(PLAYER)
-                                .bbox(new HitBox(new Point2D(5, 5), BoundingShape.circle(12)))
-                                .bbox(new HitBox(new Point2D(10, 25), BoundingShape.box(10, 17)))
+                                .bbox(new HitBox(new Point2D(0, 13), BoundingShape.box(25, 25)))
                                 .with(physics)
                                 .with(new CollidableComponent(true))
                                 .with(new IrremovableComponent())
