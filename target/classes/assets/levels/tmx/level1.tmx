@@ -1,64 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="25" height="10" tilewidth="70" tileheight="70" infinite="0" nextlayerid="4" nextobjectid="38">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="35" height="10" tilewidth="70" tileheight="70" infinite="0" nextlayerid="3" nextobjectid="51">
  <properties>
   <property name="star1time" type="float" value="7"/>
  </properties>
  <tileset firstgid="1" name="tiles_spritesheet" tilewidth="70" tileheight="70" spacing="2" tilecount="156" columns="12">
   <image source="tiles_spritesheet.png" width="914" height="936"/>
  </tileset>
- <layer id="3" name="Tile Layer 2" width="25" height="10">
+ <layer id="1" name="Tile Layer 1" width="35" height="10">
   <data encoding="csv">
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,153,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-</data>
- </layer>
- <layer id="1" name="Tile Layer 1" width="25" height="10">
-  <properties>
-   <property name="Solid" value="1"/>
-  </properties>
-  <data encoding="csv">
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-57,57,57,57,57,57,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-10,10,10,10,10,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,81,81,81,0,0,0,0,0,0,0,0,0,0,
-116,104,104,104,104,104,104,104,104,104,104,104,10,104,153,153,153,153,153,153,153,153,10,10,10
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,69,45,0,0,0,0,
+0,0,73,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,69,45,0,0,0,0,69,57,45,
+0,73,73,0,0,41,0,0,0,0,0,69,45,0,0,0,0,0,0,0,0,0,0,69,45,0,0,0,0,0,0,0,0,0,0,
+104,104,104,104,104,104,0,0,0,0,0,0,0,0,0,0,0,0,69,45,0,0,0,0,0,0,69,45,0,0,0,0,0,0,0,
+153,153,153,153,153,153,0,0,69,45,0,0,0,0,69,45,0,0,0,0,0,0,0,0,0,0,0,0,0,69,45,0,0,0,0,
+153,153,153,153,153,153,0,0,0,0,0,0,0,0,0,0,0,0,0,0,57,57,57,57,57,57,57,57,57,57,57,57,57,57,57,
+153,153,153,153,153,153,0,0,0,0,0,69,45,0,0,0,0,0,0,0,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,
+153,153,153,153,153,153,44,44,44,44,44,44,44,44,44,44,44,44,44,44,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153
 </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
-  <properties>
-   <property name="solid" value="1"/>
-  </properties>
-  <object id="1" type="platform" x="0" y="630" width="1050"/>
-  <object id="15" type="platform" x="842" y="586" width="210" height="39"/>
-  <object id="16" type="keyPrompt" x="700" y="556" width="140" height="70">
+  <object id="1" type="platform" x="-3" y="631" width="2454" height="70"/>
+  <object id="15" type="platform" x="-2" y="351" width="424" height="39"/>
+  <object id="16" type="keyPrompt" x="426" y="20" width="140" height="70">
    <properties>
     <property name="key" value="D"/>
    </properties>
   </object>
-  <object id="17" type="keyPrompt" x="1106" y="396" width="140" height="70">
+  <object id="17" type="keyPrompt" x="256" y="10" width="140" height="70">
    <properties>
     <property name="key" value="W"/>
    </properties>
   </object>
-  <object id="18" type="exitSign" gid="65" x="910" y="588" width="70" height="70"/>
-  <object id="19" type="doorBot" gid="58" x="1682" y="630" width="70" height="70"/>
-  <object id="20" type="doorTop" gid="46" x="1682" y="564" width="70" height="70"/>
-  <object id="21" type="exitTrigger" x="1470" y="560" width="210" height="70"/>
-  <object id="35" x="36" y="652" width="194"/>
-  <object id="36" x="12" y="648" width="878" height="30"/>
-  <object id="37" x="16" y="468" width="390" height="68"/>
+  <object id="18" type="exitSign" gid="65" x="2310" y="242" width="70" height="70"/>
+  <object id="19" type="doorBot" gid="58" x="2379" y="240" width="70" height="70"/>
+  <object id="20" type="doorTop" gid="46" x="2379" y="172" width="70" height="70"/>
+  <object id="21" type="exitTrigger" x="2122" y="136" width="42" height="40"/>
+  <object id="35" type="platform" x="1397" y="523" width="1060" height="70"/>
+  <object id="36" type="platform" x="2243" y="211" width="204" height="70"/>
+  <object id="39" type="platform" x="1824" y="383" width="132" height="34"/>
+  <object id="40" type="platform" x="1824" y="248" width="132" height="30"/>
+  <object id="41" type="platform" x="668" y="74" width="72" height="44"/>
+  <object id="42" type="platform" x="562" y="449.5" width="132" height="39"/>
+  <object id="43" type="platform" x="775" y="591.5" width="132" height="39"/>
+  <object id="44" type="platform" x="983" y="455.5" width="132" height="39"/>
+  <object id="45" type="platform" x="773" y="314.5" width="132" height="39"/>
+  <object id="46" type="platform" x="1263" y="377.5" width="132" height="39"/>
+  <object id="47" type="platform" x="1614" y="308.5" width="132" height="39"/>
+  <object id="48" type="platform" x="2030" y="453" width="132" height="34"/>
+  <object id="49" type="platform" x="2036" y="176" width="132" height="30"/>
  </objectgroup>
 </map>
