@@ -1,4 +1,4 @@
-package com.sunsofgod;
+package com.sunsofgod.Scenes;
 
 import com.almasb.fxgl.animation.Interpolators;
 import com.almasb.fxgl.app.scene.LoadingScene;

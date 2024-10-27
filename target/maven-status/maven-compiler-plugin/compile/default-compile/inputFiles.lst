@@ -1,8 +1,13 @@
-/Users/aaron/Downloads/JavaFXGame/src/main/java/module-info.java
+/Users/aaron/Downloads/JavaFXGame/src/main/java/com/sunsofgod/Scenes/PlayerSelectScene.java
 /Users/aaron/Downloads/JavaFXGame/src/main/java/com/sunsofgod/PlatformerApp.java
 /Users/aaron/Downloads/JavaFXGame/src/main/java/com/sunsofgod/PlayerComponent.java
 /Users/aaron/Downloads/JavaFXGame/src/main/java/com/sunsofgod/PlatformerFactory.java
+/Users/aaron/Downloads/JavaFXGame/src/main/java/com/sunsofgod/Scenes/MainLoadingScene.java
+/Users/aaron/Downloads/JavaFXGame/src/main/java/module-info.java
+/Users/aaron/Downloads/JavaFXGame/src/main/java/com/sunsofgod/Scenes/LevelSelectScene.java
+/Users/aaron/Downloads/JavaFXGame/src/main/java/com/sunsofgod/Scenes/RiderMainMenuScene.java
+/Users/aaron/Downloads/JavaFXGame/src/main/java/com/sunsofgod/Scenes/LevelEndScene.java
+/Users/aaron/Downloads/JavaFXGame/src/main/java/com/sunsofgod/Scenes/PauseMenuScene.java
 /Users/aaron/Downloads/JavaFXGame/src/main/java/com/sunsofgod/EntityType.java
-/Users/aaron/Downloads/JavaFXGame/src/main/java/com/sunsofgod/LevelEndScene.java
-/Users/aaron/Downloads/JavaFXGame/src/main/java/com/sunsofgod/MainLoadingScene.java
+/Users/aaron/Downloads/JavaFXGame/src/main/java/com/sunsofgod/Scenes/VideokeScene.java
 /Users/aaron/Downloads/JavaFXGame/src/main/java/com/sunsofgod/PlayerButtonHandler.java

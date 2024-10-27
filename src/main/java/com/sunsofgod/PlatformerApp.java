@@ -1,30 +1,31 @@
 package com.sunsofgod;
 
 import com.almasb.fxgl.animation.Interpolators;
-import com.almasb.fxgl.app.ApplicationMode;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
+import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.app.scene.LoadingScene;
 import com.almasb.fxgl.app.scene.SceneFactory;
+import com.almasb.fxgl.app.scene.StartupScene;
 import com.almasb.fxgl.app.scene.Viewport;
-import com.almasb.fxgl.core.util.LazyValue;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.entity.level.Level;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.input.view.KeyView;
-import com.almasb.fxgl.input.virtual.VirtualButton;
 import com.almasb.fxgl.physics.PhysicsComponent;
-import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
 
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-
 import java.util.Map;
+
+import org.jetbrains.annotations.NotNull;
+
+import com.sunsofgod.Scenes.*;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.sunsofgod.EntityType.*;
@@ -45,13 +46,34 @@ public class PlatformerApp extends GameApplication {
         settings.setDeveloperMenuEnabled(true);
         /* Set Loading Screen Here: */
 
-        // settings.setSceneFactory(new SceneFactory() {
-        // @Override
-        // public LoadingScene newLoadingScene() {
-        // return new MainLoadingScene();
-        // }
-        // });
-        // settings.setApplicationMode(ApplicationMode.DEVELOPER);
+        settings.setSceneFactory(new SceneFactory() {
+            @NotNull
+            @Override
+            public LoadingScene newLoadingScene() {
+                return new MainLoadingScene();
+            }
+
+            @NotNull
+            @Override
+            public FXGLMenu newMainMenu() {
+                return new RiderMainMenuScene();
+            }
+
+            /*
+             * Uncomment nyo ito para maedit yung
+             * Pause Menu natin yung kapag
+             * Nagpress ng escape yung user/s
+             * May lalabas na resume, option,
+             * go to main menu, go to level select
+             * goto
+             */
+            // @NotNull
+            // @Override
+            // public FXGLMenu newGameMenu() {
+            // return new PauseMenuScene();
+            // }
+
+        });
     }
 
     /* Get for ending the game (Init level refunds and scoreboard) */
@@ -181,6 +203,7 @@ public class PlatformerApp extends GameApplication {
 
         /* PLAYER COLLISION HANLDERS */
 
+        // Adjust this to include player 3 and 4 collisions
         onCollision(PLAYER, PLAYER, (player1, player2) -> {
             player1.getComponent(PlayerComponent.class).stop();
             player2.getComponent(PlayerComponent.class).stop();
