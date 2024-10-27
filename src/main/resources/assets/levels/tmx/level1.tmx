@@ -38,6 +38,9 @@
 </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
+  <properties>
+   <property name="solid" value="1"/>
+  </properties>
   <object id="1" type="platform" x="0" y="630" width="1050"/>
   <object id="15" type="platform" x="842" y="586" width="210" height="39"/>
   <object id="16" type="keyPrompt" x="700" y="556" width="140" height="70">
