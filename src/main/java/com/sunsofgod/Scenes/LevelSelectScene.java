@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -156,11 +157,115 @@ public class LevelSelectScene extends FXGLMenu {
         cyanHbox8.setPrefHeight(250); 
         cyanHbox8.setMaxWidth(320);
         cyanHbox8.setMaxHeight(250); 
+        
+        Button level1 = new Button("");
+        level1.setBackground(Background.EMPTY);
+        Image level1Image = new Image(getClass().getResource("/assets/textures/levelPlaceholder.png").toExternalForm());
+        ImageView level1View = new ImageView(level1Image);
+        level1View.setFitWidth(253); 
+        level1View.setFitHeight(250); 
 
+        level1.setGraphic(level1View);
+        level1.setOnAction(e -> {
+            fireNewGame();
+        
+        });
+
+        Button level2 = new Button("");
+        level2.setBackground(Background.EMPTY);
+        Image level2Image = new Image(getClass().getResource("/assets/textures/levelPlaceholder.png").toExternalForm());
+        ImageView level2View = new ImageView(level2Image);
+        level2View.setFitWidth(253); 
+        level2View.setFitHeight(250); 
+
+        level2.setGraphic(level2View);
+        level2.setOnAction(e -> {
+            fireNewGame();
+        
+        });
+        
+        Button level3 = new Button("");
+        level3.setBackground(Background.EMPTY);
+        Image level3Image = new Image(getClass().getResource("/assets/textures/levelPlaceholder.png").toExternalForm());
+        ImageView level3View = new ImageView(level3Image);
+        level3View.setFitWidth(253); 
+        level3View.setFitHeight(250); 
+
+        level3.setGraphic(level3View);
+        level3.setOnAction(e -> {
+            fireNewGame();
+        
+        });
+
+        Button level4 = new Button("");
+        level4.setBackground(Background.EMPTY);
+        Image level4Image = new Image(getClass().getResource("/assets/textures/levelPlaceholder.png").toExternalForm());
+        ImageView level4View = new ImageView(level4Image);
+        level4View.setFitWidth(253); 
+        level4View.setFitHeight(250); 
+
+        level4.setGraphic(level4View);
+        level4.setOnAction(e -> {
+            fireNewGame();
+        
+        });
+
+        Button level5 = new Button("");
+        level5.setBackground(Background.EMPTY);
+        Image level5Image = new Image(getClass().getResource("/assets/textures/levelPlaceholder.png").toExternalForm());
+        ImageView level5View = new ImageView(level5Image);
+        level5View.setFitWidth(253); 
+        level5View.setFitHeight(250); 
+
+        level5.setGraphic(level5View);
+        level5.setOnAction(e -> {
+            fireNewGame();
+        
+        });
+
+        Button level6 = new Button("");
+        level6.setBackground(Background.EMPTY);
+        Image level6Image = new Image(getClass().getResource("/assets/textures/levelPlaceholder.png").toExternalForm());
+        ImageView level6View = new ImageView(level6Image);
+        level6View.setFitWidth(253); 
+        level6View.setFitHeight(250); 
+
+        level6.setGraphic(level6View);
+        level6.setOnAction(e -> {
+            fireNewGame();
+        
+        });
+
+        Button level7 = new Button("");
+        level7.setBackground(Background.EMPTY);
+        Image level7Image = new Image(getClass().getResource("/assets/textures/levelPlaceholder.png").toExternalForm());
+        ImageView level7View = new ImageView(level7Image);
+        level7View.setFitWidth(253); 
+        level7View.setFitHeight(250); 
+
+        level7.setGraphic(level7View);
+        level7.setOnAction(e -> {
+            fireNewGame();
+        
+        });
+
+        Button level8 = new Button("");
+        level8.setBackground(Background.EMPTY);
+        Image level8Image = new Image(getClass().getResource("/assets/textures/levelPlaceholder.png").toExternalForm());
+        ImageView level8View = new ImageView(level8Image);
+        level8View.setFitWidth(253); 
+        level8View.setFitHeight(250); 
+
+        level8.setGraphic(level8View);
+        level8.setOnAction(e -> {
+            fireNewGame();
+        
+        });
         Button pSelectButton = new Button("Start Game");
         pSelectButton.setOnAction(e -> {
             fireNewGame();
         });
+
 
         Button goBackButton = new Button("Go Back");
         goBackButton.setOnAction(e -> {
@@ -173,7 +278,15 @@ public class LevelSelectScene extends FXGLMenu {
         orangeHbox.getChildren().addAll(greenHbox,greenHbox2);
         greenHbox.getChildren().addAll(cyanHbox,cyanHbox2,cyanHbox3,cyanHbox4);
         greenHbox2.getChildren().addAll(cyanHbox5,cyanHbox6,cyanHbox7,cyanHbox8);
-
+        
+        cyanHbox.getChildren().addAll(level1);
+        cyanHbox2.getChildren().addAll(level2);
+        cyanHbox3.getChildren().addAll(level3);
+        cyanHbox4.getChildren().addAll(level4);
+        cyanHbox5.getChildren().addAll(level5);
+        cyanHbox6.getChildren().addAll(level6);
+        cyanHbox7.getChildren().addAll(level7);
+        cyanHbox8.getChildren().addAll(level8);
         getContentRoot().getChildren().add(blackVbox);
     }
 
