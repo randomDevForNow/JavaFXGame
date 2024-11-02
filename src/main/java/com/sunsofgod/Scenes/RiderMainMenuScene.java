@@ -58,7 +58,7 @@ public class RiderMainMenuScene extends FXGLMenu {
         orangeHbox.setStyle("-fx-border-color: orange; -fx-border-width: 2;");
 
         orangeHbox.setPrefWidth(1280);
-        orangeHbox.setPrefHeight(500); 
+        orangeHbox.setPrefHeight(500);  
         orangeHbox.setMaxWidth(1280);
         orangeHbox.setMaxHeight(500); 
 
