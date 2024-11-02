@@ -27,6 +27,11 @@ public class RiderMainMenuScene extends FXGLMenu {
     public RiderMainMenuScene() {
         super(MenuType.MAIN_MENU);
 
+        Image backgroundImage = new Image(getClass().getResource("/assets/textures/bgplaceHolder.jpg").toExternalForm());
+        ImageView backgroundView = new ImageView(backgroundImage);
+        backgroundView.setFitWidth(1280); 
+        backgroundView.setFitHeight(720); 
+
 //black Vbox
         VBox blackVbox = new VBox(10);
         blackVbox.setStyle("-fx-border-color: black; -fx-border-width: 2;");
@@ -47,8 +52,6 @@ public class RiderMainMenuScene extends FXGLMenu {
         yellowHbox.setMaxHeight(300); 
 
         Text gameName = new Text("Kung ano man game name natin");
-
-        
 
 //orange hbox within black
         HBox orangeHbox = new HBox(10);
@@ -125,17 +128,17 @@ public class RiderMainMenuScene extends FXGLMenu {
             System.exit(0);
         });
 
+//hierarachy
+        getContentRoot().getChildren().add(backgroundView);
         blackVbox.getChildren().addAll(yellowHbox,orangeHbox);
         yellowHbox.getChildren().addAll(gameName);
         redVbox.getChildren().addAll(exitButton);
         greenVbox.getChildren().addAll(startButton);
         blueVbox.getChildren().addAll(optionButton);
         orangeHbox.getChildren().addAll(redVbox,greenVbox,blueVbox);
-        
-
         getContentRoot().getChildren().add(blackVbox);
 
-        // TO SET BACKGROUND, getRoot().getChildren().add(IMAGEVIEW OR KAHIT ANO NA
+        
         // PANLAGAY CLIPPING ETC.)
         // Pede rin magsearch ng ano kung pano yung nagalaw na background na wallpaper
         // ng mga parcel tapos stripes background
