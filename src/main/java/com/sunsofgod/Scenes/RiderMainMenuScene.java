@@ -19,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 public class RiderMainMenuScene extends FXGLMenu {
@@ -26,15 +27,74 @@ public class RiderMainMenuScene extends FXGLMenu {
     public RiderMainMenuScene() {
         super(MenuType.MAIN_MENU);
 
-        VBox vbox = new VBox(10);
-        vbox.setAlignment(javafx.geometry.Pos.CENTER);
+//black Vbox
+        VBox blackVbox = new VBox(10);
+        blackVbox.setStyle("-fx-border-color: black; -fx-border-width: 2;");
+
+        blackVbox.setPrefWidth(1280);
+        blackVbox.setPrefHeight(720); 
+        blackVbox.setMaxWidth(1280);
+        blackVbox.setMaxHeight(720); 
+        
+//yellow hbox witin black
+        HBox yellowHbox = new HBox(10);
+        yellowHbox.setAlignment(javafx.geometry.Pos.CENTER);
+        yellowHbox.setStyle("-fx-border-color: yellow; -fx-border-width: 2;");
+
+        yellowHbox.setPrefWidth(1280);
+        yellowHbox.setPrefHeight(300); 
+        yellowHbox.setMaxWidth(1280);
+        yellowHbox.setMaxHeight(300); 
+
+        Text gameName = new Text("Kung ano man game name natin");
+
+        
+
+//orange hbox within black
+        HBox orangeHbox = new HBox(10);
+        orangeHbox.setStyle("-fx-border-color: orange; -fx-border-width: 2;");
+
+        orangeHbox.setPrefWidth(1280);
+        orangeHbox.setPrefHeight(500); 
+        orangeHbox.setMaxWidth(1280);
+        orangeHbox.setMaxHeight(500); 
+
+//red vbox within orange
+        HBox redVbox = new HBox(10);
+        redVbox.setAlignment(javafx.geometry.Pos.CENTER);
+        redVbox.setStyle("-fx-border-color: red; -fx-border-width: 2;");
+        
+        redVbox.setPrefWidth(426);
+        redVbox.setPrefHeight(400); 
+        redVbox.setMaxWidth(426);
+        redVbox.setMaxHeight(400); 
+
+//green Vbox within orange
+        HBox greenVbox = new HBox(10);
+        greenVbox.setAlignment(javafx.geometry.Pos.CENTER);
+        greenVbox.setStyle("-fx-border-color: green; -fx-border-width: 2;");
+
+        greenVbox.setPrefWidth(426);
+        greenVbox.setPrefHeight(400); 
+        greenVbox.setMaxWidth(426);
+        greenVbox.setMaxHeight(400); 
+
+//blue Vbox withing orange
+        HBox blueVbox = new HBox(10);
+        blueVbox.setAlignment(javafx.geometry.Pos.CENTER);
+        blueVbox.setStyle("-fx-border-color: blue; -fx-border-width: 2;");
+
+        blueVbox.setPrefWidth(426);
+        blueVbox.setPrefHeight(400); 
+        blueVbox.setMaxWidth(426);
+        blueVbox.setMaxHeight(400); 
 
         Button startButton = new Button("");
         startButton.setBackground(Background.EMPTY);
         Image image = new Image(getClass().getResource("/assets/textures/newgameButton.png").toExternalForm());
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(250); 
-        imageView.setFitHeight(250); 
+        imageView.setFitWidth(200); 
+        imageView.setFitHeight(200); 
 
         startButton.setGraphic(imageView);
         startButton.setOnAction(e -> {
@@ -47,8 +107,8 @@ public class RiderMainMenuScene extends FXGLMenu {
         optionButton.setBackground(Background.EMPTY);
         Image optionImage = new Image(getClass().getResource("/assets/textures/optionButton.png").toExternalForm());
         ImageView optionView = new ImageView(optionImage);
-        optionView.setFitWidth(250); 
-        optionView.setFitHeight(250); 
+        optionView.setFitWidth(200); 
+        optionView.setFitHeight(200); 
         optionButton.setGraphic(optionView);
         optionButton.setOnAction(e -> {
             System.out.println("CLICKED OPTIONS");
@@ -58,16 +118,22 @@ public class RiderMainMenuScene extends FXGLMenu {
         exitButton.setBackground(Background.EMPTY);
         Image exitImage = new Image(getClass().getResource("/assets/textures/exitButton.png").toExternalForm());
         ImageView exitView = new ImageView(exitImage);
-        exitView.setFitWidth(250); 
-        exitView.setFitHeight(250); 
+        exitView.setFitWidth(200); 
+        exitView.setFitHeight(200); 
         exitButton.setGraphic(exitView);
         exitButton.setOnAction(e -> {
             System.exit(0);
         });
 
-        vbox.getChildren().addAll(startButton, optionButton, exitButton);
+        blackVbox.getChildren().addAll(yellowHbox,orangeHbox);
+        yellowHbox.getChildren().addAll(gameName);
+        redVbox.getChildren().addAll(exitButton);
+        greenVbox.getChildren().addAll(startButton);
+        blueVbox.getChildren().addAll(optionButton);
+        orangeHbox.getChildren().addAll(redVbox,greenVbox,blueVbox);
+        
 
-        getContentRoot().getChildren().add(vbox);
+        getContentRoot().getChildren().add(blackVbox);
 
         // TO SET BACKGROUND, getRoot().getChildren().add(IMAGEVIEW OR KAHIT ANO NA
         // PANLAGAY CLIPPING ETC.)
