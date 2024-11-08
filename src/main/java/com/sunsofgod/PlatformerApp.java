@@ -40,7 +40,7 @@ public class PlatformerApp extends GameApplication {
      private boolean timerOnP2 = false;
 
     private static final int MAX_LEVEL = 5;
-    private static final int STARTING_LEVEL = 0;
+    private static final int STARTING_LEVEL = 3;
 
     @Override
     protected void initSettings(GameSettings settings) {

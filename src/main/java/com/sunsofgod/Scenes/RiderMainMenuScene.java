@@ -12,8 +12,11 @@ import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.dsl.FXGL;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,7 +37,6 @@ public class RiderMainMenuScene extends FXGLMenu {
 
 //black Vbox
         VBox blackVbox = new VBox(10);
-        blackVbox.setStyle("-fx-border-color: black; -fx-border-width: 2;");
 
         blackVbox.setPrefWidth(1280);
         blackVbox.setPrefHeight(720); 
@@ -44,7 +46,6 @@ public class RiderMainMenuScene extends FXGLMenu {
 //yellow hbox witin black
         HBox yellowHbox = new HBox(10);
         yellowHbox.setAlignment(javafx.geometry.Pos.CENTER);
-        yellowHbox.setStyle("-fx-border-color: yellow; -fx-border-width: 2;");
 
         yellowHbox.setPrefWidth(1280);
         yellowHbox.setPrefHeight(300); 
@@ -55,7 +56,7 @@ public class RiderMainMenuScene extends FXGLMenu {
 
 //orange hbox within black
         HBox orangeHbox = new HBox(10);
-        orangeHbox.setStyle("-fx-border-color: orange; -fx-border-width: 2;");
+        orangeHbox.setAlignment(javafx.geometry.Pos.CENTER);
 
         orangeHbox.setPrefWidth(1280);
         orangeHbox.setPrefHeight(500);  
@@ -65,41 +66,50 @@ public class RiderMainMenuScene extends FXGLMenu {
 //red vbox within orange
         HBox redVbox = new HBox(10);
         redVbox.setAlignment(javafx.geometry.Pos.CENTER);
-        redVbox.setStyle("-fx-border-color: red; -fx-border-width: 2;");
         
         redVbox.setPrefWidth(426);
         redVbox.setPrefHeight(400); 
         redVbox.setMaxWidth(426);
         redVbox.setMaxHeight(400); 
+        redVbox.setPadding(new Insets(50,-200,100,0));
 
 //green Vbox within orange
         HBox greenVbox = new HBox(10);
         greenVbox.setAlignment(javafx.geometry.Pos.CENTER);
-        greenVbox.setStyle("-fx-border-color: green; -fx-border-width: 2;");
 
-        greenVbox.setPrefWidth(426);
+
+        greenVbox.setPrefWidth(360);
         greenVbox.setPrefHeight(400); 
         greenVbox.setMaxWidth(426);
         greenVbox.setMaxHeight(400); 
+        greenVbox.setPadding(new Insets(0,0,100,0));
 
 //blue Vbox withing orange
         HBox blueVbox = new HBox(10);
         blueVbox.setAlignment(javafx.geometry.Pos.CENTER);
-        blueVbox.setStyle("-fx-border-color: blue; -fx-border-width: 2;");
 
         blueVbox.setPrefWidth(426);
         blueVbox.setPrefHeight(400); 
         blueVbox.setMaxWidth(426);
         blueVbox.setMaxHeight(400); 
+        blueVbox.setPadding(new Insets(50,200,100,0));
 
         Button startButton = new Button("");
         startButton.setBackground(Background.EMPTY);
-        Image image = new Image(getClass().getResource("/assets/textures/newgameButton.png").toExternalForm());
+        Image image = new Image(getClass().getResource("/assets/textures/buttons/newgameButton.png").toExternalForm());
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(200); 
-        imageView.setFitHeight(200); 
-
+        imageView.setFitWidth(180); 
+        imageView.setFitHeight(180); 
         startButton.setGraphic(imageView);
+
+//hover soundfx
+        Media hoverStartSound = new Media(getClass().getResource("/assets/sounds/hoverSoundfx.mp3").toExternalForm());
+        MediaPlayer hoverStartMedia = new MediaPlayer(hoverStartSound);
+        startButton.setOnMouseEntered(e -> {
+            hoverStartMedia.stop(); 
+            hoverStartMedia.play(); 
+        });
+
         startButton.setOnAction(e -> {
             getSceneService().pushSubScene(new PlayerSelectScene());
             // getSceneService().pushSubScene(new VideokeScene()); call this when videoke
@@ -108,22 +118,40 @@ public class RiderMainMenuScene extends FXGLMenu {
 
         Button optionButton = new Button("");
         optionButton.setBackground(Background.EMPTY);
-        Image optionImage = new Image(getClass().getResource("/assets/textures/optionButton.png").toExternalForm());
+        Image optionImage = new Image(getClass().getResource("/assets/textures/buttons/optionButton.png").toExternalForm());
         ImageView optionView = new ImageView(optionImage);
-        optionView.setFitWidth(200); 
-        optionView.setFitHeight(200); 
+        optionView.setFitWidth(150); 
+        optionView.setFitHeight(150); 
         optionButton.setGraphic(optionView);
+
+//hover soundfx
+        Media hoverOptionSound = new Media(getClass().getResource("/assets/sounds/hoverSoundfx.mp3").toExternalForm());
+        MediaPlayer hoverOptionMedia = new MediaPlayer(hoverOptionSound);
+        optionButton.setOnMouseEntered(e -> {
+            hoverOptionMedia.stop(); 
+            hoverOptionMedia.play(); 
+        });
+
         optionButton.setOnAction(e -> {
             System.out.println("CLICKED OPTIONS");
         });
 
         Button exitButton = new Button("");
         exitButton.setBackground(Background.EMPTY);
-        Image exitImage = new Image(getClass().getResource("/assets/textures/exitButton.png").toExternalForm());
+        Image exitImage = new Image(getClass().getResource("/assets/textures/buttons/exitButton.png").toExternalForm());
         ImageView exitView = new ImageView(exitImage);
-        exitView.setFitWidth(200); 
-        exitView.setFitHeight(200); 
+        exitView.setFitWidth(150); 
+        exitView.setFitHeight(150); 
         exitButton.setGraphic(exitView);
+
+//hover soundfx
+        Media hoverExitSound = new Media(getClass().getResource("/assets/sounds/hoverSoundfx.mp3").toExternalForm());
+        MediaPlayer hoverExitMedia = new MediaPlayer(hoverExitSound);
+        exitButton.setOnMouseEntered(e -> {
+            hoverExitMedia.stop(); 
+            hoverExitMedia.play(); 
+        });
+
         exitButton.setOnAction(e -> {
             System.exit(0);
         });

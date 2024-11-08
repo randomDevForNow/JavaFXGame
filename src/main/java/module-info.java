@@ -3,4 +3,5 @@ open module com.sunsofgod {
     requires annotations;
     requires javafx.controls;
     requires javafx.graphics;
+    requires javafx.media;
 }
