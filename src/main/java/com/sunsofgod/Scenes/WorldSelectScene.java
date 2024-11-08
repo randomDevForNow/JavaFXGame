@@ -1,21 +1,39 @@
 package com.sunsofgod.Scenes;
 
+import static com.almasb.fxgl.dsl.FXGL.getGameController;
+import static com.almasb.fxgl.dsl.FXGL.getGameScene;
+import static com.almasb.fxgl.dsl.FXGL.getGameTimer;
+import static com.almasb.fxgl.dsl.FXGL.getGameWorld;
 import static com.almasb.fxgl.dsl.FXGL.getSceneService;
+import static com.almasb.fxgl.dsl.FXGL.getService;
+
 
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
+import com.almasb.fxgl.dsl.FXGL;
 
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.animation.TranslateTransition;
+import javafx.util.Duration;
 
-public class PlayerSelectScene extends FXGLMenu {
+public class WorldSelectScene extends FXGLMenu {
 
-    public PlayerSelectScene() {
+    public WorldSelectScene() {
         super(MenuType.MAIN_MENU);
         Image backgroundImage = new Image(getClass().getResource("/assets/textures/bgPlayerSelect.png").toExternalForm());
         ImageView backgroundView = new ImageView(backgroundImage);
@@ -118,10 +136,10 @@ public class PlayerSelectScene extends FXGLMenu {
         cyanHbox.setMaxWidth(1280);
         cyanHbox.setMaxHeight(60); 
 
-        Button pSelectButton = new Button("Create Player");
+        Button pSelectButton = new Button("PUTANGINA");
         pSelectButton.setOnAction(e -> {
             getSceneService().popSubScene();
-            getSceneService().pushSubScene(new WorldSelectScene());
+            getSceneService().pushSubScene(new LevelSelectScene());
         });
 
         Button pandaButton = new Button("");
@@ -244,5 +262,4 @@ public class PlayerSelectScene extends FXGLMenu {
         cyanHbox.getChildren().addAll(pSelectButton);
         getContentRoot().getChildren().add(blackVbox);
     }
-
 }
