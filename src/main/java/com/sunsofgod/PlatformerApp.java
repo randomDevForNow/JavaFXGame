@@ -40,7 +40,7 @@ public class PlatformerApp extends GameApplication {
      private boolean timerOnP2 = false;
 
     private static final int MAX_LEVEL = 5;
-    private static final int STARTING_LEVEL = 3;
+    private static final int STARTING_LEVEL = 0;
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -342,6 +342,19 @@ public class PlatformerApp extends GameApplication {
         // onPlayerDied();
         // }
         // }
+         //resets the properties of the buttons
+         if(FXGL.geti("levelTimeP1") == 1 || FXGL.geti("levelTimeP2") == 1){
+            getGameWorld().getEntitiesByType(BUTTON)
+                            .stream()
+                            .forEach(btn -> {
+                                btn.removeComponent(CollidableComponent.class);
+
+                                Entity keyEntity = btn.getObject("keyEntity");
+                                keyEntity.setProperty("activated", true);
+                                
+                            });
+        }
+
 
         //handles the countown of the timer/s
         if (timerOnP1 == true){
