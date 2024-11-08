@@ -126,8 +126,8 @@ public class PlayerSelectScene extends FXGLMenu {
         Button pandaButton = new Button("");
         pandaButton.setBackground(Background.EMPTY);
        
-        Image unclickedpandaImage = new Image(getClass().getResource("/assets/textures/unclickedpandaButton.png").toExternalForm());
-        Image clickedpandaImage = new Image(getClass().getResource("/assets/textures/clickedpandaButton.png").toExternalForm());
+        Image unclickedpandaImage = new Image(getClass().getResource("/assets/textures/buttons/unclickedpandaButton.png").toExternalForm());
+        Image clickedpandaImage = new Image(getClass().getResource("/assets/textures/buttons/clickedpandaButton.png").toExternalForm());
         
         ImageView pandaView = new ImageView(unclickedpandaImage);
         pandaView.setFitWidth(200);
@@ -150,8 +150,8 @@ public class PlayerSelectScene extends FXGLMenu {
         Button shoppeeButton = new Button("");
         shoppeeButton.setBackground(Background.EMPTY);
        
-        Image unclickedshoppeeImage = new Image(getClass().getResource("/assets/textures/unclickedshoppeeButton.png").toExternalForm());
-        Image clickedshoppeeImage = new Image(getClass().getResource("/assets/textures/clickedshoppeeButton.png").toExternalForm());
+        Image unclickedshoppeeImage = new Image(getClass().getResource("/assets/textures/buttons/unclickedshoppeeButton.png").toExternalForm());
+        Image clickedshoppeeImage = new Image(getClass().getResource("/assets/textures/buttons/clickedshoppeeButton.png").toExternalForm());
         
         ImageView shoppeeView = new ImageView(unclickedshoppeeImage);
         shoppeeView.setFitWidth(200);
@@ -175,8 +175,8 @@ public class PlayerSelectScene extends FXGLMenu {
         Button lazadaButton = new Button("");
         lazadaButton.setBackground(Background.EMPTY);
        
-        Image unclickedlazadaImage = new Image(getClass().getResource("/assets/textures/unclickedlazadaButton.png").toExternalForm());
-        Image clickedlazadaImage = new Image(getClass().getResource("/assets/textures/clickedlazadaButton.png").toExternalForm());
+        Image unclickedlazadaImage = new Image(getClass().getResource("/assets/textures/buttons/unclickedlazadaButton.png").toExternalForm());
+        Image clickedlazadaImage = new Image(getClass().getResource("/assets/textures/buttons/clickedlazadaButton.png").toExternalForm());
         
         ImageView lazadaView = new ImageView(unclickedlazadaImage);
         lazadaView.setFitWidth(200);
@@ -200,8 +200,8 @@ public class PlayerSelectScene extends FXGLMenu {
         Button zaloraButton = new Button("");
         zaloraButton.setBackground(Background.EMPTY);
        
-        Image unclickedzaloraImage = new Image(getClass().getResource("/assets/textures/unclickedzaloraButton.png").toExternalForm());
-        Image clickedzaloraImage = new Image(getClass().getResource("/assets/textures/clickedzaloraButton.png").toExternalForm());
+        Image unclickedzaloraImage = new Image(getClass().getResource("/assets/textures/buttons/unclickedzaloraButton.png").toExternalForm());
+        Image clickedzaloraImage = new Image(getClass().getResource("/assets/textures/buttons/clickedzaloraButton.png").toExternalForm());
         
         ImageView zaloraView = new ImageView(unclickedzaloraImage);
         zaloraView.setFitWidth(200);

@@ -59,15 +59,15 @@ public class RiderMainMenuScene extends FXGLMenu {
         yellowHbox.setMaxHeight(300); 
 
 //pinagpatong ko text here para makagawa outline hihihihi
-        Text gameName = new Text("Game Name Here");
-        gameName.setFont(Font.font("Tahoma", FontWeight.BOLD, 80)); 
+        Text gameName = new Text("Delivery Rush");
+        gameName.setFont(Font.font("Tahoma", FontWeight.BOLD, 90)); 
         gameName.setFill(Color.WHITE); 
 
-        Text gameNameOutline = new Text("Game Name Here");
-        gameNameOutline.setFont(Font.font("Tahoma", FontWeight.BOLD, 80));  
+        Text gameNameOutline = new Text("Delivery Rush");
+        gameNameOutline.setFont(Font.font("Tahoma", FontWeight.BOLD, 90));  
         gameNameOutline.setFill(Color.TRANSPARENT);  
         gameNameOutline.setStroke(Color.GREY);       
-        gameNameOutline.setStrokeWidth(5);     
+        gameNameOutline.setStrokeWidth(11);     
         StackPane textStack = new StackPane();
 
 //orange hbox within black
@@ -146,7 +146,7 @@ public class RiderMainMenuScene extends FXGLMenu {
             startButton.setScaleY(1.0);
         });
 
-        startButton.setOnAction(e -> {
+        startButton.setOnMousePressed(e -> {
             clickedMedia.stop(); 
             clickedMedia.play(); 
             getSceneService().pushSubScene(new PlayerSelectScene());
@@ -176,7 +176,7 @@ public class RiderMainMenuScene extends FXGLMenu {
             optionButton.setScaleY(1.0);
         });
 
-        optionButton.setOnAction(e -> {
+        optionButton.setOnMousePressed(e -> {
             clickedMedia.stop(); 
             clickedMedia.play(); 
             System.out.println("CLICKED OPTIONS");
@@ -203,7 +203,7 @@ public class RiderMainMenuScene extends FXGLMenu {
             exitButton.setScaleY(1.0);
         });
 
-        exitButton.setOnAction(e -> {
+        exitButton.setOnMousePressed(e -> {
             clickedMedia.stop(); 
             clickedMedia.play(); 
             System.exit(0);
