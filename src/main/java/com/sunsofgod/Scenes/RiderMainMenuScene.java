@@ -13,6 +13,7 @@ import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.dsl.FXGL;
 
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -27,6 +28,8 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.animation.TranslateTransition;
+import javafx.util.Duration;
 
 public class RiderMainMenuScene extends FXGLMenu {
 
@@ -59,7 +62,7 @@ public class RiderMainMenuScene extends FXGLMenu {
         Text gameName = new Text("Game Name Here");
         gameName.setFont(Font.font("Tahoma", FontWeight.BOLD, 80)); 
         gameName.setFill(Color.WHITE); 
-                            
+
         Text gameNameOutline = new Text("Game Name Here");
         gameNameOutline.setFont(Font.font("Tahoma", FontWeight.BOLD, 80));  
         gameNameOutline.setFill(Color.TRANSPARENT);  
@@ -127,6 +130,15 @@ public class RiderMainMenuScene extends FXGLMenu {
 
             startButton.setScaleX(1.1); 
             startButton.setScaleY(1.1);
+
+//button animation
+            TranslateTransition startBounce = new TranslateTransition(Duration.millis(400), startButton);
+            startBounce.setByY(-5); 
+            startBounce.setAutoReverse(true); 
+            startBounce.setCycleCount(TranslateTransition.INDEFINITE);
+            startBounce.play();
+
+            startButton.setUserData(startBounce);
         });
 
         startButton.setOnMouseExited(e -> {
@@ -157,6 +169,7 @@ public class RiderMainMenuScene extends FXGLMenu {
             optionButton.setScaleX(1.1); 
             optionButton.setScaleY(1.1);
         });
+
 
         optionButton.setOnMouseExited(e -> {
             optionButton.setScaleX(1.0); 
@@ -195,7 +208,11 @@ public class RiderMainMenuScene extends FXGLMenu {
             clickedMedia.play(); 
             System.exit(0);
         });
-
+        
+        applyContinuousBounceEffect(exitButton,0);
+        applyContinuousBounceEffect(startButton,500);
+        applyContinuousBounceEffect(optionButton,1000);
+        applyContinuousBounceEffect(textStack,1500);
 //hierarachy
         getContentRoot().getChildren().add(backgroundView);
         blackVbox.getChildren().addAll(yellowHbox,orangeHbox);
@@ -211,5 +228,13 @@ public class RiderMainMenuScene extends FXGLMenu {
         // PANLAGAY CLIPPING ETC.)
         // Pede rin magsearch ng ano kung pano yung nagalaw na background na wallpaper
         // ng mga parcel tapos stripes background
+    }
+    public void applyContinuousBounceEffect(Node node, double delay) {
+        TranslateTransition bounce = new TranslateTransition(Duration.millis(600), node);
+        bounce.setByY(-5);
+        bounce.setAutoReverse(true); 
+        bounce.setCycleCount(TranslateTransition.INDEFINITE); 
+        bounce.setDelay(Duration.millis(delay));
+        bounce.play();
     }
 }
