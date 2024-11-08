@@ -108,7 +108,15 @@ public class RiderMainMenuScene extends FXGLMenu {
         startButton.setOnMouseEntered(e -> {
             hoverStartMedia.stop(); 
             hoverStartMedia.play(); 
+
+            startButton.setScaleX(1.1); 
+            startButton.setScaleY(1.1);
         });
+
+        startButton.setOnMouseExited(e -> {
+                startButton.setScaleX(1.0); 
+                startButton.setScaleY(1.0);
+            });
 
         startButton.setOnAction(e -> {
             getSceneService().pushSubScene(new PlayerSelectScene());
@@ -124,13 +132,21 @@ public class RiderMainMenuScene extends FXGLMenu {
         optionView.setFitHeight(150); 
         optionButton.setGraphic(optionView);
 
-//hover soundfx
+//hover soundfx and button expand
         Media hoverOptionSound = new Media(getClass().getResource("/assets/sounds/hoverSoundfx.mp3").toExternalForm());
         MediaPlayer hoverOptionMedia = new MediaPlayer(hoverOptionSound);
         optionButton.setOnMouseEntered(e -> {
             hoverOptionMedia.stop(); 
             hoverOptionMedia.play(); 
+
+            optionButton.setScaleX(1.1); 
+            optionButton.setScaleY(1.1);
         });
+
+        optionButton.setOnMouseExited(e -> {
+                optionButton.setScaleX(1.0); 
+                optionButton.setScaleY(1.0);
+            });
 
         optionButton.setOnAction(e -> {
             System.out.println("CLICKED OPTIONS");
@@ -144,13 +160,21 @@ public class RiderMainMenuScene extends FXGLMenu {
         exitView.setFitHeight(150); 
         exitButton.setGraphic(exitView);
 
-//hover soundfx
+//hover soundfx and button expand
         Media hoverExitSound = new Media(getClass().getResource("/assets/sounds/hoverSoundfx.mp3").toExternalForm());
         MediaPlayer hoverExitMedia = new MediaPlayer(hoverExitSound);
         exitButton.setOnMouseEntered(e -> {
             hoverExitMedia.stop(); 
             hoverExitMedia.play(); 
+
+            exitButton.setScaleX(1.1); 
+            exitButton.setScaleY(1.1);
         });
+
+        exitButton.setOnMouseExited(e -> {
+                exitButton.setScaleX(1.0); 
+                exitButton.setScaleY(1.0);
+            });
 
         exitButton.setOnAction(e -> {
             System.exit(0);
