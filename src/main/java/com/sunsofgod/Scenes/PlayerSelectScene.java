@@ -17,7 +17,7 @@ public class PlayerSelectScene extends FXGLMenu {
 
     public PlayerSelectScene() {
         super(MenuType.MAIN_MENU);
-        Image backgroundImage = new Image(getClass().getResource("/assets/textures/bgplaceHolder.jpg").toExternalForm());
+        Image backgroundImage = new Image(getClass().getResource("/assets/textures/bgPlayerSelect.png").toExternalForm());
         ImageView backgroundView = new ImageView(backgroundImage);
         backgroundView.setFitWidth(1280); 
         backgroundView.setFitHeight(720); 

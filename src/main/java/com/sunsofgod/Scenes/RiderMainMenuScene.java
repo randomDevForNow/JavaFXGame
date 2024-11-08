@@ -36,7 +36,7 @@ public class RiderMainMenuScene extends FXGLMenu {
     public RiderMainMenuScene() {
         super(MenuType.MAIN_MENU);
 
-        Image backgroundImage = new Image(getClass().getResource("/assets/textures/bgplaceHolder.jpg").toExternalForm());
+        Image backgroundImage = new Image(getClass().getResource("/assets/textures/backgroundMainMenu.gif").toExternalForm());
         ImageView backgroundView = new ImageView(backgroundImage);
         backgroundView.setFitWidth(1280); 
         backgroundView.setFitHeight(720); 
@@ -66,7 +66,7 @@ public class RiderMainMenuScene extends FXGLMenu {
         Text gameNameOutline = new Text("Delivery Rush");
         gameNameOutline.setFont(Font.font("Tahoma", FontWeight.BOLD, 90));  
         gameNameOutline.setFill(Color.TRANSPARENT);  
-        gameNameOutline.setStroke(Color.GREY);       
+        gameNameOutline.setStroke(Color.web("#2d5d8c"));       
         gameNameOutline.setStrokeWidth(11);     
         StackPane textStack = new StackPane();
 
