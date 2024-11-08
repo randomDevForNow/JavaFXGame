@@ -17,12 +17,15 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 public class RiderMainMenuScene extends FXGLMenu {
@@ -52,7 +55,17 @@ public class RiderMainMenuScene extends FXGLMenu {
         yellowHbox.setMaxWidth(1280);
         yellowHbox.setMaxHeight(300); 
 
-        Text gameName = new Text("Kung ano man game name natin");
+//pinagpatong ko text here para makagawa outline hihihihi
+        Text gameName = new Text("Game Name Here");
+        gameName.setFont(Font.font("Tahoma", FontWeight.BOLD, 80)); 
+        gameName.setFill(Color.WHITE); 
+                            
+        Text gameNameOutline = new Text("Game Name Here");
+        gameNameOutline.setFont(Font.font("Tahoma", FontWeight.BOLD, 80));  
+        gameNameOutline.setFill(Color.TRANSPARENT);  
+        gameNameOutline.setStroke(Color.GREY);       
+        gameNameOutline.setStrokeWidth(5);     
+        StackPane textStack = new StackPane();
 
 //orange hbox within black
         HBox orangeHbox = new HBox(10);
@@ -186,7 +199,8 @@ public class RiderMainMenuScene extends FXGLMenu {
 //hierarachy
         getContentRoot().getChildren().add(backgroundView);
         blackVbox.getChildren().addAll(yellowHbox,orangeHbox);
-        yellowHbox.getChildren().addAll(gameName);
+        textStack.getChildren().addAll(gameNameOutline, gameName);
+        yellowHbox.getChildren().addAll(textStack);
         redVbox.getChildren().addAll(exitButton);
         greenVbox.getChildren().addAll(startButton);
         blueVbox.getChildren().addAll(optionButton);
