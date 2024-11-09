@@ -12,8 +12,6 @@ import com.almasb.fxgl.texture.AnimationChannel;
 
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +23,11 @@ public class PlayerComponent extends Component {
     private PhysicsComponent physics;
     private AnimatedTexture texture;
     private AnimationChannel animIdle, animWalk;
+
+    // Player Dimensions
+    public int pWidth = 32;
+    public int pHeight = 42;
+
     private int jumps = 1;
     private boolean isJumping = false;
     private boolean isOnGround = true;
@@ -32,11 +35,12 @@ public class PlayerComponent extends Component {
     // List of players standing on top of this player
     private List<Entity> topPlayers = new ArrayList<>();
 
+    /* For Adding Animations */
     public PlayerComponent() {
         Image image = image("player.png");
 
-            animIdle = new AnimationChannel(image, 8, 32, 42, Duration.seconds(1), 0, 3);
-            animWalk = new AnimationChannel(image, 8, 32, 42, Duration.seconds(0.66), 4, 7);
+        animIdle = new AnimationChannel(image, 4, 32, 42, Duration.seconds(1), 0, 3);
+        animWalk = new AnimationChannel(image, 4, 32, 42, Duration.seconds(0.66), 0, 3);
 
         texture = new AnimatedTexture(animIdle);
         texture.loop();
@@ -44,11 +48,18 @@ public class PlayerComponent extends Component {
 
     @Override
     public void onAdded() {
-        entity.getTransformComponent().setScaleOrigin(new Point2D(16, 21));
+
+        entity.getTransformComponent().setScaleOrigin(new Point2D(pWidth / 2, pHeight));
+
+        texture.setScaleX(1.5);
+        texture.setScaleY(1.5);
+        texture.setTranslateY(-10);
+
         entity.getViewComponent().addChild(texture);
 
         physics.onGroundProperty().addListener((obs, old, isOnGround) -> {
             if (isOnGround) {
+
                 if (jumps == 0) { // if has no jump
                     // check if block has friction?
                     jumps = 1;
@@ -67,7 +78,7 @@ public class PlayerComponent extends Component {
         // entity.getViewComponent().addChild(topSensorVisual);
 
         // Define the sensor at the top of the player
-        HitBox topSensor = new HitBox("TOP_SENSOR", new Point2D(0, 0), BoundingShape.box(16, 8));
+        HitBox topSensor = new HitBox("TOP_SENSOR", new Point2D(1, 0), BoundingShape.box(30, 1));
 
         SensorCollisionHandler s = new SensorCollisionHandler() {
             @Override
@@ -139,7 +150,7 @@ public class PlayerComponent extends Component {
 
     public void jump() {
         if (jumps > 0) {
-            physics.setVelocityY(-300);
+            physics.setVelocityY(-400);
             jumps--;
             isJumping = true;
         }

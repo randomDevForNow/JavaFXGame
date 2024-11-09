@@ -83,21 +83,25 @@ public class PlatformerFactory implements EntityFactory {
 
         @Spawns("player")
         public Entity newPlayer(SpawnData data) {
+
+                PlayerComponent playerComponent = new PlayerComponent();
                 PhysicsComponent physics = new PhysicsComponent();
+
                 physics.setBodyType(BodyType.DYNAMIC);
 
                 // Add ground sensor for detecting ground contact
-                physics.addGroundSensor(new HitBox("GROUND_SENSOR", new Point2D(16, 30), BoundingShape.box(12, 16)));
-
-                PlayerComponent playerComponent = new PlayerComponent();
+                physics.addGroundSensor(new HitBox("GROUND_SENSOR", new Point2D(1, 40), BoundingShape.box(30, 2)));
 
                 // Avoid sticking to walls
                 physics.setFixtureDef(new FixtureDef().friction(0.0f));
 
+                // Player HitBox (starting from 0, 0 [top left] to Bounding Box [bottom right])
+                HitBox playerBBox = new HitBox(new Point2D(0, 0), BoundingShape.box(32, 42));
+
                 // Build the player entity
                 Entity player = entityBuilder(data)
                                 .type(PLAYER)
-                                .bbox(new HitBox(new Point2D(0, 13), BoundingShape.box(25, 25)))
+                                .bbox(playerBBox)
                                 .with(physics)
                                 .with(new CollidableComponent(true))
                                 .with(new IrremovableComponent())
@@ -107,12 +111,6 @@ public class PlatformerFactory implements EntityFactory {
                 // Return the player entity
                 return player;
         }
-
-        // spawn player 2
-
-        // spawn player 3
-
-        // spawn player 4
 
         @Spawns("exitSign")
         public Entity newExit(SpawnData data) {

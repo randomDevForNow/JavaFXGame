@@ -7,7 +7,6 @@ import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.app.scene.LoadingScene;
 import com.almasb.fxgl.app.scene.SceneFactory;
-import com.almasb.fxgl.app.scene.StartupScene;
 import com.almasb.fxgl.app.scene.Viewport;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -35,9 +34,9 @@ import static com.sunsofgod.EntityType.*;
 
 public class PlatformerApp extends GameApplication {
 
-     //sets the timer to be off at the start
-     private boolean timerOnP1 = false;
-     private boolean timerOnP2 = false;
+    // sets the timer to be off at the start
+    private boolean timerOnP1 = false;
+    private boolean timerOnP2 = false;
 
     private static final int MAX_LEVEL = 5;
     private static final int STARTING_LEVEL = 0;
@@ -160,9 +159,9 @@ public class PlatformerApp extends GameApplication {
         // vars.put("levelTime", 0.0);
         // vars.put("score", 0);
 
-        //global variables for timers
-        vars.put("levelTimeP1",1000);
-        vars.put("levelTimeP2",1000);
+        // global variables for timers
+        vars.put("levelTimeP1", 1000);
+        vars.put("levelTimeP2", 1000);
     }
 
     @Override
@@ -205,7 +204,7 @@ public class PlatformerApp extends GameApplication {
     @Override
     protected void initPhysics() {
 
-        getPhysicsWorld().setGravity(0, 760);
+        getPhysicsWorld().setGravity(0, 980);
         getPhysicsWorld().addCollisionHandler(new PlayerButtonHandler());
 
         // Set collision of player and mail here:
@@ -240,19 +239,16 @@ public class PlatformerApp extends GameApplication {
             makeExitDoor();
         });
 
-
-        //starts the indvidual timers based on a collision with an object
+        // starts the indvidual timers based on a collision with an object
         onCollision(PLAYER, EXIT_SIGN, (player, sign) -> {
-            if (player == players[0]){
+            if (player == players[0]) {
                 timerOnP1 = true;
             }
 
-            if (player == players[1]){
+            if (player == players[1]) {
                 timerOnP2 = true;
             }
         });
-
-        
 
         onCollisionOneTimeOnly(PLAYER, DOOR_BOT, (player, door) -> {
             // levelEndScene.get().onLevelFinish();
@@ -318,18 +314,18 @@ public class PlatformerApp extends GameApplication {
             addUINode(buttonsView, getAppWidth() - 280, getAppHeight() - 290);
         }
 
-        //player 1 timer
+        // player 1 timer
         Label timeLabelP1 = new Label();
         timeLabelP1.setTextFill(Color.BLACK);
         timeLabelP1.setFont(Font.font(20.0));
-        timeLabelP1.textProperty().bind(FXGL.getip("levelTimeP1").asString("P1 Timer:"+ "%d"));
+        timeLabelP1.textProperty().bind(FXGL.getip("levelTimeP1").asString("P1 Timer:" + "%d"));
         FXGL.addUINode(timeLabelP1, 20, 10);
 
-        //player 2 timer
+        // player 2 timer
         Label timeLabelP2 = new Label();
         timeLabelP2.setTextFill(Color.BLACK);
         timeLabelP2.setFont(Font.font(20.0));
-        timeLabelP2.textProperty().bind(FXGL.getip("levelTimeP2").asString("P2 Timer:"+ "%d"));
+        timeLabelP2.textProperty().bind(FXGL.getip("levelTimeP2").asString("P2 Timer:" + "%d"));
         FXGL.addUINode(timeLabelP2, 20, 30);
     }
 
@@ -342,29 +338,28 @@ public class PlatformerApp extends GameApplication {
         // onPlayerDied();
         // }
         // }
-         //resets the properties of the buttons
-         if(FXGL.geti("levelTimeP1") == 1 || FXGL.geti("levelTimeP2") == 1){
+        // resets the properties of the buttons
+        if (FXGL.geti("levelTimeP1") == 1 || FXGL.geti("levelTimeP2") == 1) {
             getGameWorld().getEntitiesByType(BUTTON)
-                            .stream()
-                            .forEach(btn -> {
-                                btn.removeComponent(CollidableComponent.class);
+                    .stream()
+                    .forEach(btn -> {
+                        btn.removeComponent(CollidableComponent.class);
 
-                                Entity keyEntity = btn.getObject("keyEntity");
-                                keyEntity.setProperty("activated", true);
-                                
-                            });
+                        Entity keyEntity = btn.getObject("keyEntity");
+                        keyEntity.setProperty("activated", true);
+
+                    });
         }
 
-
-        //handles the countown of the timer/s
-        if (timerOnP1 == true){
+        // handles the countown of the timer/s
+        if (timerOnP1 == true) {
             inc("levelTimeP1", -1);
         }
-        if (timerOnP2 == true){
+        if (timerOnP2 == true) {
             inc("levelTimeP2", -1);
         }
-        //restarts the level if the timer/s reach 0
-        if(FXGL.geti("levelTimeP1") == 0 || FXGL.geti("levelTimeP2") == 0){
+        // restarts the level if the timer/s reach 0
+        if (FXGL.geti("levelTimeP1") == 0 || FXGL.geti("levelTimeP2") == 0) {
             onPlayerDied();
         }
     }
@@ -384,8 +379,7 @@ public class PlatformerApp extends GameApplication {
 
         // set("levelTime", 0.0);
 
-
-        //resets the timer/s every level
+        // resets the timer/s every level
         set("levelTimeP1", 1000);
         set("levelTimeP2", 1000);
         timerOnP1 = false;
