@@ -1,0 +1,91 @@
+22:02:36.612 [main                     ] DEBUG Logger               - Configured Logger
+22:02:36.630 [main                     ] DEBUG GameApplication      - Logging settings
+Title: Untitled
+Version: 0.0
+Width: 1280
+Height: 720
+Fullscreen: false
+Intro: false
+Profiling: false
+Single step:false
+App Mode: DEVELOPER
+Menu Key: ESCAPE
+Stage Style: DECORATED
+Scene Factory: class com.sunsofgod.PlatformerApp$1
+
+22:02:36.901 [JavaFX Application Thread] DEBUG FXGLApplication      - Initializing FXGL
+22:02:36.904 [JavaFX Application Thread] INFO  Engine               - FXGL-17.2 (20.08.2022 16.50) on WINDOWS (J:21.0.4 FX:17.0.12)
+22:02:36.904 [JavaFX Application Thread] DEBUG Engine               - JRE Vendor Name: Eclipse Adoptium
+22:02:36.904 [JavaFX Application Thread] DEBUG Engine               - Running on OS: Windows 11 version 10.0
+22:02:36.904 [JavaFX Application Thread] DEBUG Engine               - Architecture: amd64
+22:02:36.904 [JavaFX Application Thread] INFO  Engine               - Source code and latest versions at: https://github.com/AlmasB/FXGL
+22:02:36.905 [JavaFX Application Thread] INFO  Engine               -       Ask questions and discuss at: https://github.com/AlmasB/FXGL/discussions
+22:02:36.905 [JavaFX Application Thread] INFO  Engine               -              Join the FXGL chat at: https://gitter.im/AlmasB/FXGL
+22:02:36.960 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Creating a JavaFX scene
+22:02:36.987 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Target settings size: 1280.0 x 720.0
+22:02:36.988 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled scene size:    1280.0 x 720.0
+22:02:36.988 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled ratio: (1.0, 1.0)
+22:02:36.988 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Set initial scene to FXGLStartupScene
+22:02:36.993 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Opening main window
+22:02:37.041 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Window border size: (16.0, 39.0)
+22:02:37.041 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled size: 1280.0 x 720.0
+22:02:37.041 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scaled ratio: (1.0, 1.0)
+22:02:37.041 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Scene size: 1280.0 x 720.0
+22:02:37.042 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Stage size: 1296.0 x 759.0
+22:02:37.046 [FXGL Background Thread 1 ] DEBUG Engine               - Initializing environment variables
+22:02:37.075 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - User app class for loading assets: class com.sunsofgod.PlatformerApp
+22:02:37.076 [FXGL Background Thread 1 ] DEBUG GameApplicationServi - Applying CSS: fxgl_dark.css
+22:02:37.076 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: jar:file:///C:/Users/Balong/.m2/repository/com/github/almasb/fxgl/17.2/fxgl-17.2.jar!/fxglassets/ui/css/fxgl_dark.css
+22:02:37.106 [FXGL Background Thread 1 ] DEBUG GameApplicationServi - Initializing application scenes
+22:02:37.135 [FXGL Background Thread 1 ] DEBUG FXGLAssetLoaderServi - Loading from file system: file:/C:/Users/Balong/Desktop/JavaFXGame-1/target/classes/assets/textures/player.png
+22:02:37.150 [FXGL Background Thread 1 ] DEBUG GameWorld            - Game world initialized
+22:02:37.185 [FXGL Background Thread 1 ] DEBUG PhysicsWorld         - Physics world initialized: appHeight=720, physics.ppm=50.0
+22:02:37.185 [FXGL Background Thread 1 ] DEBUG PhysicsWorld         - Using strategy: BRUTE_FORCE
+22:02:37.188 [FXGL Background Thread 1 ] DEBUG GameScene            - Game scene initialized: 1280x720
+22:02:39.202 [JavaFX Application Thread] DEBUG FXGLApplication      - Exiting FXGL
+22:02:39.202 [JavaFX Application Thread] DEBUG LoopRunner           - Stopping loop
+22:02:39.202 [JavaFX Application Thread] DEBUG LoopRunner           - Initializing JavaFX AnimationTimerLoop
+22:02:39.203 [JavaFX Application Thread] DEBUG SystemBundleService  - Saving FXGL system data
+22:02:39.203 [JavaFX Application Thread] DEBUG LoopRunner           - Stopping loop
+22:02:39.206 [JavaFX Application Thread] FATAL FXGLApplication      - Uncaught Exception:
+kotlin.UninitializedPropertyAccessException: lateinit property bundle has not been initialized
+	at com.almasb.fxgl.all@17.2/com.almasb.fxgl.app.services.SystemBundleService.getBundle$fxgl(SystemBundleService.kt:27)
+	at com.almasb.fxgl.all@17.2/com.almasb.fxgl.app.services.SystemBundleService.saveSystemData(SystemBundleService.kt:66)
+	at com.almasb.fxgl.all@17.2/com.almasb.fxgl.app.services.SystemBundleService.onExit(SystemBundleService.kt:49)
+	at com.almasb.fxgl.all@17.2/com.almasb.fxgl.app.Engine.stopLoopAndExitServices(Engine.kt:162)
+	at com.almasb.fxgl.all@17.2/com.almasb.fxgl.app.FXGLApplication.exitFXGL(FXGLApplication.kt:297)
+	at com.almasb.fxgl.all@17.2/com.almasb.fxgl.dsl.FXGL$Companion$controller$1.exit(FXGL.kt:150)
+	at com.almasb.fxgl.all@17.2/com.almasb.fxgl.app.FXGLApplication$GameApplicationService$onInit$2.invoke(FXGLApplication.kt:406)
+	at com.almasb.fxgl.all@17.2/com.almasb.fxgl.app.FXGLApplication$GameApplicationService$onInit$2.invoke(FXGLApplication.kt:400)
+	at com.almasb.fxgl.all@17.2/com.almasb.fxgl.app.PrimaryStageWindow.initStage$lambda-2$lambda-0(MainWindow.kt:392)
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:234)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:191)
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics/com.sun.javafx.stage.WindowPeerListener.closing(WindowPeerListener.java:93)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassWindowEventHandler.run(GlassWindowEventHandler.java:147)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassWindowEventHandler.run(GlassWindowEventHandler.java:40)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassWindowEventHandler.lambda$handleWindowEvent$4(GlassWindowEventHandler.java:178)
+	at javafx.graphics/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:423)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassWindowEventHandler.handleWindowEvent(GlassWindowEventHandler.java:176)
+	at javafx.graphics/com.sun.glass.ui.Window.handleWindowEvent(Window.java:1253)
+	at javafx.graphics/com.sun.glass.ui.Window.notifyClose(Window.java:1158)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+22:02:39.208 [JavaFX Application Thread] FATAL FXGLApplication      - Application will now exit
+22:02:39.280 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Push state: ErrorSubScene
+22:02:39.281 [JavaFX Application Thread] DEBUG Input                - Clearing active input actions
+22:02:39.288 [JavaFX Application Thread] DEBUG GameApplicationServi - Removing overlay from FXGLStartupScene and adding to ErrorSubScene
+22:02:39.288 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - FXGLStartupScene -> ErrorSubScene
+22:02:40.379 [JavaFX Application Thread] DEBUG FXGLApplication      - Exiting FXGL
+22:02:40.379 [JavaFX Application Thread] DEBUG Async                - Shutting down background threads
+22:02:40.380 [JavaFX Application Thread] DEBUG PrimaryStageWindow   - Closing main window
+22:02:40.387 [JavaFX Application Thread] DEBUG Logger               - Closing Logger
