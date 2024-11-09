@@ -5,12 +5,17 @@ import static com.almasb.fxgl.dsl.FXGL.getSceneService;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class PlayerSelectScene extends FXGLMenu {
@@ -49,7 +54,17 @@ public class PlayerSelectScene extends FXGLMenu {
         orangeHbox.setPrefHeight(100);
         orangeHbox.setMaxWidth(1280);
         orangeHbox.setMaxHeight(100);
-        Text playselectInfo = new Text("INFO HERE ---------------------------");
+
+        Text playselectInfo = new Text("Choose your Rider");
+        playselectInfo.setFont(Font.font("Tahoma", FontWeight.BOLD, 60)); 
+        playselectInfo.setFill(Color.WHITE); 
+
+        Text playselectInfoOutline = new Text("Choose your Rider");
+        playselectInfoOutline.setFont(Font.font("Tahoma", FontWeight.BOLD, 60));  
+        playselectInfoOutline.setFill(Color.TRANSPARENT);  
+        playselectInfoOutline.setStroke(Color.web("#2d5d8c"));       
+        playselectInfoOutline.setStrokeWidth(8);     
+        StackPane textStack = new StackPane();
 
         // red hbox within black
         HBox redHbox = new HBox(10);
@@ -60,7 +75,17 @@ public class PlayerSelectScene extends FXGLMenu {
         redHbox.setPrefHeight(100);
         redHbox.setMaxWidth(1280);
         redHbox.setMaxHeight(100);
-        Text playselectInfo2 = new Text("INFO HERE ---------------------------");
+        Text playselectInfo2 = new Text("Select multiple for Multiplayer");
+        playselectInfo2.setFont(Font.font("Tahoma", FontWeight.BOLD, 40)); 
+        playselectInfo2.setFill(Color.WHITE); 
+
+        Text playselectInfoOutline2 = new Text("Select multiple for Multiplayer");
+        playselectInfoOutline2.setFont(Font.font("Tahoma", FontWeight.BOLD, 40));  
+        playselectInfoOutline2.setFill(Color.TRANSPARENT);  
+        playselectInfoOutline2.setStroke(Color.web("#2d5d8c"));       
+        playselectInfoOutline2.setStrokeWidth(3);     
+        StackPane textStack2 = new StackPane();
+
         // green hbox within black
         HBox greenHbox = new HBox(10);
         greenHbox.setStyle("-fx-border-color: green; -fx-greenborder-width: 2;");
@@ -70,6 +95,7 @@ public class PlayerSelectScene extends FXGLMenu {
         greenHbox.setMaxWidth(1280);
         greenHbox.setMaxHeight(500);
 
+       
         // pink vbox within green
         HBox pinkVbox = new HBox(10);
         pinkVbox.setAlignment(javafx.geometry.Pos.CENTER);
@@ -110,6 +136,8 @@ public class PlayerSelectScene extends FXGLMenu {
         brownVbox.setMaxWidth(320);
         brownVbox.setMaxHeight(400);
 
+
+        
         // cyan hbox within black
         HBox cyanHbox = new HBox(10);
         cyanHbox.setStyle("-fx-border-color: cyan; -fx-border-width: 2;");
@@ -118,6 +146,29 @@ public class PlayerSelectScene extends FXGLMenu {
         cyanHbox.setPrefHeight(60);
         cyanHbox.setMaxWidth(1280);
         cyanHbox.setMaxHeight(60);
+        
+
+        // cyan hbox within cyan
+        HBox cyanHbox3 = new HBox(10);
+        cyanHbox3.setStyle("-fx-border-color: cyan; -fx-border-width: 2;");
+        cyanHbox3.setAlignment(javafx.geometry.Pos.CENTER);
+        cyanHbox3.setPrefWidth(200);
+        cyanHbox3.setPrefHeight(60);
+        cyanHbox3.setMaxWidth(1280);
+        cyanHbox3.setMaxHeight(60);
+        cyanHbox.setPadding(new Insets(0,0,0,450));
+        HBox.setMargin(cyanHbox3, new Insets(0, 0, 0, 300));
+
+        Text playselectInfo3 = new Text("Single Player");
+        playselectInfo3.setFont(Font.font("Tahoma", FontWeight.BOLD, 60)); 
+        playselectInfo3.setFill(Color.WHITE); 
+
+        Text playselectInfoOutline3 = new Text("Single Player");
+        playselectInfoOutline3.setFont(Font.font("Tahoma", FontWeight.BOLD, 60));  
+        playselectInfoOutline3.setFill(Color.TRANSPARENT);  
+        playselectInfoOutline3.setStroke(Color.web("#2d5d8c"));       
+        playselectInfoOutline3.setStrokeWidth(8);     
+        StackPane textStack3 = new StackPane();
 
         Button pSelectButton = new Button("Create Player");
         pSelectButton.setOnAction(e -> {
@@ -246,10 +297,14 @@ public class PlayerSelectScene extends FXGLMenu {
         purpleVbox.getChildren().addAll(lazadaButton);
         indigoVbox.getChildren().addAll(zaloraButton);
         brownVbox.getChildren().addAll(shoppeeButton);
-        orangeHbox.getChildren().addAll(playselectInfo);
-        redHbox.getChildren().addAll(playselectInfo2);
-        cyanHbox.getChildren().addAll(pSelectButton);
+        orangeHbox.getChildren().addAll(textStack);
+        redHbox.getChildren().addAll(textStack2);
+        cyanHbox.getChildren().addAll(textStack3,cyanHbox3);
+        cyanHbox3.getChildren().addAll(pSelectButton);
         getContentRoot().getChildren().add(blackVbox);
+        textStack.getChildren().addAll(playselectInfoOutline, playselectInfo);
+        textStack2.getChildren().addAll(playselectInfoOutline2, playselectInfo2);
+        textStack3.getChildren().addAll(playselectInfoOutline3, playselectInfo3);
     }
 
 }
