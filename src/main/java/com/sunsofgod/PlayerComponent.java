@@ -33,8 +33,8 @@
         public PlayerComponent() {
             Image image = image("player.png");
 
-            animIdle = new AnimationChannel(image, 4, 32, 42, Duration.seconds(1), 0, 3);
-            animWalk = new AnimationChannel(image, 4, 32, 42, Duration.seconds(0.66), 0, 3);
+            animIdle = new AnimationChannel(image, 8, 32, 42, Duration.seconds(1), 0, 3);
+            animWalk = new AnimationChannel(image, 8, 32, 42, Duration.seconds(0.66), 4, 7);
 
              texture = new AnimatedTexture(animIdle);
              texture.loop();
