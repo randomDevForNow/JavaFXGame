@@ -33,6 +33,7 @@ import com.sunsofgod.Scenes.*;
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.sunsofgod.EntityType.*;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -41,6 +42,11 @@ import java.io.IOException;
 
 public class PlatformerApp extends GameApplication {
 
+    public PlatformerApp(){
+
+    };
+
+
     // sets the timer to be off at the start
     private boolean timerOnP1 = false;
     private boolean timerOnP2 = false;
@@ -48,7 +54,34 @@ public class PlatformerApp extends GameApplication {
     private boolean timerOnP4 = false;
 
     private static final int MAX_LEVEL = 5;
-    private static final int STARTING_LEVEL = 0;
+    private static int STARTING_LEVEL = 0;
+
+    //finds the starting level
+    public void loadGameConfig(String configFilePath) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        
+        try {
+            // Read the JSON file into a strongly-typed Map
+            Map<String, Boolean> gameConfig = objectMapper.readValue(
+                    new File(configFilePath), new TypeReference<Map<String, Boolean>>() {});
+            
+            // Iterate through the levels to find which one is true
+            for (int level = 1; level <= 4; level++) {
+                if (gameConfig.get("level" + level)) {
+                    // Update startingLevel based on which level is true
+                    //starting level is -1 as we start from 0
+                    STARTING_LEVEL = level-1;
+                    break; // Exit the loop once the starting level is found
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getStartingLevel() {
+        return STARTING_LEVEL;
+    }
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -171,6 +204,11 @@ public class PlatformerApp extends GameApplication {
     /* For Global Variables (Refunds of each player) */
     @Override
     protected void initGameVars(Map<String, Object> vars) {
+        
+        
+        PlatformerApp config = new PlatformerApp();
+        config.loadGameConfig("src/main/resources/database.json");
+        System.out.println("The starting level is: " + STARTING_LEVEL);
         vars.put("level", STARTING_LEVEL);
         // vars.put("levelTime", 0.0);
         // vars.put("score", 0);

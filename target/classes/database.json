@@ -1,9 +1,9 @@
 {
-  "player1" : false,
-  "player2" : false,
+  "player1" : true,
+  "player2" : true,
   "player3" : false,
   "player4" : false,
-  "level1" : false,
+  "level1" : true,
   "level2" : false,
   "level3" : false,
   "level4" : false
