@@ -94,7 +94,7 @@ public class PlatformerApp extends GameApplication {
     // private LazyValue<LevelEndScene> levelEndScene = new LazyValue<>(() -> new
     // LevelEndScene());
 
-    private Entity[] players = new Entity[4];
+    private Entity[] players = new Entity[2];
 
     private KeyCode[][] bindings = new KeyCode[][] {
             { KeyCode.W, KeyCode.A, KeyCode.D, KeyCode.E },
@@ -255,20 +255,36 @@ public class PlatformerApp extends GameApplication {
         // starts the indvidual timers based on a collision with an object
         onCollision(PLAYER, EXIT_SIGN, (player, sign) -> {
 
-            if (player == players[0]) {
-                timerOnP1 = true;
+            try {
+                if (player == players[0]) {
+                    timerOnP1 = true;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                // Handle exception if players[0] does not exist
             }
-
-            if (player == players[1]) {
-                timerOnP2 = true;
+            
+            try {
+                if (player == players[1]) {
+                    timerOnP2 = true;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                // Handle exception if players[1] does not exist
             }
-
-            if (player == players[2]) {
-                timerOnP3 = true;
+            
+            try {
+                if (player == players[2]) {
+                    timerOnP3 = true;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                // Handle exception if players[2] does not exist
             }
-
-            if (player == players[3]) {
-                timerOnP4 = true;
+            
+            try {
+                if (player == players[3]) {
+                    timerOnP4 = true;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                // Handle exception if players[3] does not exist
             }
         });
 
