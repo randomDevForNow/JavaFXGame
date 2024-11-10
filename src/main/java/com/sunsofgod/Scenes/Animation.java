@@ -21,7 +21,6 @@ public class Animation {
 //hover effect + media
      public static void applyHoverAndClickEffects(Button button, MediaPlayer hoverMedia, MediaPlayer clickedMedia) {
         button.setOnMouseEntered(e -> {
-            System.out.println("Hover event triggered");
             hoverMedia.stop();
             hoverMedia.play();
             button.setScaleX(1.1);
@@ -29,14 +28,12 @@ public class Animation {
         });
 
         button.setOnMouseExited(e -> {
-            System.out.println("Exit hover event triggered");
             button.setScaleX(1.0);
             button.setScaleY(1.0);
         });
 
         button.setOnMousePressed(e -> {
             if (e.getButton() == MouseButton.PRIMARY) {  // Check if it's a right-click
-               System.out.println("Right-click event triggered");
                clickedMedia.stop();
                clickedMedia.play();
         }
