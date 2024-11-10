@@ -50,8 +50,8 @@ public class PlayerComponent extends Component {
     private List<Entity> topPlayers = new ArrayList<>();
 
     /* For Adding Animations */
-    public PlayerComponent() {
-        Image image = image("player.png");
+    public PlayerComponent(Image img) {
+        Image image = img;
 
         animIdle = new AnimationChannel(image, 8, 32, 42, Duration.seconds(1), 0, 3);
         animWalk = new AnimationChannel(image, 8, 32, 42, Duration.seconds(0.66), 4, 7);

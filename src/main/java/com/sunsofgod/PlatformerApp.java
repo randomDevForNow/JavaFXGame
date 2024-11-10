@@ -218,12 +218,19 @@ public class PlatformerApp extends GameApplication {
         Map<String, Boolean> playerStatus = loadPlayerStatusFromJson();
 
         for (int i = 0; i < players.length; i++) {
+            // Construct the player key dynamically (player1, player2, etc.)
+            String playerKey = "player" + (i + 1);
+            
             // Check if the player should be spawned based on the JSON value
-            if (playerStatus.getOrDefault("player" + (i + 1), false)) {
-                players[i] = spawn("player", 50 + i * 100, 50); // Spawn and assign players
-                set("player" + i, players[i]); // Optionally store in the global map
+            if (playerStatus.getOrDefault(playerKey, false)) {
+                // Dynamically adjust the player type based on the loop index (player1, player2, etc.)
+                players[i] = spawn(playerKey, 50 + i * 100, 50); // Spawn and assign players
+                
+                // Optionally store in the global map
+                set(playerKey, players[i]); // Store the player in the global map with its key
             } else {
-                players[i] = null; // If not spawned, set to null
+                // If not spawned, set to null
+                players[i] = null;
             }
         }
 
