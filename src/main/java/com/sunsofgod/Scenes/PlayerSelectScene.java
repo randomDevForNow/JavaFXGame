@@ -33,7 +33,7 @@ import javafx.scene.media.MediaPlayer;
 public class PlayerSelectScene extends FXGLMenu {
 
     // Path to the JSON file
-    String filePath = "C:\\Users\\user\\Desktop\\JavaFXGame\\src\\main\\resources\\database.json";  
+    String filePath = "src/main/resources/database.json";
     ObjectMapper objectMapper = new ObjectMapper();
     File file = new File(filePath);
     
