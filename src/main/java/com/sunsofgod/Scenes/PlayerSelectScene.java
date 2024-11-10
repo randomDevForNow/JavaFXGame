@@ -177,8 +177,8 @@ public class PlayerSelectScene extends FXGLMenu {
         imageView.setFitWidth(130);
         imageView.setFitHeight(55);
         pSelectButton.setGraphic(imageView);
-        applyContinuousBounceEffect(pSelectButton, 500);
-        applyHoverAndClickEffects(pSelectButton, hoverMedia, clickedMedia);
+        Animation.applyContinuousBounceEffect(pSelectButton, 500);
+        Animation.applyHoverAndClickEffects(pSelectButton, hoverMedia, clickedMedia);
 
         pSelectButton.setOnAction(e -> {
             getSceneService().popSubScene();
@@ -303,8 +303,8 @@ public class PlayerSelectScene extends FXGLMenu {
         backView.setFitWidth(100);
         backView.setFitHeight(70);
         goBackButton.setGraphic(backView);
-        applyContinuousBounceEffect(goBackButton, 0);
-        applyHoverAndClickEffects(goBackButton, hoverMedia, clickedMedia);
+        Animation.applyContinuousBounceEffect(goBackButton, 0);
+        Animation.applyHoverAndClickEffects(goBackButton, hoverMedia, clickedMedia);
 
         goBackButton.setOnAction(e -> {
             getSceneService().popSubScene();
@@ -325,36 +325,5 @@ public class PlayerSelectScene extends FXGLMenu {
         textStack.getChildren().addAll(playselectInfoOutline, playselectInfo);
         textStack2.getChildren().addAll(playselectInfoOutline2, playselectInfo2);
         textStack3.getChildren().addAll(playselectInfoOutline3, playselectInfo3);  
-    }
-//bounce animation
-    public static void applyContinuousBounceEffect(Node node, double delay) {
-        TranslateTransition bounce = new TranslateTransition(Duration.millis(600), node);
-        bounce.setByY(-5);
-        bounce.setAutoReverse(true);
-        bounce.setCycleCount(TranslateTransition.INDEFINITE);
-        bounce.setDelay(Duration.millis(delay));
-        bounce.play();
-    }
-//hover effect + media
-     public static void applyHoverAndClickEffects(Button button, MediaPlayer hoverMedia, MediaPlayer clickedMedia) {
-        button.setOnMouseEntered(e -> {
-            System.out.println("Hover event triggered");
-            hoverMedia.stop();
-            hoverMedia.play();
-            button.setScaleX(1.1);
-            button.setScaleY(1.1);
-        });
-
-        button.setOnMouseExited(e -> {
-            System.out.println("Exit hover event triggered");
-            button.setScaleX(1.0);
-            button.setScaleY(1.0);
-        });
-
-        button.setOnMousePressed(e -> {
-            System.out.println("Click event triggered");
-            clickedMedia.stop();
-            clickedMedia.play();
-        });
     }
 }
