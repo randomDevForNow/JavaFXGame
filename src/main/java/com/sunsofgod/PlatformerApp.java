@@ -7,6 +7,7 @@ import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.app.scene.LoadingScene;
 import com.almasb.fxgl.app.scene.SceneFactory;
+import com.almasb.fxgl.app.scene.StartupScene;
 import com.almasb.fxgl.app.scene.Viewport;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -28,6 +29,7 @@ import java.util.Map;
 import org.jetbrains.annotations.NotNull;
 
 import com.sunsofgod.Scenes.*;
+import com.sunsofgod.karaoke.KaraokeWindow;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.sunsofgod.EntityType.*;
@@ -97,38 +99,48 @@ public class PlatformerApp extends GameApplication {
     private void bindKeys() {
         int counter = 0;
         for (Entity player : players) {
-            getInput().addAction(new UserAction("Jump" + counter) {
+            if (player == null) continue;  // Skip if player is null
+    
+            final int playerIndex = counter;  // Capture the counter for lambda
+    
+            // Use unique action names for each player
+            String playerPrefix = "Player" + playerIndex;
+    
+            // Remove existing bindings if they exist
+            getInput().clearAll();
+    
+            getInput().addAction(new UserAction(playerPrefix + "Jump") {
                 @Override
                 protected void onActionBegin() {
                     player.getComponent(PlayerComponent.class).jump();
                 }
-            }, bindings[counter][0]);
-
-            getInput().addAction(new UserAction("Left" + counter) {
+            }, bindings[playerIndex][0]);
+    
+            getInput().addAction(new UserAction(playerPrefix + "Left") {
                 @Override
                 protected void onAction() {
                     player.getComponent(PlayerComponent.class).left();
                 }
-
+    
                 @Override
                 protected void onActionEnd() {
                     player.getComponent(PlayerComponent.class).stop();
                 }
-            }, bindings[counter][1]);
-
-            getInput().addAction(new UserAction("Right" + counter) {
+            }, bindings[playerIndex][1]);
+    
+            getInput().addAction(new UserAction(playerPrefix + "Right") {
                 @Override
                 protected void onAction() {
                     player.getComponent(PlayerComponent.class).right();
                 }
-
+    
                 @Override
                 protected void onActionEnd() {
                     player.getComponent(PlayerComponent.class).stop();
                 }
-            }, bindings[counter][2]);
-
-            getInput().addAction(new UserAction("Use" + counter) {
+            }, bindings[playerIndex][2]);
+    
+            getInput().addAction(new UserAction(playerPrefix + "Use") {
                 @Override
                 protected void onActionBegin() {
                     /* For Getting Mail */
@@ -137,20 +149,24 @@ public class PlatformerApp extends GameApplication {
                             .filter(btn -> btn.hasComponent(CollidableComponent.class) && player.isColliding(btn))
                             .forEach(btn -> {
                                 btn.removeComponent(CollidableComponent.class);
-
+    
                                 Entity keyEntity = btn.getObject("keyEntity");
                                 keyEntity.setProperty("activated", true);
-
+    
                                 KeyView view = (KeyView) keyEntity.getViewComponent().getChildren().get(0);
                                 view.setKeyColor(Color.RED);
-
+    
                                 makeExitDoor();
                             });
                 }
-            }, bindings[counter][3]);
+            }, bindings[playerIndex][3]);
+    
             counter++;
         }
     }
+        
+    
+    
 
     /* For Global Variables (Refunds of each player) */
     @Override
@@ -394,6 +410,31 @@ public class PlatformerApp extends GameApplication {
         // shortestTime * 1.3, shortestTime);
         //
         // set("levelTimeData", levelTimeData);
+    }
+
+    // Music Controls for Karaoke
+    @Override
+    protected void initInput() {
+        // Add music control shortcut (M key for Music)
+        getInput().addAction(new UserAction("Open Music Selection") {
+            @Override
+            protected void onActionBegin() {
+                openMusicSelection();
+            }
+        }, KeyCode.M);
+
+        // Bind player controls
+        bindKeys();
+    }
+
+    private void openMusicSelection() {
+        // Create karaoke window that returns to game when closed
+        KaraokeWindow karaokeWindow = new KaraokeWindow(() -> {
+            // No need to transition scenes since we're already in game
+            // Just hide the window and continue playing
+            System.out.println("Continuing game with new song...");
+        });
+        karaokeWindow.show();
     }
 
     public static void main(String[] args) {
