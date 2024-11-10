@@ -1,6 +1,1 @@
-{
-  "player1" : true,
-  "player2" : true,
-  "player3" : true,
-  "player4" : true
-}
+{"player1":false,"player2":false,"player3":false,"player4":false}
