@@ -1,10 +1,14 @@
 package com.sunsofgod.Scenes;
 
+import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Animation {
@@ -34,10 +38,27 @@ public class Animation {
         });
 
         button.setOnMousePressed(e -> {
-            if (e.getButton() == MouseButton.PRIMARY) {  // Check if it's a right-click
+            if (e.getButton() == MouseButton.PRIMARY) {  
                clickedMedia.stop();
                clickedMedia.play();
         }
         });
+    }
+         public static void applyParachuteEffect(Node node, double speed) {
+       
+        TranslateTransition bounce = new TranslateTransition(Duration.millis(1200), node);
+        bounce.setByY(-20); 
+        bounce.setAutoReverse(true); 
+        bounce.setCycleCount(TranslateTransition.INDEFINITE); 
+        bounce.setDelay(Duration.millis(0)); 
+        bounce.play();
+
+     
+        RotateTransition tilt = new RotateTransition(Duration.millis(800), node);
+        tilt.setByAngle(4); 
+        tilt.setAutoReverse(true); 
+        tilt.setCycleCount(RotateTransition.INDEFINITE);
+        tilt.setDelay(Duration.millis(800)); 
+        tilt.play();
     }
 }

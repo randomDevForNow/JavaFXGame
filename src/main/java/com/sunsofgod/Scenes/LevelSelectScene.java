@@ -203,7 +203,7 @@ public class LevelSelectScene extends FXGLMenu {
         level1View.setFitWidth(225);
         level1View.setFitHeight(225);
         level1Button.setGraphic(level1View);
-        Animation.applyContinuousBounceEffect(level1Button, 0);
+        Animation.applyParachuteEffect(level1Button, 0);
         Animation.applyHoverAndClickEffects(level1Button, hoverMedia, clickedMedia);
 
         Image unclickedlevel2Image = new Image(
@@ -220,7 +220,7 @@ public class LevelSelectScene extends FXGLMenu {
         level2View.setFitWidth(275);
         level2View.setFitHeight(275);
         level2Button.setGraphic(level2View);
-        Animation.applyContinuousBounceEffect(level2Button, 0);
+        Animation.applyParachuteEffect(level2Button, 1000);
         Animation.applyHoverAndClickEffects(level2Button, hoverMedia, clickedMedia);
 
         Image unclickedlevel3Image = new Image(
@@ -237,7 +237,7 @@ public class LevelSelectScene extends FXGLMenu {
         level3View.setFitWidth(275);
         level3View.setFitHeight(275);
         level3Button.setGraphic(level3View);
-        Animation.applyContinuousBounceEffect(level3Button, 0);
+        Animation.applyParachuteEffect(level3Button, 300);
         Animation.applyHoverAndClickEffects(level3Button, hoverMedia, clickedMedia);
 
         Image unclickedlevel4Image = new Image(
@@ -254,7 +254,7 @@ public class LevelSelectScene extends FXGLMenu {
         level4View.setFitWidth(350);
         level4View.setFitHeight(350);
         level4Button.setGraphic(level4View);
-        Animation.applyContinuousBounceEffect(level4Button, 0);
+        Animation.applyParachuteEffect(level4Button, 0);
         Animation.applyHoverAndClickEffects(level4Button, hoverMedia, clickedMedia);
 
         boolean[] level1ImageClicked = { false };
