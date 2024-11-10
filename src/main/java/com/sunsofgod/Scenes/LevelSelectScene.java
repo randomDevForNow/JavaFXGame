@@ -138,7 +138,7 @@ public class LevelSelectScene extends FXGLMenu {
         cyanHbox3.setPrefHeight(60);
         cyanHbox3.setMaxWidth(1280);
         cyanHbox3.setMaxHeight(60);
-        cyanHbox.setPadding(new Insets(0,0,0,0));
+        cyanHbox.setPadding(new Insets(-80,0,0,0));
     
 
  
