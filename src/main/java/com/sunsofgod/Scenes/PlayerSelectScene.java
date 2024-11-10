@@ -5,7 +5,9 @@ import static com.almasb.fxgl.dsl.FXGL.getSceneService;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
 
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,10 +15,14 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
+import javafx.scene.media.MediaPlayer;
 
 public class PlayerSelectScene extends FXGLMenu {
 
@@ -29,7 +35,6 @@ public class PlayerSelectScene extends FXGLMenu {
         backgroundView.setFitHeight(720);
         // black vbox
         VBox blackVbox = new VBox(10);
-        blackVbox.setStyle("-fx-border-color: black; -fx-border-width: 2;");
 
         blackVbox.setPrefWidth(1280);
         blackVbox.setPrefHeight(720);
@@ -38,16 +43,14 @@ public class PlayerSelectScene extends FXGLMenu {
 
         // yellow hbox within black
         HBox yellowHbox = new HBox(10);
-        yellowHbox.setStyle("-fx-border-color: yellow; -fx-border-width: 2;");
 
         yellowHbox.setPrefWidth(1280);
-        yellowHbox.setPrefHeight(60);
+        yellowHbox.setPrefHeight(80);
         yellowHbox.setMaxWidth(1280);
         yellowHbox.setMaxHeight(60);
-
+        yellowHbox.setPadding(new Insets(20,0,0,40));
         // orange hbox within black
         HBox orangeHbox = new HBox(10);
-        orangeHbox.setStyle("-fx-border-color: orange; -fx-border-width: 2;");
         orangeHbox.setAlignment(javafx.geometry.Pos.CENTER);
 
         orangeHbox.setPrefWidth(1280);
@@ -68,7 +71,6 @@ public class PlayerSelectScene extends FXGLMenu {
 
         // red hbox within black
         HBox redHbox = new HBox(10);
-        redHbox.setStyle("-fx-border-color: red; -fx-border-width: 2;");
         redHbox.setAlignment(javafx.geometry.Pos.CENTER);
 
         redHbox.setPrefWidth(1280);
@@ -88,7 +90,6 @@ public class PlayerSelectScene extends FXGLMenu {
 
         // green hbox within black
         HBox greenHbox = new HBox(10);
-        greenHbox.setStyle("-fx-border-color: green; -fx-greenborder-width: 2;");
 
         greenHbox.setPrefWidth(1280);
         greenHbox.setPrefHeight(500);
@@ -99,7 +100,6 @@ public class PlayerSelectScene extends FXGLMenu {
         // pink vbox within green
         HBox pinkVbox = new HBox(10);
         pinkVbox.setAlignment(javafx.geometry.Pos.CENTER);
-        pinkVbox.setStyle("-fx-border-color: pink; -fx-border-width: 2;");
 
         pinkVbox.setPrefWidth(320);
         pinkVbox.setPrefHeight(400);
@@ -109,7 +109,6 @@ public class PlayerSelectScene extends FXGLMenu {
         // indigo vbox within green
         HBox indigoVbox = new HBox(10);
         indigoVbox.setAlignment(javafx.geometry.Pos.CENTER);
-        indigoVbox.setStyle("-fx-border-color: indigo; -fx-border-width: 2;");
 
         indigoVbox.setPrefWidth(320);
         indigoVbox.setPrefHeight(400);
@@ -119,7 +118,6 @@ public class PlayerSelectScene extends FXGLMenu {
         // purple vbox within green
         HBox purpleVbox = new HBox(10);
         purpleVbox.setAlignment(javafx.geometry.Pos.CENTER);
-        purpleVbox.setStyle("-fx-border-color: purple; -fx-border-width: 2;");
 
         purpleVbox.setPrefWidth(320);
         purpleVbox.setPrefHeight(400);
@@ -129,7 +127,6 @@ public class PlayerSelectScene extends FXGLMenu {
         // brown vbox within green
         HBox brownVbox = new HBox(10);
         brownVbox.setAlignment(javafx.geometry.Pos.CENTER);
-        brownVbox.setStyle("-fx-border-color: brown; -fx-border-width: 2;");
 
         brownVbox.setPrefWidth(320);
         brownVbox.setPrefHeight(400);
@@ -140,7 +137,6 @@ public class PlayerSelectScene extends FXGLMenu {
         
         // cyan hbox within black
         HBox cyanHbox = new HBox(10);
-        cyanHbox.setStyle("-fx-border-color: cyan; -fx-border-width: 2;");
         cyanHbox.setAlignment(javafx.geometry.Pos.CENTER);
         cyanHbox.setPrefWidth(1280);
         cyanHbox.setPrefHeight(60);
@@ -150,14 +146,13 @@ public class PlayerSelectScene extends FXGLMenu {
 
         // cyan hbox within cyan
         HBox cyanHbox3 = new HBox(10);
-        cyanHbox3.setStyle("-fx-border-color: cyan; -fx-border-width: 2;");
         cyanHbox3.setAlignment(javafx.geometry.Pos.CENTER);
-        cyanHbox3.setPrefWidth(200);
+        cyanHbox3.setPrefWidth(250);
         cyanHbox3.setPrefHeight(60);
         cyanHbox3.setMaxWidth(1280);
         cyanHbox3.setMaxHeight(60);
-        cyanHbox.setPadding(new Insets(0,0,0,450));
-        HBox.setMargin(cyanHbox3, new Insets(0, 0, 0, 300));
+        cyanHbox.setPadding(new Insets(0,0,30,450));
+        HBox.setMargin(cyanHbox3, new Insets(0, 0, 0, 250));
 
         Text playselectInfo3 = new Text("Single Player");
         playselectInfo3.setFont(Font.font("Tahoma", FontWeight.BOLD, 60)); 
@@ -170,12 +165,28 @@ public class PlayerSelectScene extends FXGLMenu {
         playselectInfoOutline3.setStrokeWidth(8);     
         StackPane textStack3 = new StackPane();
 
-        Button pSelectButton = new Button("Create Player");
+        Media hoverSound = new Media(getClass().getResource("/assets/sounds/hoverSoundfx.mp3").toExternalForm());
+        MediaPlayer hoverMedia = new MediaPlayer(hoverSound);
+        Media clickedSound = new Media(getClass().getResource("/assets/sounds/clickedSoundfx.mp3").toExternalForm());
+        MediaPlayer clickedMedia = new MediaPlayer(clickedSound);
+
+        Button pSelectButton = new Button("");
+        pSelectButton.setBackground(Background.EMPTY);
+        Image image = new Image(getClass().getResource("/assets/textures/buttons/selectButton.png").toExternalForm());
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(130);
+        imageView.setFitHeight(55);
+        pSelectButton.setGraphic(imageView);
+        applyContinuousBounceEffect(pSelectButton, 500);
+        applyHoverAndClickEffects(pSelectButton, hoverMedia, clickedMedia);
+
         pSelectButton.setOnAction(e -> {
             getSceneService().popSubScene();
             getSceneService().pushSubScene(new WorldSelectScene());
         });
 
+    
+        
         Button pandaButton = new Button("");
         pandaButton.setBackground(Background.EMPTY);
 
@@ -285,7 +296,16 @@ public class PlayerSelectScene extends FXGLMenu {
         // System.out.println("CLICKED OPTIONS");
         // });
 
-        Button goBackButton = new Button("Go Back");
+        Button goBackButton = new Button("");
+        goBackButton.setBackground(Background.EMPTY);
+        Image backImage = new Image(getClass().getResource("/assets/textures/buttons/backButton.png").toExternalForm());
+        ImageView backView = new ImageView(backImage);
+        backView.setFitWidth(100);
+        backView.setFitHeight(70);
+        goBackButton.setGraphic(backView);
+        applyContinuousBounceEffect(goBackButton, 0);
+        applyHoverAndClickEffects(goBackButton, hoverMedia, clickedMedia);
+
         goBackButton.setOnAction(e -> {
             getSceneService().popSubScene();
         });
@@ -304,7 +324,37 @@ public class PlayerSelectScene extends FXGLMenu {
         getContentRoot().getChildren().add(blackVbox);
         textStack.getChildren().addAll(playselectInfoOutline, playselectInfo);
         textStack2.getChildren().addAll(playselectInfoOutline2, playselectInfo2);
-        textStack3.getChildren().addAll(playselectInfoOutline3, playselectInfo3);
+        textStack3.getChildren().addAll(playselectInfoOutline3, playselectInfo3);  
     }
+//bounce animation
+    public static void applyContinuousBounceEffect(Node node, double delay) {
+        TranslateTransition bounce = new TranslateTransition(Duration.millis(600), node);
+        bounce.setByY(-5);
+        bounce.setAutoReverse(true);
+        bounce.setCycleCount(TranslateTransition.INDEFINITE);
+        bounce.setDelay(Duration.millis(delay));
+        bounce.play();
+    }
+//hover effect + media
+     public static void applyHoverAndClickEffects(Button button, MediaPlayer hoverMedia, MediaPlayer clickedMedia) {
+        button.setOnMouseEntered(e -> {
+            System.out.println("Hover event triggered");
+            hoverMedia.stop();
+            hoverMedia.play();
+            button.setScaleX(1.1);
+            button.setScaleY(1.1);
+        });
 
+        button.setOnMouseExited(e -> {
+            System.out.println("Exit hover event triggered");
+            button.setScaleX(1.0);
+            button.setScaleY(1.0);
+        });
+
+        button.setOnMousePressed(e -> {
+            System.out.println("Click event triggered");
+            clickedMedia.stop();
+            clickedMedia.play();
+        });
+    }
 }

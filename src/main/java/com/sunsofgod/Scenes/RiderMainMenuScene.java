@@ -35,6 +35,12 @@ public class RiderMainMenuScene extends FXGLMenu {
     public RiderMainMenuScene() {
         super(MenuType.MAIN_MENU);
 
+        // hover soundfx + clicked sound fx
+        Media hoverSound = new Media(getClass().getResource("/assets/sounds/hoverSoundfx.mp3").toExternalForm());
+        MediaPlayer hoverMedia = new MediaPlayer(hoverSound);
+        Media clickedSound = new Media(getClass().getResource("/assets/sounds/clickedSoundfx.mp3").toExternalForm());
+        MediaPlayer clickedMedia = new MediaPlayer(clickedSound);
+
         // Image backgroundImage = new
         // Image(getClass().getResource("/assets/textures/backgroundMainMenu.gif").toExternalForm());
         // ImageView backgroundView = new ImageView(backgroundImage);
@@ -69,7 +75,8 @@ public class RiderMainMenuScene extends FXGLMenu {
         gameNameOutline.setStroke(Color.web("#2d5d8c"));
         gameNameOutline.setStrokeWidth(11);
         StackPane textStack = new StackPane();
-
+        Animation.applyContinuousBounceEffect(textStack, 1500);
+        
         // orange hbox within black
         HBox orangeHbox = new HBox(10);
         orangeHbox.setAlignment(javafx.geometry.Pos.CENTER);
@@ -116,38 +123,11 @@ public class RiderMainMenuScene extends FXGLMenu {
         imageView.setFitWidth(180);
         imageView.setFitHeight(180);
         startButton.setGraphic(imageView);
+        Animation.applyContinuousBounceEffect(startButton, 500);
+        Animation.applyHoverAndClickEffects(startButton, hoverMedia, clickedMedia);
 
-        // hover soundfx, clicked sound fx
-        Media hoverSound = new Media(getClass().getResource("/assets/sounds/hoverSoundfx.mp3").toExternalForm());
-        MediaPlayer hoverMedia = new MediaPlayer(hoverSound);
-        Media clickedSound = new Media(getClass().getResource("/assets/sounds/clickedSoundfx.mp3").toExternalForm());
-        MediaPlayer clickedMedia = new MediaPlayer(clickedSound);
-
-        startButton.setOnMouseEntered(e -> {
-            hoverMedia.stop();
-            hoverMedia.play();
-
-            startButton.setScaleX(1.1);
-            startButton.setScaleY(1.1);
-
-            // button animation
-            TranslateTransition startBounce = new TranslateTransition(Duration.millis(400), startButton);
-            startBounce.setByY(-5);
-            startBounce.setAutoReverse(true);
-            startBounce.setCycleCount(TranslateTransition.INDEFINITE);
-            startBounce.play();
-
-            startButton.setUserData(startBounce);
-        });
-
-        startButton.setOnMouseExited(e -> {
-            startButton.setScaleX(1.0);
-            startButton.setScaleY(1.0);
-        });
-
-        startButton.setOnMousePressed(e -> {
-            clickedMedia.stop();
-            clickedMedia.play();
+        
+        startButton.setOnAction(e -> {
             getSceneService().pushSubScene(new PlayerSelectScene());
             // getSceneService().pushSubScene(new VideokeScene()); call this when videoke
             // ready
@@ -161,25 +141,8 @@ public class RiderMainMenuScene extends FXGLMenu {
         optionView.setFitWidth(150);
         optionView.setFitHeight(150);
         optionButton.setGraphic(optionView);
-
-        optionButton.setOnMouseEntered(e -> {
-            hoverMedia.stop();
-            hoverMedia.play();
-
-            optionButton.setScaleX(1.1);
-            optionButton.setScaleY(1.1);
-        });
-
-        optionButton.setOnMouseExited(e -> {
-            optionButton.setScaleX(1.0);
-            optionButton.setScaleY(1.0);
-        });
-
-        optionButton.setOnMousePressed(e -> {
-            clickedMedia.stop();
-            clickedMedia.play();
-            System.out.println("CLICKED OPTIONS");
-        });
+        Animation.applyContinuousBounceEffect(optionButton, 1000);
+        Animation.applyHoverAndClickEffects(optionButton, hoverMedia, clickedMedia);
 
         Button exitButton = new Button("");
         exitButton.setBackground(Background.EMPTY);
@@ -188,30 +151,13 @@ public class RiderMainMenuScene extends FXGLMenu {
         exitView.setFitWidth(150);
         exitView.setFitHeight(150);
         exitButton.setGraphic(exitView);
-
-        exitButton.setOnMouseEntered(e -> {
-            hoverMedia.stop();
-            hoverMedia.play();
-
-            exitButton.setScaleX(1.1);
-            exitButton.setScaleY(1.1);
+        Animation.applyContinuousBounceEffect(exitButton, 0);
+        Animation.applyHoverAndClickEffects(exitButton, hoverMedia, clickedMedia);
+        exitButton.setOnAction(e -> {
+            System.out.println("Exit button pressed. Terminating program.");
+            System.exit(0); // This will close the application
         });
 
-        exitButton.setOnMouseExited(e -> {
-            exitButton.setScaleX(1.0);
-            exitButton.setScaleY(1.0);
-        });
-
-        exitButton.setOnMousePressed(e -> {
-            clickedMedia.stop();
-            clickedMedia.play();
-            System.exit(0);
-        });
-
-        applyContinuousBounceEffect(exitButton, 0);
-        applyContinuousBounceEffect(startButton, 500);
-        applyContinuousBounceEffect(optionButton, 1000);
-        applyContinuousBounceEffect(textStack, 1500);
         // hierarachy
         // getContentRoot().getChildren().add(backgroundView);
         blackVbox.getChildren().addAll(yellowHbox, orangeHbox);
@@ -226,14 +172,5 @@ public class RiderMainMenuScene extends FXGLMenu {
         // PANLAGAY CLIPPING ETC.)
         // Pede rin magsearch ng ano kung pano yung nagalaw na background na wallpaper
         // ng mga parcel tapos stripes background
-    }
-
-    public void applyContinuousBounceEffect(Node node, double delay) {
-        TranslateTransition bounce = new TranslateTransition(Duration.millis(600), node);
-        bounce.setByY(-5);
-        bounce.setAutoReverse(true);
-        bounce.setCycleCount(TranslateTransition.INDEFINITE);
-        bounce.setDelay(Duration.millis(delay));
-        bounce.play();
     }
 }
