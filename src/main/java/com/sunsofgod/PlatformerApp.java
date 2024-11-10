@@ -40,7 +40,6 @@ import java.io.IOException;
 
 public class PlatformerApp extends GameApplication {
 
-    ObjectMapper objectMapper = new ObjectMapper();
     // sets the timer to be off at the start
     private boolean timerOnP1 = false;
     private boolean timerOnP2 = false;
