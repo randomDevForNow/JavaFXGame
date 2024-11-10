@@ -73,14 +73,15 @@ public class PlayerSelectScene extends FXGLMenu {
         Text playselectInfo = new Text("Choose your Rider");
         playselectInfo.setFont(Font.font("Tahoma", FontWeight.BOLD, 60)); 
         playselectInfo.setFill(Color.WHITE); 
+       
 
         Text playselectInfoOutline = new Text("Choose your Rider");
         playselectInfoOutline.setFont(Font.font("Tahoma", FontWeight.BOLD, 60));  
         playselectInfoOutline.setFill(Color.TRANSPARENT);  
         playselectInfoOutline.setStroke(Color.web("#2d5d8c"));       
-        playselectInfoOutline.setStrokeWidth(8);     
+        playselectInfoOutline.setStrokeWidth(8); 
         StackPane textStack = new StackPane();
-
+        Animation.applyContinuousBounceEffect(textStack, 250);
         // red hbox within black
         HBox redHbox = new HBox(10);
         redHbox.setAlignment(javafx.geometry.Pos.CENTER);
@@ -92,6 +93,7 @@ public class PlayerSelectScene extends FXGLMenu {
         Text playselectInfo2 = new Text("Select multiple for Multiplayer");
         playselectInfo2.setFont(Font.font("Tahoma", FontWeight.BOLD, 40)); 
         playselectInfo2.setFill(Color.WHITE); 
+      
 
         Text playselectInfoOutline2 = new Text("Select multiple for Multiplayer");
         playselectInfoOutline2.setFont(Font.font("Tahoma", FontWeight.BOLD, 40));  
@@ -99,6 +101,7 @@ public class PlayerSelectScene extends FXGLMenu {
         playselectInfoOutline2.setStroke(Color.web("#2d5d8c"));       
         playselectInfoOutline2.setStrokeWidth(3);     
         StackPane textStack2 = new StackPane();
+       Animation.applyContinuousBounceEffect(textStack2, 750);
 
         // green hbox within black
         HBox greenHbox = new HBox(10);
@@ -176,6 +179,7 @@ public class PlayerSelectScene extends FXGLMenu {
         playselectInfoOutline3.setStroke(Color.web("#2d5d8c"));       
         playselectInfoOutline3.setStrokeWidth(8);     
         StackPane textStack3 = new StackPane();
+        Animation.applyContinuousBounceEffect(textStack3, 950);
 
         Media hoverSound = new Media(getClass().getResource("/assets/sounds/hoverSoundfx.mp3").toExternalForm());
         MediaPlayer hoverMedia = new MediaPlayer(hoverSound);
@@ -211,7 +215,8 @@ public class PlayerSelectScene extends FXGLMenu {
         pandaView.setFitWidth(200);
         pandaView.setFitHeight(200);
         pandaButton.setGraphic(pandaView);
-
+        Animation.applyContinuousBounceEffect(pandaButton, 0);
+        Animation.applyHoverAndClickEffects(pandaButton, hoverMedia, clickedMedia);
         final boolean[] pandaClicked = { false };
 
         pandaButton.setOnAction(e -> {
@@ -261,7 +266,8 @@ public class PlayerSelectScene extends FXGLMenu {
         shoppeeView.setFitWidth(200);
         shoppeeView.setFitHeight(200);
         shoppeeButton.setGraphic(shoppeeView);
-
+        Animation.applyContinuousBounceEffect(shoppeeButton, 500);
+        Animation.applyHoverAndClickEffects(shoppeeButton, hoverMedia, clickedMedia);
         final boolean[] shoppeeClicked = { false };
 
         shoppeeButton.setOnAction(e -> {
@@ -300,7 +306,8 @@ public class PlayerSelectScene extends FXGLMenu {
 
         Button lazadaButton = new Button("");
         lazadaButton.setBackground(Background.EMPTY);
-
+        Animation.applyContinuousBounceEffect(lazadaButton, 1000);
+        Animation.applyHoverAndClickEffects(lazadaButton, hoverMedia, clickedMedia);
         Image unclickedlazadaImage = new Image(
                 getClass().getResource("/assets/textures/buttons/unclickedlazadaButton.png").toExternalForm());
         Image clickedlazadaImage = new Image(
@@ -348,7 +355,8 @@ public class PlayerSelectScene extends FXGLMenu {
 
         Button zaloraButton = new Button("");
         zaloraButton.setBackground(Background.EMPTY);
-
+        Animation.applyContinuousBounceEffect(zaloraButton, 1500);
+        Animation.applyHoverAndClickEffects(zaloraButton, hoverMedia, clickedMedia);
         Image unclickedzaloraImage = new Image(
                 getClass().getResource("/assets/textures/buttons/unclickedzaloraButton.png").toExternalForm());
         Image clickedzaloraImage = new Image(
