@@ -20,6 +20,7 @@ public class Animation {
 
 //hover effect + media
      public static void applyHoverAndClickEffects(Button button, MediaPlayer hoverMedia, MediaPlayer clickedMedia) {
+       
         button.setOnMouseEntered(e -> {
             hoverMedia.stop();
             hoverMedia.play();
