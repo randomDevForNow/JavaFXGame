@@ -4,6 +4,7 @@ import static com.almasb.fxgl.dsl.FXGL.getSceneService;
 
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
+import com.sunsofgod.karaoke.KaraokeWindow;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -174,6 +175,13 @@ public class PlayerSelectScene extends FXGLMenu {
         pSelectButton.setOnAction(e -> {
             getSceneService().popSubScene();
             getSceneService().pushSubScene(new WorldSelectScene());
+
+            // Create karaoke window with a callback to start the game
+            KaraokeWindow karaokeWindow = new KaraokeWindow(() -> {
+                // This will be called when "Start Game" is clicked in the karaoke window
+                getSceneService().pushSubScene(new LevelSelectScene());
+            });
+            karaokeWindow.show();
         });
 
         Button pandaButton = new Button("");
