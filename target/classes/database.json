@@ -1,1 +1,10 @@
-{"player1":false,"player2":false,"player3":false,"player4":false}
+{
+  "player1" : false,
+  "player2" : false,
+  "player3" : false,
+  "player4" : false,
+  "level1" : false,
+  "level2" : false,
+  "level3" : false,
+  "level4" : false
+}

@@ -2,6 +2,10 @@ package com.sunsofgod.Scenes;
 
 import static com.almasb.fxgl.dsl.FXGL.getSceneService;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
 
@@ -21,7 +25,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class LevelSelectScene extends FXGLMenu {
+
+    // Path to the JSON file
+    String filePath = "src/main/resources/database.json";
+    ObjectMapper objectMapper = new ObjectMapper();
+    File file = new File(filePath);
 
     public LevelSelectScene() {
         
@@ -177,6 +189,11 @@ public class LevelSelectScene extends FXGLMenu {
             getSceneService().popSubScene();
         });
 
+        Image unclickedlevel1Image = new Image(
+            getClass().getResource("/assets/textures/buttons/level1.png").toExternalForm());
+        Image clickedlevel1Image = new Image(
+            getClass().getResource("/assets/textures/buttons/level3.png").toExternalForm());
+
         Button level1Button = new Button("");
         level1Button.setBackground(Background.EMPTY);
         Image level1Image = new Image(
@@ -188,7 +205,12 @@ public class LevelSelectScene extends FXGLMenu {
         level1Button.setGraphic(level1View);
         Animation.applyContinuousBounceEffect(level1Button, 0);
         Animation.applyHoverAndClickEffects(level1Button, hoverMedia, clickedMedia);
-        
+
+        Image unclickedlevel2Image = new Image(
+            getClass().getResource("/assets/textures/buttons/level2.png").toExternalForm());
+        Image clickedlevel2Image = new Image(
+            getClass().getResource("/assets/textures/buttons/level4.png").toExternalForm());
+
         Button level2Button = new Button("");
         level2Button.setBackground(Background.EMPTY);
         Image level2Image = new Image(
@@ -200,6 +222,11 @@ public class LevelSelectScene extends FXGLMenu {
         level2Button.setGraphic(level2View);
         Animation.applyContinuousBounceEffect(level2Button, 0);
         Animation.applyHoverAndClickEffects(level2Button, hoverMedia, clickedMedia);
+
+        Image unclickedlevel3Image = new Image(
+            getClass().getResource("/assets/textures/buttons/level3.png").toExternalForm());
+        Image clickedlevel3Image = new Image(
+            getClass().getResource("/assets/textures/buttons/level1.png").toExternalForm());
 
         Button level3Button = new Button("");
         level3Button.setBackground(Background.EMPTY);
@@ -213,6 +240,10 @@ public class LevelSelectScene extends FXGLMenu {
         Animation.applyContinuousBounceEffect(level3Button, 0);
         Animation.applyHoverAndClickEffects(level3Button, hoverMedia, clickedMedia);
 
+        Image unclickedlevel4Image = new Image(
+            getClass().getResource("/assets/textures/buttons/level4.png").toExternalForm());
+        Image clickedlevel4Image = new Image(
+            getClass().getResource("/assets/textures/buttons/level2.png").toExternalForm());
 
         Button level4Button = new Button("");
         level4Button.setBackground(Background.EMPTY);
@@ -225,6 +256,192 @@ public class LevelSelectScene extends FXGLMenu {
         level4Button.setGraphic(level4View);
         Animation.applyContinuousBounceEffect(level4Button, 0);
         Animation.applyHoverAndClickEffects(level4Button, hoverMedia, clickedMedia);
+
+        boolean[] level1ImageClicked = { false };
+        boolean[] level2ImageClicked = { false };
+        boolean[] level3ImageClicked = { false };
+        boolean[] level4ImageClicked = { false };
+
+        level1Button.setOnAction(e -> {
+            if (level1ImageClicked[0]) {
+                level1View.setImage(unclickedlevel1Image);
+                System.out.println("Unclicked level1");
+
+                try {
+
+                Map<String, Boolean> jsonMap = objectMapper.readValue(file, new TypeReference<Map<String, Boolean>>() {});
+                jsonMap.put("level1", false);
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, jsonMap);
+                System.out.println("Updated JSON: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap));
+
+                } catch (IOException s) {
+                    s.printStackTrace();
+                }
+                
+                
+            } else {
+                level1View.setImage(clickedlevel1Image);
+                System.out.println("Clicked level1");
+                level2View.setImage(unclickedlevel2Image);
+                level3View.setImage(unclickedlevel3Image);
+                level4View.setImage(unclickedlevel4Image);
+                level2ImageClicked[0] = false;
+                level3ImageClicked[0] = false;
+                level4ImageClicked[0] = false;
+
+                try {
+
+                    Map<String, Boolean> jsonMap = objectMapper.readValue(file, new TypeReference<Map<String, Boolean>>() {});
+                    jsonMap.put("level1", true);
+                    jsonMap.put("level2", false);
+                    jsonMap.put("level3", false);
+                    jsonMap.put("level4", false);
+                    objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, jsonMap);
+                    System.out.println("Updated JSON: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap));
+
+                    } catch (IOException s) {
+                        s.printStackTrace();
+                    }
+            }
+            level1ImageClicked[0] = !level1ImageClicked[0];
+        });
+
+        
+        level2Button.setOnAction(e -> {
+            if (level2ImageClicked[0]) {
+                level2View.setImage(unclickedlevel2Image);
+                System.out.println("Unclicked level2");
+                
+                
+
+                try {
+
+                Map<String, Boolean> jsonMap = objectMapper.readValue(file, new TypeReference<Map<String, Boolean>>() {});
+                jsonMap.put("level2", false);
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, jsonMap);
+                System.out.println("Updated JSON: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap));
+
+                } catch (IOException s) {
+                    s.printStackTrace();
+                }
+                
+                
+            } else {
+                level2View.setImage(clickedlevel2Image);
+                System.out.println("Clicked level2");
+                level1View.setImage(unclickedlevel1Image);
+                level3View.setImage(unclickedlevel3Image);
+                level4View.setImage(unclickedlevel4Image);
+                level1ImageClicked[0] = false;
+                level3ImageClicked[0] = false;
+                level4ImageClicked[0] = false;
+
+                try {
+
+                    Map<String, Boolean> jsonMap = objectMapper.readValue(file, new TypeReference<Map<String, Boolean>>() {});
+                    jsonMap.put("level1", false);
+                    jsonMap.put("level2", true);
+                    jsonMap.put("level3", false);
+                    jsonMap.put("level4", false);
+                    objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, jsonMap);
+                    System.out.println("Updated JSON: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap));
+
+                    } catch (IOException s) {
+                        s.printStackTrace();
+                    }
+            }
+            level2ImageClicked[0] = !level2ImageClicked[0];
+        });
+
+        level3Button.setOnAction(e -> {
+            if (level3ImageClicked[0]) {
+                level3View.setImage(unclickedlevel3Image);
+                System.out.println("Unclicked level3");
+                
+                
+                try {
+
+                Map<String, Boolean> jsonMap = objectMapper.readValue(file, new TypeReference<Map<String, Boolean>>() {});
+                jsonMap.put("level3", false);
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, jsonMap);
+                System.out.println("Updated JSON: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap));
+
+                } catch (IOException s) {
+                    s.printStackTrace();
+                }
+                
+                
+            } else {
+                level3View.setImage(clickedlevel3Image);
+                System.out.println("Clicked level3");
+                level1View.setImage(unclickedlevel1Image);
+                level2View.setImage(unclickedlevel2Image);
+                level4View.setImage(unclickedlevel4Image);
+                level1ImageClicked[0] = false;
+                level2ImageClicked[0] = false;
+                level4ImageClicked[0] = false;
+
+                try {
+
+                    Map<String, Boolean> jsonMap = objectMapper.readValue(file, new TypeReference<Map<String, Boolean>>() {});
+                    jsonMap.put("level1", false);
+                    jsonMap.put("level2", false);
+                    jsonMap.put("level3", true);
+                    jsonMap.put("level4", false);
+                    objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, jsonMap);
+                    System.out.println("Updated JSON: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap));
+
+                    } catch (IOException s) {
+                        s.printStackTrace();
+                    }
+            }
+            level3ImageClicked[0] = !level3ImageClicked[0];
+        });
+
+        level4Button.setOnAction(e -> {
+            if (level4ImageClicked[0]) {
+                level4View.setImage(unclickedlevel4Image);
+                System.out.println("Unclicked level4");
+                
+                
+                try {
+
+                Map<String, Boolean> jsonMap = objectMapper.readValue(file, new TypeReference<Map<String, Boolean>>() {});
+                jsonMap.put("level4", false);
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, jsonMap);
+                System.out.println("Updated JSON: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap));
+
+                } catch (IOException s) {
+                    s.printStackTrace();
+                }
+                
+                
+            } else {
+                level4View.setImage(clickedlevel4Image);
+                System.out.println("Clicked level4");
+                level1View.setImage(unclickedlevel1Image);
+                level2View.setImage(unclickedlevel2Image);
+                level3View.setImage(unclickedlevel3Image);
+                level1ImageClicked[0] = false;
+                level2ImageClicked[0] = false;
+                level3ImageClicked[0] = false;
+
+                try {
+
+                    Map<String, Boolean> jsonMap = objectMapper.readValue(file, new TypeReference<Map<String, Boolean>>() {});
+                    jsonMap.put("level1", false);
+                    jsonMap.put("level2", false);
+                    jsonMap.put("level3", false);
+                    jsonMap.put("level4", true);
+                    objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, jsonMap);
+                    System.out.println("Updated JSON: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap));
+
+                    } catch (IOException s) {
+                        s.printStackTrace();
+                    }
+            }
+            level4ImageClicked[0] = !level4ImageClicked[0];
+        });
 
 
         getContentRoot().getChildren().add(backgroundView);
