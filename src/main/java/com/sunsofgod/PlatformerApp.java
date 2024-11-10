@@ -43,6 +43,8 @@ public class PlatformerApp extends GameApplication {
     // sets the timer to be off at the start
     private boolean timerOnP1 = false;
     private boolean timerOnP2 = false;
+    private boolean timerOnP3 = false;
+    private boolean timerOnP4 = false;
 
     private static final int MAX_LEVEL = 5;
     private static final int STARTING_LEVEL = 0;
@@ -97,6 +99,8 @@ public class PlatformerApp extends GameApplication {
     private KeyCode[][] bindings = new KeyCode[][] {
             { KeyCode.W, KeyCode.A, KeyCode.D, KeyCode.E },
             { KeyCode.UP, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.SLASH },
+            { KeyCode.I, KeyCode.J, KeyCode.L, KeyCode.O },
+            { KeyCode.G, KeyCode.V, KeyCode.N, KeyCode.H },
 
     };
 
@@ -166,8 +170,10 @@ public class PlatformerApp extends GameApplication {
         // vars.put("score", 0);
 
         // global variables for timers
-        vars.put("levelTimeP1", 1000);
-        vars.put("levelTimeP2", 1000);
+        vars.put("levelTimeP1", 0);
+        vars.put("levelTimeP2", 0);
+        vars.put("levelTimeP1", 0);
+        vars.put("levelTimeP2", 0);
     }
 
     @Override
@@ -185,7 +191,7 @@ public class PlatformerApp extends GameApplication {
             player = null;
         }
 
-        System.out.println("ASOOOOOO");
+       
 
         nextLevel();
 
@@ -223,6 +229,7 @@ public class PlatformerApp extends GameApplication {
         onCollision(PLAYER, PLAYER, (player1, player2) -> {
             player1.getComponent(PlayerComponent.class).stop();
             player2.getComponent(PlayerComponent.class).stop();
+            
 
             // if touching, stick
 
@@ -248,12 +255,36 @@ public class PlatformerApp extends GameApplication {
         // starts the indvidual timers based on a collision with an object
         onCollision(PLAYER, EXIT_SIGN, (player, sign) -> {
 
-            if (player == players[0]) {
-                timerOnP1 = true;
+            try {
+                if (player == players[0]) {
+                    timerOnP1 = true;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                // Handle exception if players[0] does not exist
             }
-
-            if (player == players[1]) {
-                timerOnP2 = true;
+            
+            try {
+                if (player == players[1]) {
+                    timerOnP2 = true;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                // Handle exception if players[1] does not exist
+            }
+            
+            try {
+                if (player == players[2]) {
+                    timerOnP3 = true;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                // Handle exception if players[2] does not exist
+            }
+            
+            try {
+                if (player == players[3]) {
+                    timerOnP4 = true;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                // Handle exception if players[3] does not exist
             }
         });
 
@@ -334,6 +365,20 @@ public class PlatformerApp extends GameApplication {
         timeLabelP2.setFont(Font.font(20.0));
         timeLabelP2.textProperty().bind(FXGL.getip("levelTimeP2").asString("P2 Timer:" + "%d"));
         FXGL.addUINode(timeLabelP2, 20, 30);
+
+        // player 3 timer
+        Label timeLabelP3 = new Label();
+        timeLabelP3.setTextFill(Color.BLACK);
+        timeLabelP3.setFont(Font.font(20.0));
+        timeLabelP3.textProperty().bind(FXGL.getip("levelTimeP3").asString("P3 Timer:" + "%d"));
+        FXGL.addUINode(timeLabelP3, 20, 50);
+
+        // player 4 timer
+        Label timeLabelP4 = new Label();
+        timeLabelP4.setTextFill(Color.BLACK);
+        timeLabelP4.setFont(Font.font(20.0));
+        timeLabelP4.textProperty().bind(FXGL.getip("levelTimeP4").asString("P4 Timer:" + "%d"));
+        FXGL.addUINode(timeLabelP4, 20, 70);
     }
 
     @Override
@@ -365,8 +410,14 @@ public class PlatformerApp extends GameApplication {
         if (timerOnP2 == true) {
             inc("levelTimeP2", -1);
         }
+        if (timerOnP3 == true) {
+            inc("levelTimeP3", -1);
+        }
+        if (timerOnP4 == true) {
+            inc("levelTimeP4", -1);
+        }
         // restarts the level if the timer/s reach 0
-        if (FXGL.geti("levelTimeP1") == 0 || FXGL.geti("levelTimeP2") == 0) {
+        if (FXGL.geti("levelTimeP1") == 0 || FXGL.geti("levelTimeP2") == 0 || FXGL.geti("levelTimeP3") == 0 || FXGL.geti("levelTimeP4") == 0) {
             onPlayerDied();
         }
     }
@@ -389,8 +440,12 @@ public class PlatformerApp extends GameApplication {
         // resets the timer/s every level
         set("levelTimeP1", 1000);
         set("levelTimeP2", 1000);
+        set("levelTimeP3", 1000);
+        set("levelTimeP4", 1000);
         timerOnP1 = false;
         timerOnP2 = false;
+        timerOnP3 = false;
+        timerOnP4 = false;
 
         Level level = setLevelFromMap("tmx/level" + levelNum + ".tmx");
 
