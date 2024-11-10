@@ -1,36 +1,45 @@
 package com.sunsofgod;
 
 import com.almasb.fxgl.animation.Interpolators;
-import com.almasb.fxgl.app.ApplicationMode;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
+import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.app.scene.LoadingScene;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.app.scene.Viewport;
-import com.almasb.fxgl.core.util.LazyValue;
+import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.entity.level.Level;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.input.view.KeyView;
-import com.almasb.fxgl.input.virtual.VirtualButton;
 import com.almasb.fxgl.physics.PhysicsComponent;
+
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
-
 import java.util.Map;
+
+import org.jetbrains.annotations.NotNull;
+
+import com.sunsofgod.Scenes.*;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.sunsofgod.EntityType.*;
 
 public class PlatformerApp extends GameApplication {
 
-    private static final int MAX_LEVEL = 6;
-    private static final int STARTING_LEVEL = 5;
+    // sets the timer to be off at the start
+    private boolean timerOnP1 = false;
+    private boolean timerOnP2 = false;
+
+    private static final int MAX_LEVEL = 5;
+    private static final int STARTING_LEVEL = 0;
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -40,75 +49,107 @@ public class PlatformerApp extends GameApplication {
         settings.setMainMenuEnabled(true);
         System.out.println("Hello!");
 
+        settings.setDeveloperMenuEnabled(true);
         /* Set Loading Screen Here: */
 
-        // settings.setSceneFactory(new SceneFactory() {
-        // @Override
-        // public LoadingScene newLoadingScene() {
-        // return new MainLoadingScene();
-        // }
-        // });
-        // settings.setApplicationMode(ApplicationMode.DEVELOPER);
+        settings.setSceneFactory(new SceneFactory() {
+            @NotNull
+            @Override
+            public LoadingScene newLoadingScene() {
+                return new MainLoadingScene();
+            }
+
+            @NotNull
+            @Override
+            public FXGLMenu newMainMenu() {
+                return new RiderMainMenuScene();
+            }
+
+            /*
+             * Uncomment nyo ito para maedit yung
+             * Pause Menu natin yung kapag
+             * Nagpress ng escape yung user/s
+             * May lalabas na resume, option,
+             * go to main menu, go to level select
+             * goto
+             */
+            // @NotNull
+            // @Override
+            // public FXGLMenu newGameMenu() {
+            // return new PauseMenuScene();
+            // }
+
+        });
     }
 
     /* Get for ending the game (Init level refunds and scoreboard) */
     // private LazyValue<LevelEndScene> levelEndScene = new LazyValue<>(() -> new
     // LevelEndScene());
-    private Entity player;
 
-    @Override
-    protected void initInput() {
-        getInput().addAction(new UserAction("Left") {
-            @Override
-            protected void onAction() {
-                player.getComponent(PlayerComponent.class).left();
-            }
+    private Entity[] players = new Entity[2];
 
-            @Override
-            protected void onActionEnd() {
-                player.getComponent(PlayerComponent.class).stop();
-            }
-        }, KeyCode.A, VirtualButton.LEFT);
+    private KeyCode[][] bindings = new KeyCode[][] {
+            { KeyCode.W, KeyCode.A, KeyCode.D, KeyCode.E },
+            { KeyCode.UP, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.SLASH },
 
-        getInput().addAction(new UserAction("Right") {
-            @Override
-            protected void onAction() {
-                player.getComponent(PlayerComponent.class).right();
-            }
+    };
 
-            @Override
-            protected void onActionEnd() {
-                player.getComponent(PlayerComponent.class).stop();
-            }
-        }, KeyCode.S, VirtualButton.RIGHT);
+    private void bindKeys() {
+        int counter = 0;
+        for (Entity player : players) {
+            getInput().addAction(new UserAction("Jump" + counter) {
+                @Override
+                protected void onActionBegin() {
+                    player.getComponent(PlayerComponent.class).jump();
+                }
+            }, bindings[counter][0]);
 
-        getInput().addAction(new UserAction("Jump") {
-            @Override
-            protected void onActionBegin() {
-                player.getComponent(PlayerComponent.class).jump();
-            }
-        }, KeyCode.W, VirtualButton.A);
+            getInput().addAction(new UserAction("Left" + counter) {
+                @Override
+                protected void onAction() {
+                    player.getComponent(PlayerComponent.class).left();
+                }
 
-        getInput().addAction(new UserAction("Use") {
-            @Override
-            protected void onActionBegin() {
-                /* For Getting Mail */
-                getGameWorld().getEntitiesByType(BUTTON)
-                        .stream()
-                        .filter(btn -> btn.hasComponent(CollidableComponent.class) && player.isColliding(btn))
-                        .forEach(btn -> {
-                            btn.removeComponent(CollidableComponent.class);
+                @Override
+                protected void onActionEnd() {
+                    player.getComponent(PlayerComponent.class).stop();
+                }
+            }, bindings[counter][1]);
 
-                            Entity keyEntity = btn.getObject("keyEntity");
-                            keyEntity.setProperty("activated", true);
+            getInput().addAction(new UserAction("Right" + counter) {
+                @Override
+                protected void onAction() {
+                    player.getComponent(PlayerComponent.class).right();
+                }
 
-                            KeyView view = (KeyView) keyEntity.getViewComponent().getChildren().get(0);
-                            view.setKeyColor(Color.RED);
+                @Override
+                protected void onActionEnd() {
+                    player.getComponent(PlayerComponent.class).stop();
+                }
+            }, bindings[counter][2]);
 
-                            makeExitDoor();
-                        });
-            }
-        }, KeyCode.F, VirtualButton.B);
+            getInput().addAction(new UserAction("Use" + counter) {
+                @Override
+                protected void onActionBegin() {
+                    /* For Getting Mail */
+                    getGameWorld().getEntitiesByType(BUTTON)
+                            .stream()
+                            .filter(btn -> btn.hasComponent(CollidableComponent.class) && player.isColliding(btn))
+                            .forEach(btn -> {
+                                btn.removeComponent(CollidableComponent.class);
+
+                                Entity keyEntity = btn.getObject("keyEntity");
+                                keyEntity.setProperty("activated", true);
+
+                                KeyView view = (KeyView) keyEntity.getViewComponent().getChildren().get(0);
+                                view.setKeyColor(Color.RED);
+
+                                makeExitDoor();
+                            });
+                }
+            }, bindings[counter][3]);
+            counter++;
+        }
     }
 
     /* For Global Variables (Refunds of each player) */
@@ -117,6 +158,10 @@ public class PlatformerApp extends GameApplication {
         vars.put("level", STARTING_LEVEL);
         // vars.put("levelTime", 0.0);
         // vars.put("score", 0);
+
+        // global variables for timers
+        vars.put("levelTimeP1", 1000);
+        vars.put("levelTimeP2", 1000);
     }
 
     @Override
@@ -130,32 +175,52 @@ public class PlatformerApp extends GameApplication {
     protected void initGame() {
         getGameWorld().addEntityFactory(new PlatformerFactory());
 
-        player = null;
+        for (Entity player : players) {
+            player = null;
+        }
+
+        System.out.println("ASOOOOOO");
+
         nextLevel();
 
         // player must be spawned after call to nextLevel, otherwise player gets removed
         // before the update tick _actually_ adds the player to game world
-        player = spawn("player", 50, 50);
+        for (int i = 0; i < players.length; i++) {
+            players[i] = spawn("player", 50 + i * 100, 50); // Spawn and assign players
+            set("player" + i, players[i]); // Optionally store in the global map
+        }
 
-        set("player", player);
+        bindKeys();
 
         spawn("background");
 
         /* Follows the player (can be turned off) */
         Viewport viewport = getGameScene().getViewport();
         viewport.setBounds(-1500, 0, 250 * 70, getAppHeight());
-        viewport.bindToEntity(player, getAppWidth() / 2, getAppHeight() / 2);
+        // viewport.bindToEntity(player, getAppWidth() / 2, getAppHeight() / 2);
         viewport.setLazy(true);
     }
 
     @Override
     protected void initPhysics() {
-        getPhysicsWorld().setGravity(0, 760);
+
+        getPhysicsWorld().setGravity(0, 980);
         getPhysicsWorld().addCollisionHandler(new PlayerButtonHandler());
 
         // Set collision of player and mail here:
 
         /* Physics Interaction */
+
+        /* PLAYER COLLISION HANLDERS */
+
+        // Adjust this to include player 3 and 4 collisions
+        onCollision(PLAYER, PLAYER, (player1, player2) -> {
+            player1.getComponent(PlayerComponent.class).stop();
+            player2.getComponent(PlayerComponent.class).stop();
+
+            // if touching, stick
+
+        });
 
         onCollisionOneTimeOnly(PLAYER, EXIT_SIGN, (player, sign) -> {
             var texture = texture("exit_sign.png").brighter();
@@ -172,6 +237,17 @@ public class PlatformerApp extends GameApplication {
 
         onCollisionOneTimeOnly(PLAYER, EXIT_TRIGGER, (player, trigger) -> {
             makeExitDoor();
+        });
+
+        // starts the indvidual timers based on a collision with an object
+        onCollision(PLAYER, EXIT_SIGN, (player, sign) -> {
+            if (player == players[0]) {
+                timerOnP1 = true;
+            }
+
+            if (player == players[1]) {
+                timerOnP2 = true;
+            }
         });
 
         onCollisionOneTimeOnly(PLAYER, DOOR_BOT, (player, door) -> {
@@ -237,13 +313,53 @@ public class PlatformerApp extends GameApplication {
             addUINode(dpadView, 0, getAppHeight() - 290);
             addUINode(buttonsView, getAppWidth() - 280, getAppHeight() - 290);
         }
+
+        // player 1 timer
+        Label timeLabelP1 = new Label();
+        timeLabelP1.setTextFill(Color.BLACK);
+        timeLabelP1.setFont(Font.font(20.0));
+        timeLabelP1.textProperty().bind(FXGL.getip("levelTimeP1").asString("P1 Timer:" + "%d"));
+        FXGL.addUINode(timeLabelP1, 20, 10);
+
+        // player 2 timer
+        Label timeLabelP2 = new Label();
+        timeLabelP2.setTextFill(Color.BLACK);
+        timeLabelP2.setFont(Font.font(20.0));
+        timeLabelP2.textProperty().bind(FXGL.getip("levelTimeP2").asString("P2 Timer:" + "%d"));
+        FXGL.addUINode(timeLabelP2, 20, 30);
     }
 
     @Override
     protected void onUpdate(double tpf) {
         // inc("levelTime", tpf);
 
-        if (player.getY() > getAppHeight()) {
+        // for (Entity player: players){
+        // if (player.getY() > getAppHeight()) {
+        // onPlayerDied();
+        // }
+        // }
+        // resets the properties of the buttons
+        if (FXGL.geti("levelTimeP1") == 1 || FXGL.geti("levelTimeP2") == 1) {
+            getGameWorld().getEntitiesByType(BUTTON)
+                    .stream()
+                    .forEach(btn -> {
+                        btn.removeComponent(CollidableComponent.class);
+
+                        Entity keyEntity = btn.getObject("keyEntity");
+                        keyEntity.setProperty("activated", true);
+
+                    });
+        }
+
+        // handles the countown of the timer/s
+        if (timerOnP1 == true) {
+            inc("levelTimeP1", -1);
+        }
+        if (timerOnP2 == true) {
+            inc("levelTimeP2", -1);
+        }
+        // restarts the level if the timer/s reach 0
+        if (FXGL.geti("levelTimeP1") == 0 || FXGL.geti("levelTimeP2") == 0) {
             onPlayerDied();
         }
     }
@@ -253,12 +369,21 @@ public class PlatformerApp extends GameApplication {
     }
 
     private void setLevel(int levelNum) {
-        if (player != null) {
-            player.getComponent(PhysicsComponent.class).overwritePosition(new Point2D(50, 50));
-            player.setZIndex(Integer.MAX_VALUE);
+
+        for (Entity player : players) {
+            if (player != null) {
+                player.getComponent(PhysicsComponent.class).overwritePosition(new Point2D(50, 50));
+                player.setZIndex(Integer.MAX_VALUE);
+            }
         }
 
         // set("levelTime", 0.0);
+
+        // resets the timer/s every level
+        set("levelTimeP1", 1000);
+        set("levelTimeP2", 1000);
+        timerOnP1 = false;
+        timerOnP2 = false;
 
         Level level = setLevelFromMap("tmx/level" + levelNum + ".tmx");
 

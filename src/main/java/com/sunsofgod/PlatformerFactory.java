@@ -12,6 +12,7 @@ import com.almasb.fxgl.input.view.KeyView;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
+import com.almasb.fxgl.physics.SensorCollisionHandler;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
 import com.almasb.fxgl.ui.FontType;
@@ -21,6 +22,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.CacheHint;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -81,20 +83,25 @@ public class PlatformerFactory implements EntityFactory {
 
         @Spawns("player")
         public Entity newPlayer(SpawnData data) {
-                PhysicsComponent physics = new PhysicsComponent();
-                physics.setBodyType(BodyType.DYNAMIC);
-                physics.addGroundSensor(new HitBox("GROUND_SENSOR", new Point2D(16, 38), BoundingShape.box(6, 8)));
 
                 PlayerComponent playerComponent = new PlayerComponent();
+                PhysicsComponent physics = new PhysicsComponent();
 
-                // This avoids player sticking to walls
+                physics.setBodyType(BodyType.DYNAMIC);
+
+                // Add ground sensor for detecting ground contact
+                physics.addGroundSensor(new HitBox("GROUND_SENSOR", new Point2D(1, 40), BoundingShape.box(30, 2)));
+
+                // Avoid sticking to walls
                 physics.setFixtureDef(new FixtureDef().friction(0.0f));
+
+                // Player HitBox (starting from 0, 0 [top left] to Bounding Box [bottom right])
+                HitBox playerBBox = new HitBox(new Point2D(0, 0), BoundingShape.box(32, 42));
 
                 // Build the player entity
                 Entity player = entityBuilder(data)
                                 .type(PLAYER)
-                                .bbox(new HitBox(new Point2D(5, 5), BoundingShape.circle(12)))
-                                .bbox(new HitBox(new Point2D(10, 25), BoundingShape.box(10, 17)))
+                                .bbox(playerBBox)
                                 .with(physics)
                                 .with(new CollidableComponent(true))
                                 .with(new IrremovableComponent())
@@ -104,12 +111,6 @@ public class PlatformerFactory implements EntityFactory {
                 // Return the player entity
                 return player;
         }
-
-        // spawn player 2
-
-        // spawn player 3
-
-        // spawn player 4
 
         @Spawns("exitSign")
         public Entity newExit(SpawnData data) {
