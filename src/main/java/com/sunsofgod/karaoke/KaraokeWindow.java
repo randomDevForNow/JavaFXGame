@@ -1,17 +1,23 @@
 package com.sunsofgod.karaoke;
 
-import javafx.stage.Stage;
-import javafx.stage.Modality;
-import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.web.WebView;
+import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 public class KaraokeWindow {
     private Stage stage;
@@ -20,7 +26,7 @@ public class KaraokeWindow {
     private StringBuilder currentInput;
     private Label songInfo;
     private final SongList songList;
-    private Runnable onStartGame; // Callback for starting the game
+    private Runnable onStartGame;
     private static WebView activePlayer = null;
 
     public KaraokeWindow(Runnable onStartGame) {
@@ -29,7 +35,6 @@ public class KaraokeWindow {
         this.onStartGame = onStartGame;
         createWindow();
         
-        // Add cleanup on window close
         stage.setOnCloseRequest(e -> {
             cleanup();
             stage.close();
@@ -39,64 +44,277 @@ public class KaraokeWindow {
     private void createWindow() {
         stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Karaoke Song Selection");
-
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Delivery Rush Karaoke");
+    
         // Create main layout
-        VBox root = new VBox(20);
-        root.setPadding(new Insets(20));
+        VBox root = new VBox(10); // Reduced spacing
+        root.setPadding(new Insets(15));
         root.setAlignment(Pos.CENTER);
-
-        // Add information label at the top
-        Label infoLabel = new Label("Press 'M' at any time during the game to change songs");
-        infoLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #666666;");
+        
+        // Set background and size
+        root.setStyle("-fx-background-color: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d);");
+    
+        // Title section
+        Text titleText = new Text("Delivery Rush Karaoke");
+        titleText.setFont(Font.font("Tahoma", FontWeight.BOLD, 36));
+        titleText.setFill(Color.WHITE);
+        titleText.setEffect(new DropShadow(10, Color.BLACK));
+        root.getChildren().add(titleText);
+    
+        // Info label
+        Label infoLabel = createStyledLabel("Press 'M' during game to change songs", 14);
         root.getChildren().add(infoLabel);
-
+    
         // Initialize components
         initializeComponents();
-
-        // YouTube player section
-        youtubePlayer.setPrefSize(640, 360);
-        youtubePlayer.setVisible(false);
-        root.getChildren().add(youtubePlayer);
-
-        // Song information display
-        VBox songInfoBox = new VBox(5);
-        songInfoBox.setAlignment(Pos.CENTER);
+    
+        // Main content area - HBox to split player and controls
+        HBox mainContent = new HBox(15);
+        mainContent.setAlignment(Pos.CENTER);
+    
+        // Left side - YouTube player
+        VBox playerSection = new VBox(10);
+        playerSection.setAlignment(Pos.CENTER);
+        playerSection.setPadding(new Insets(10));
+        playerSection.setStyle("-fx-background-color: rgba(0,0,0,0.7); -fx-background-radius: 10px;");
         
-        // Add category list
-        VBox categoryBox = new VBox(5);
-        categoryBox.setStyle("-fx-padding: 10px; -fx-background-color: #f0f0f0; -fx-background-radius: 5px;");
-        categoryBox.getChildren().addAll(
-            new Label("Song Categories:"),
-            new Label("001-099: Classic Hits"),
-            new Label("101-199: Pop Hits"),
-            new Label("201-299: Rock Classics"),
-            new Label("301-399: Filipino Hits"),
-            new Label("401-499: Modern Pop"),
-            new Label("501-599: Ballads"),
-            new Label("601-699: Party Songs"),
-            new Label("701-799: Recent Hits")
-        );
-        root.getChildren().add(categoryBox);
-
+        // Make player bigger
+        youtubePlayer.setPrefSize(800, 650); // Increased size
+        youtubePlayer.setVisible(false);
+        playerSection.getChildren().addAll(youtubePlayer);
+    
+        // Right side - Controls
+        VBox controlSection = new VBox(10);
+        controlSection.setAlignment(Pos.TOP_CENTER);
+        controlSection.setPrefWidth(300); // Fixed width for controls
+    
         // Input section
-        VBox inputBox = new VBox(10);
-        inputBox.setAlignment(Pos.CENTER);
-        Label inputLabel = new Label("Enter Song Code:");
-        inputLabel.setStyle("-fx-font-size: 16px;");
-        inputBox.getChildren().addAll(inputLabel, inputDisplay, songInfo);
-        root.getChildren().add(inputBox);
-
+        VBox inputBox = createInputSection();
+        
+        // Create a ScrollPane for categories to make them scrollable
+        VBox categoryBox = createCategoryBox();
+        ScrollPane categoryScroll = new ScrollPane(categoryBox);
+        categoryScroll.setFitToWidth(true);
+        categoryScroll.setPrefHeight(200); // Limited height
+        categoryScroll.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
+        
         // Number pad
-        root.getChildren().add(createNumberPad());
+        GridPane numberPad = createStyledNumberPad();
+        
+        // Control buttons
+        HBox buttonBox = createControlButtons();
+    
+        // Add all controls to right section
+        controlSection.getChildren().addAll(inputBox, categoryScroll, numberPad, buttonBox);
+    
+        // Add sections to main content
+        mainContent.getChildren().addAll(playerSection, controlSection);
+    
+        root.getChildren().add(mainContent);
+    
+        // Create scene with adjusted size
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+        
+        // Add fade-in animation
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(500), root);
+        fadeIn.setFromValue(0.0);
+        fadeIn.setToValue(1.0);
+        fadeIn.play();
+    
+        // Set stage size to accommodate larger player
+        stage.setWidth(1200);  // Increased width
+        stage.setHeight(800);  // Adjusted height
+        stage.setScene(scene);
+    }
+    
+    private VBox createCategoryBox() {
+        VBox categoryBox = new VBox(5);
+        categoryBox.setStyle(
+            "-fx-background-color: rgba(240,240,240,0.9); " +
+            "-fx-padding: 10px; " +  // Reduced padding
+            "-fx-background-radius: 10px; " +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 2);"
+        );
+        
+        Label categoryTitle = new Label("Song Categories:");
+        categoryTitle.setFont(Font.font("Tahoma", FontWeight.BOLD, 16)); // Reduced font size
+        categoryTitle.setTextFill(Color.web("#2d5d8c"));
+        
+        categoryBox.getChildren().addAll(
+            categoryTitle,
+            createCategoryLabel("001-099: Classic Hits"),
+            createCategoryLabel("101-199: Pop Hits"),
+            createCategoryLabel("201-299: Rock Classics"),
+            createCategoryLabel("301-399: Filipino Hits"),
+            createCategoryLabel("401-499: Modern Pop"),
+            createCategoryLabel("501-599: Ballads"),
+            createCategoryLabel("601-699: Party Songs"),
+            createCategoryLabel("701-799: Recent Hits")
+        );
+        
+        return categoryBox;
+    }
+    
+    private Label createCategoryLabel(String text) {
+        Label label = new Label(text);
+        label.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14)); // Reduced font size
+        label.setTextFill(Color.BLACK);
+        return label;
+    }
+    
 
-        // Add buttons box for Start/Continue Game and Back
+    private Label createStyledLabel(String text, double fontSize) {
+        Label label = new Label(text);
+        label.setFont(Font.font("Tahoma", FontWeight.NORMAL, fontSize));
+        label.setTextFill(Color.WHITE);
+        label.setEffect(new DropShadow(5, Color.BLACK));
+        return label;
+    }
+
+    private VBox createInputSection() {
+        VBox inputBox = new VBox(5);  // Reduced spacing
+        inputBox.setAlignment(Pos.CENTER);
+        inputBox.setStyle(
+            "-fx-background-color: rgba(0,0,0,0.7); " +
+            "-fx-padding: 10px; " +  // Reduced padding
+            "-fx-background-radius: 10px;"
+        );
+    
+        Label inputLabel = createStyledLabel("Enter Song Code:", 20);  // Reduced font size
+        
+        // Style input display
+        inputDisplay.setPrefWidth(250);  // Adjusted width
+        inputDisplay.setStyle(
+            "-fx-font-size: 20px; " +  // Reduced font size
+            "-fx-background-color: rgba(255,255,255,0.9); " +
+            "-fx-background-radius: 5px; " +
+            "-fx-text-fill: #2d5d8c; " +
+            "-fx-font-weight: bold;"
+        );
+        
+        // Style song info
+        songInfo.setStyle(
+            "-fx-font-size: 16px; " +  // Reduced font size
+            "-fx-text-fill: white; " +
+            "-fx-padding: 5px; " +     // Reduced padding
+            "-fx-font-weight: bold;"
+        );
+    
+        inputBox.getChildren().addAll(inputLabel, inputDisplay, songInfo);
+        return inputBox;
+    }
+
+    private GridPane createStyledNumberPad() {
+        GridPane numberPad = new GridPane();
+        numberPad.setHgap(10);
+        numberPad.setVgap(10);
+        numberPad.setAlignment(Pos.CENTER);
+        numberPad.setStyle(
+            "-fx-background-color: rgba(0,0,0,0.7); " +
+            "-fx-padding: 15px; " +
+            "-fx-background-radius: 10px;"
+        );
+
+        // Add number buttons with styling
+        for (int i = 1; i <= 9; i++) {
+            Button btn = createStyledNumberButton(String.valueOf(i));
+            numberPad.add(btn, (i - 1) % 3, (i - 1) / 3);
+        }
+
+        Button btn0 = createStyledNumberButton("0");
+        numberPad.add(btn0, 1, 3);
+
+        Button clearBtn = createStyledActionButton("Clear");
+        clearBtn.setOnAction(e -> clearInput());
+        numberPad.add(clearBtn, 0, 3);
+
+        Button enterBtn = createStyledActionButton("Enter");
+        enterBtn.setOnAction(e -> processInput());
+        numberPad.add(enterBtn, 2, 3);
+
+        return numberPad;
+    }
+
+    private Button createStyledNumberButton(String number) {
+        Button button = new Button(number);
+        button.setPrefSize(80, 80);
+        button.setStyle(
+            "-fx-font-size: 24px; " +
+            "-fx-background-color: #4CAF50; " +
+            "-fx-text-fill: white; " +
+            "-fx-background-radius: 40; " +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 2);"
+        );
+        
+        // Add hover effect
+        button.setOnMouseEntered(e -> {
+            button.setStyle(
+                "-fx-font-size: 24px; " +
+                "-fx-background-color: #45a049; " +
+                "-fx-text-fill: white; " +
+                "-fx-background-radius: 40; " +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 15, 0, 0, 3);"
+            );
+        });
+        
+        button.setOnMouseExited(e -> {
+            button.setStyle(
+                "-fx-font-size: 24px; " +
+                "-fx-background-color: #4CAF50; " +
+                "-fx-text-fill: white; " +
+                "-fx-background-radius: 40; " +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 2);"
+            );
+        });
+        
+        button.setOnAction(e -> appendNumber(number));
+        return button;
+    }
+
+    private Button createStyledActionButton(String text) {
+        Button button = new Button(text);
+        button.setPrefSize(80, 80);
+        button.setStyle(
+            "-fx-font-size: 18px; " +
+            "-fx-background-color: #2196F3; " +
+            "-fx-text-fill: white; " +
+            "-fx-background-radius: 40; " +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 2);"
+        );
+        
+        // Add hover effect
+        button.setOnMouseEntered(e -> {
+            button.setStyle(
+                "-fx-font-size: 18px; " +
+                "-fx-background-color: #1976D2; " +
+                "-fx-text-fill: white; " +
+                "-fx-background-radius: 40; " +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 15, 0, 0, 3);"
+            );
+        });
+        
+        button.setOnMouseExited(e -> {
+            button.setStyle(
+                "-fx-font-size: 18px; " +
+                "-fx-background-color: #2196F3; " +
+                "-fx-text-fill: white; " +
+                "-fx-background-radius: 40; " +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 2);"
+            );
+        });
+        
+        return button;
+    }
+
+    private HBox createControlButtons() {
         HBox buttonBox = new HBox(20);
         buttonBox.setAlignment(Pos.CENTER);
         
-        Button startGameButton = new Button("Continue Game");
-        startGameButton.setStyle("-fx-font-size: 16px; -fx-padding: 10px 20px; -fx-background-color: #4CAF50; -fx-text-fill: white;");
-        startGameButton.setOnAction(e -> {
+        Button continueButton = new Button("Continue Game");
+        styleControlButton(continueButton, "#4CAF50");
+        continueButton.setOnAction(e -> {
             stage.hide();
             if (onStartGame != null) {
                 onStartGame.run();
@@ -104,23 +322,47 @@ public class KaraokeWindow {
         });
         
         Button backButton = new Button("Back");
-        backButton.setStyle("-fx-font-size: 16px; -fx-padding: 10px 20px;");
+        styleControlButton(backButton, "#f44336");
         backButton.setOnAction(e -> {
             clearInput();
             stage.close();
         });
 
-        buttonBox.getChildren().addAll(startGameButton, backButton);
-        root.getChildren().add(buttonBox);
+        buttonBox.getChildren().addAll(continueButton, backButton);
+        return buttonBox;
+    }
 
-        // Create scene with adjusted height for new elements
-        Scene scene = new Scene(root, 800, 1000);
-        stage.setScene(scene);
+    private void styleControlButton(Button button, String baseColor) {
+        button.setStyle(
+            "-fx-font-size: 16px; " +
+            "-fx-padding: 10px 20px; " +
+            "-fx-background-color: " + baseColor + "; " +
+            "-fx-text-fill: white; " +
+            "-fx-background-radius: 5px; " +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 2);"
+        );
         
-        // Add window close handler
-        stage.setOnCloseRequest(e -> {
-            clearInput();
-            stage.close();
+        // Add hover effect
+        button.setOnMouseEntered(e -> {
+            button.setStyle(
+                "-fx-font-size: 16px; " +
+                "-fx-padding: 10px 20px; " +
+                "-fx-background-color: derive(" + baseColor + ", -10%); " +
+                "-fx-text-fill: white; " +
+                "-fx-background-radius: 5px; " +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 15, 0, 0, 3);"
+            );
+        });
+        
+        button.setOnMouseExited(e -> {
+            button.setStyle(
+                "-fx-font-size: 16px; " +
+                "-fx-padding: 10px 20px; " +
+                "-fx-background-color: " + baseColor + "; " +
+                "-fx-text-fill: white; " +
+                "-fx-background-radius: 5px; " +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 2);"
+            );
         });
     }
 
@@ -151,45 +393,6 @@ public class KaraokeWindow {
         songInfo.setStyle("-fx-font-size: 18px; -fx-padding: 10px;");
     }
 
-    private GridPane createNumberPad() {
-        GridPane numberPad = new GridPane();
-        numberPad.setHgap(10);
-        numberPad.setVgap(10);
-        numberPad.setAlignment(Pos.CENTER);
-
-        // Add number buttons (0-9)
-        for (int i = 1; i <= 9; i++) {
-            Button btn = createNumberButton(String.valueOf(i));
-            numberPad.add(btn, (i - 1) % 3, (i - 1) / 3);
-        }
-
-        // Add 0 button
-        Button btn0 = createNumberButton("0");
-        numberPad.add(btn0, 1, 3);
-
-        // Add Clear button
-        Button clearBtn = new Button("Clear");
-        clearBtn.setPrefWidth(80);
-        clearBtn.setOnAction(e -> clearInput());
-        numberPad.add(clearBtn, 0, 3);
-
-        // Add Enter button
-        Button enterBtn = new Button("Enter");
-        enterBtn.setPrefWidth(80);
-        enterBtn.setOnAction(e -> processInput());
-        numberPad.add(enterBtn, 2, 3);
-
-        return numberPad;
-    }
-
-    private Button createNumberButton(String number) {
-        Button button = new Button(number);
-        button.setPrefSize(80, 80);
-        button.setStyle("-fx-font-size: 24px;");
-        button.setOnAction(e -> appendNumber(number));
-        return button;
-    }
-
     private void appendNumber(String number) {
         if (currentInput.length() < 4) {
             currentInput.append(number);
@@ -214,7 +417,7 @@ public class KaraokeWindow {
         }
     }
 
-private void loadSong(SongEntry song) {
+    private void loadSong(SongEntry song) {
         try {
             // First, aggressively stop any existing content
             cleanup();
@@ -274,7 +477,7 @@ private void loadSong(SongEntry song) {
             youtubePlayer.setVisible(true);
 
             songInfo.setText(song.getTitle() + " - " + song.getArtist());
-            songInfo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+            songInfo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;");
 
         } catch (Exception e) {
             System.out.println("Error loading song: " + e.getMessage());
@@ -314,7 +517,7 @@ private void loadSong(SongEntry song) {
         currentInput.setLength(0);
         inputDisplay.setText("");
         songInfo.setText("");
-        cleanup(); // Add cleanup call here
+        cleanup();
         youtubePlayer.setVisible(false);
     }    
 
