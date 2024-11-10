@@ -21,59 +21,60 @@ public class SongList {
     }
 
     private void initializeSongDatabase() {
-        // Classic Hits - Using official YouTube music videos or lyric videos
-        addSong("001", "My Way", "Frank Sinatra", "_OnqmlQvWqs");
-        addSong("002", "Yesterday", "The Beatles", "4YfL8RpCO6M");
-        addSong("003", "Bohemian Rhapsody", "Queen", "axAtWjn3MfI");
+        // Classic Hits
+        addSong("001", "My Way", "Frank Sinatra", "qQzdAsjWGPg");
+        addSong("002", "Yesterday", "The Beatles", "NrgmdOz227I");
+        addSong("003", "Bohemian Rhapsody", "Queen", "fJ9rUzIMcZQ");
+        addSong("004", "DI KO NA MAPIPIGILAN", "SexBomb Dancers", "HNy41EFCJcs");
         
-        // Pop Hits - Official music videos with confirmed embedding
-        addSong("101", "Shape of You", "Ed Sheeran", "_dK2tDK9grQ");
-        addSong("102", "Rolling in the Deep", "Adele", "0LiTw9qWevw");
+        // Pop Hits
+        addSong("101", "Shape of You", "Ed Sheeran", "Vds8ddYXYZY");
+        addSong("102", "Rolling in the Deep", "Adele", "AIYpdjQVidc");
         addSong("103", "Uptown Funk", "Mark Ronson ft. Bruno Mars", "7Ya2U8XN_Zw");
         addSong("104", "Dance Monkey", "Tones and I", "q0hyYWKXF0Q");
-        addSong("105", "Shake It Off", "Taylor Swift", "7yeFzwmzogg");
+        addSong("105", "Shake It Off", "Taylor Swift", "zIOVMHMNfJ4");
         
-        // Rock Classics - Verified embeddable versions
-        addSong("201", "Sweet Child O' Mine", "Guns N' Roses", "oK_XtfXPkqw");
-        addSong("202", "Nothing Else Matters", "Metallica", "s6TtwR2Dbjg");
-        addSong("203", "Hotel California", "Eagles", "09839DpTctU");
-        addSong("204", "Sweet Dreams", "Eurythmics", "5GunXy_obuY");
-        addSong("205", "Smells Like Teen Spirit", "Nirvana", "zYxkezUr8MQ");
+        // Rock Classics
+        addSong("201", "Sweet Child O' Mine", "Guns N' Roses", "qoflJn7zkFM");
+        addSong("202", "Nothing Else Matters", "Metallica", "ozXZnwYTMbs");
+        addSong("203", "Hotel California", "Eagles", "BciS5krYL80");
+        addSong("204", "Sweet Dreams", "Eurythmics", "eRhg7qPLeN8");
+        addSong("205", "Smells Like Teen Spirit", "Nirvana", "XJRbagz_-Zc");
         
-        // Filipino Hits - Quality uploads with embedding enabled
-        addSong("301", "Ang Huling El Bimbo", "Eraserheads", "HSlsCqrxGwo");
-        addSong("302", "Harana", "Parokya Ni Edgar", "GM5fmj6XZtE");
-        addSong("303", "214", "Rivermaya", "y0TIERXbGY4");
-        addSong("304", "With A Smile", "Eraserheads", "8vbvGXNUJUg");
-        addSong("305", "Perfect", "True Faith", "khrnpZY5FbQ");
+        // Filipino Hits
+        addSong("301", "Ang Huling El Bimbo", "Eraserheads", "ih_1qXYDXO4");
+        addSong("302", "Harana", "Parokya Ni Edgar", "BtptZbO1lhk");
+        addSong("303", "214", "Rivermaya", "d59MC-PEJK0");
+        addSong("304", "With A Smile", "Eraserheads", "mTkK5PXz_hY");
+        addSong("305", "Perfect", "True Faith", "WlU0a5sRm_A");
         
-        // Modern Pop - Verified working videos
-        addSong("401", "Cruel Summer", "Taylor Swift", "6YEhcPcsqHw");
-        addSong("402", "As It Was", "Harry Styles", "V_rS4UAzj9I");
-        addSong("403", "good 4 u", "Olivia Rodrigo", "pi-GA0dZ6LQ");
-        addSong("404", "Blinding Lights", "The Weeknd", "kh7cUiYodiI");
-        addSong("405", "Stay With Me", "Sam Smith", "SQFqw-_5nXA");
+        // Modern Pop
+        addSong("401", "Cruel Summer", "Taylor Swift", "ic8j13piAhQ");
+        addSong("402", "As It Was", "Harry Styles", "Qfm6nfz1QNQ");
+        addSong("403", "good 4 u", "Olivia Rodrigo", "o6Tf-xcVB_o");
+        addSong("404", "Blinding Lights", "The Weeknd", "fHI8X4OXluQ");
+        addSong("405", "Stay With Me", "Sam Smith", "bXDSR4GggUU");
         
-        // Ballads - Confirmed embeddable versions
-        addSong("501", "All of Me", "John Legend", "73_DOquGBD8");
-        addSong("502", "Perfect", "Ed Sheeran", "iKzRIweSBLA");
-        addSong("503", "Just the Way You Are", "Bruno Mars", "ZuJWQnaavTI");
-        addSong("504", "Someone Like You", "Adele", "jD9dr2ZRm9A");
-        addSong("505", "Say You Won't Let Go", "James Arthur", "PHqQRql0SLU");
+        // Ballads
+        addSong("501", "All of Me", "John Legend", "ngq5Aw0Q6rQ");
+        addSong("502", "Perfect", "Ed Sheeran", "cNGjD0VG4R8");
+        addSong("503", "Just the Way You Are", "Bruno Mars", "u7XjPmN-tHw");
+        addSong("504", "Someone Like You", "Adele", "22c3_LoIfZQ");
+        addSong("505", "Say You Won't Let Go", "James Arthur", "8A7-54UguKg");
         
-        // Party Songs - Working embeds
+        // Party Songs
         addSong("601", "I Gotta Feeling", "The Black Eyed Peas", "CwdrtwZiQ9E");
-        addSong("602", "Don't Stop Believin'", "Journey", "9GDV_bKUxnY");
-        addSong("603", "Sweet Caroline", "Neil Diamond", "p_LxnR5_ezc");
-        addSong("604", "Y.M.C.A.", "Village People", "fY2iZcrTk6s");
-        addSong("605", "Dancing Queen", "ABBA", "yhqV49us4mE");
+        addSong("602", "Don't Stop Believin'", "Journey", "c8wn2fMYvns");
+        addSong("603", "Sweet Caroline", "Neil Diamond", "4F_RCWVoL4s");
+        addSong("604", "Y.M.C.A.", "Village People", "O0wBUnAeF6k");
+        addSong("605", "Dancing Queen", "ABBA", "xFrGuyw1V8s");
         
-        // Recent Hits - Confirmed working
-        addSong("701", "Butter", "BTS", "YAXTn0E-Zgo");
+        // Recent Hits
+        addSong("701", "Butter", "BTS", "WMweEpGlu_U");
         addSong("702", "Stay", "The Kid LAROI & Justin Bieber", "Ec7TN_11az8");
         addSong("703", "Easy On Me", "Adele", "X-yIEMduRXk");
-        addSong("704", "Levitating", "Dua Lipa", "WHuBW3qLqj0");
-        addSong("705", "Heat Waves", "Glass Animals", "KT7m9hb9_5I");
+        addSong("704", "Levitating", "Dua Lipa", "yB6MCcaFMEo");
+        addSong("705", "Heat Waves", "Glass Animals", "KT7F15T9VBI");
     }
     
     public void addSong(String code, String title, String artist, String youtubeId) {
