@@ -94,7 +94,7 @@ public class PlatformerApp extends GameApplication {
     // private LazyValue<LevelEndScene> levelEndScene = new LazyValue<>(() -> new
     // LevelEndScene());
 
-    private Entity[] players = new Entity[2];
+    private Entity[] players = new Entity[4];
 
     private KeyCode[][] bindings = new KeyCode[][] {
             { KeyCode.W, KeyCode.A, KeyCode.D, KeyCode.E },
