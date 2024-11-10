@@ -21,7 +21,6 @@ public class PlayerButtonHandler extends CollisionHandler {
             getGameWorld().addEntity(keyEntity);
         }
 
-        keyEntity.setOpacity(1);
     }
 
     @Override

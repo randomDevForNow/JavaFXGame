@@ -136,7 +136,6 @@ public class RiderMainMenuScene extends FXGLMenu {
         startButton.setGraphic(imageView);
         Animation.applyContinuousBounceEffect(startButton, 500);
         Animation.applyHoverAndClickEffects(startButton, hoverMedia, clickedMedia);
-
         
         startButton.setOnAction(e -> {
             try {

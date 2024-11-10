@@ -10,8 +10,18 @@ import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
 import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +41,25 @@ public class PlayerComponent extends Component {
     // Player Attributes
     private int movementSpeed = 170;
     private int jumps = 1;
-    private boolean isJumping = false;
     private boolean isOnGround = true;
+    private boolean stopped = true;
+    private boolean slip = false;
+
+    public boolean getSlip() {
+        return slip;
+    }
+
+    public void setSlip(boolean slip) {
+        this.slip = slip;
+    }
+
+    public boolean getStopped() {
+        return stopped;
+    }
+
+    public void setStopped(boolean stopped) {
+        this.stopped = stopped;
+    }
 
     public int getPlayerSpeed() {
         return movementSpeed;
@@ -46,7 +73,6 @@ public class PlayerComponent extends Component {
         movementSpeed = 170;
     }
 
-    // List of players standing on top of this player
     private List<Entity> topPlayers = new ArrayList<>();
 
     /* For Adding Animations */
@@ -72,19 +98,16 @@ public class PlayerComponent extends Component {
         entity.getViewComponent().addChild(texture);
 
         physics.onGroundProperty().addListener((obs, old, isOnGround) -> {
+            this.isOnGround = isOnGround;
             if (isOnGround) {
-
-                if (jumps == 0) { // if has no jump
-                    // check if block has friction?
+                if (jumps == 0) {
                     jumps = 1;
-                    physics.setFixtureDef(new FixtureDef().friction(0.0f));
-
                 }
-                isJumping = false;
-
                 this.isOnGround = true;
-            } else
-                this.isOnGround = false;
+            } else {
+                if (jumps > 0)
+                    jumps = 0;
+            }
         });
 
         HitBox topSensor = new HitBox("TOP_SENSOR", new Point2D(1, 0), BoundingShape.box(30, 1));
@@ -111,6 +134,7 @@ public class PlayerComponent extends Component {
 
     private void propagateRiders(Entity playerAbove) {
         PlayerComponent abovePlayerComp = playerAbove.getComponent(PlayerComponent.class);
+        abovePlayerComp.setPlayerSpeed(170);
         for (Entity rider : abovePlayerComp.topPlayers) {
             if (!topPlayers.contains(rider)) {
                 topPlayers.add(rider);
@@ -132,32 +156,50 @@ public class PlayerComponent extends Component {
                 texture.loopAnimationChannel(animIdle);
             }
         }
+
+        if (!isOnGround) {
+            stopped = false;
+        }
     }
 
     public void left() {
-        getEntity().setScaleX(-1);
-        physics.setVelocityX(-170);
+
+        texture.setScaleX(-1.5);
+
+        if (slip) {
+            physics.applyForce(new Point2D(-movementSpeed, 0), entity.getPosition());
+        } else
+            physics.setVelocityX(-movementSpeed);
 
         // Move each top player when moving left
         for (Entity rider : topPlayers) {
-            rider.getComponent(PhysicsComponent.class).setVelocityX(-170);
+            rider.getComponent(PhysicsComponent.class).setVelocityX(-movementSpeed);
         }
     }
 
     public void right() {
-        getEntity().setScaleX(1);
-        physics.setVelocityX(170);
+
+        texture.setScaleX(1.5);
+
+        if (slip) {
+            physics.applyForce(new Point2D(movementSpeed, 0), entity.getPosition());
+        } else
+            physics.setVelocityX(movementSpeed);
 
         // Move each top player when moving right
         for (Entity rider : topPlayers) {
-            rider.getComponent(PhysicsComponent.class).setVelocityX(170);
+            rider.getComponent(PhysicsComponent.class).setVelocityX(movementSpeed);
         }
-        System.out.println(topPlayers.size());
     }
 
     public void stop() {
-        physics.setVelocityX(0);
-        physics.setAngularVelocity(0);
+
+        if (slip) {
+
+        } else {
+            physics.setVelocityX(0);
+            physics.setAngularVelocity(0);
+        }
 
         // Stop each top player when stopping
         for (Entity rider : topPlayers) {
@@ -169,7 +211,6 @@ public class PlayerComponent extends Component {
         if (jumps > 0) {
             physics.setVelocityY(-400);
             jumps--;
-            isJumping = true;
         }
     }
 }
