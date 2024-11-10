@@ -105,59 +105,64 @@ public class PlatformerApp extends GameApplication {
     };
 
     private void bindKeys() {
+        Map<String, Boolean> playerStatus = loadPlayerStatusFromJson(); // Load player status
+    
         int counter = 0;
         for (Entity player : players) {
-            getInput().addAction(new UserAction("Jump" + counter) {
-                @Override
-                protected void onActionBegin() {
-                    player.getComponent(PlayerComponent.class).jump();
-                }
-            }, bindings[counter][0]);
-
-            getInput().addAction(new UserAction("Left" + counter) {
-                @Override
-                protected void onAction() {
-                    player.getComponent(PlayerComponent.class).left();
-                }
-
-                @Override
-                protected void onActionEnd() {
-                    player.getComponent(PlayerComponent.class).stop();
-                }
-            }, bindings[counter][1]);
-
-            getInput().addAction(new UserAction("Right" + counter) {
-                @Override
-                protected void onAction() {
-                    player.getComponent(PlayerComponent.class).right();
-                }
-
-                @Override
-                protected void onActionEnd() {
-                    player.getComponent(PlayerComponent.class).stop();
-                }
-            }, bindings[counter][2]);
-
-            getInput().addAction(new UserAction("Use" + counter) {
-                @Override
-                protected void onActionBegin() {
-                    /* For Getting Mail */
-                    getGameWorld().getEntitiesByType(BUTTON)
-                            .stream()
-                            .filter(btn -> btn.hasComponent(CollidableComponent.class) && player.isColliding(btn))
-                            .forEach(btn -> {
-                                btn.removeComponent(CollidableComponent.class);
-
-                                Entity keyEntity = btn.getObject("keyEntity");
-                                keyEntity.setProperty("activated", true);
-
-                                KeyView view = (KeyView) keyEntity.getViewComponent().getChildren().get(0);
-                                view.setKeyColor(Color.RED);
-
-                                makeExitDoor();
-                            });
-                }
-            }, bindings[counter][3]);
+            // Check if the player is active based on the JSON value
+            if (playerStatus.getOrDefault("player" + (counter + 1), false)) {
+                getInput().addAction(new UserAction("Jump" + counter) {
+                    @Override
+                    protected void onActionBegin() {
+                        player.getComponent(PlayerComponent.class).jump();
+                    }
+                }, bindings[counter][0]);
+    
+                getInput().addAction(new UserAction("Left" + counter) {
+                    @Override
+                    protected void onAction() {
+                        player.getComponent(PlayerComponent.class).left();
+                    }
+    
+                    @Override
+                    protected void onActionEnd() {
+                        player.getComponent(PlayerComponent.class).stop();
+                    }
+                }, bindings[counter][1]);
+    
+                getInput().addAction(new UserAction("Right" + counter) {
+                    @Override
+                    protected void onAction() {
+                        player.getComponent(PlayerComponent.class).right();
+                    }
+    
+                    @Override
+                    protected void onActionEnd() {
+                        player.getComponent(PlayerComponent.class).stop();
+                    }
+                }, bindings[counter][2]);
+    
+                getInput().addAction(new UserAction("Use" + counter) {
+                    @Override
+                    protected void onActionBegin() {
+                        /* For Getting Mail */
+                        getGameWorld().getEntitiesByType(BUTTON)
+                                .stream()
+                                .filter(btn -> btn.hasComponent(CollidableComponent.class) && player.isColliding(btn))
+                                .forEach(btn -> {
+                                    btn.removeComponent(CollidableComponent.class);
+    
+                                    Entity keyEntity = btn.getObject("keyEntity");
+                                    keyEntity.setProperty("activated", true);
+    
+                                    KeyView view = (KeyView) keyEntity.getViewComponent().getChildren().get(0);
+                                    view.setKeyColor(Color.RED);
+    
+                                    makeExitDoor();
+                                });
+                    }
+                }, bindings[counter][3]);
+            }
             counter++;
         }
     }
@@ -183,6 +188,20 @@ public class PlatformerApp extends GameApplication {
         /* Add Media Player Code here that loops */
     }
 
+    private static Map<String, Boolean> loadPlayerStatusFromJson() {
+        try {
+            // Create an ObjectMapper instance
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            // Read the JSON file into a Map<String, Boolean>
+            return objectMapper.readValue(new File("src/main/resources/database.json"),
+                    objectMapper.getTypeFactory().constructMapType(Map.class, String.class, Boolean.class));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Map.of(); // Return an empty map in case of error
+        }
+    }
+
     @Override
     protected void initGame() {
         getGameWorld().addEntityFactory(new PlatformerFactory());
@@ -197,9 +216,16 @@ public class PlatformerApp extends GameApplication {
 
         // player must be spawned after call to nextLevel, otherwise player gets removed
         // before the update tick _actually_ adds the player to game world
+        Map<String, Boolean> playerStatus = loadPlayerStatusFromJson();
+
         for (int i = 0; i < players.length; i++) {
-            players[i] = spawn("player", 50 + i * 100, 50); // Spawn and assign players
-            set("player" + i, players[i]); // Optionally store in the global map
+            // Check if the player should be spawned based on the JSON value
+            if (playerStatus.getOrDefault("player" + (i + 1), false)) {
+                players[i] = spawn("player", 50 + i * 100, 50); // Spawn and assign players
+                set("player" + i, players[i]); // Optionally store in the global map
+            } else {
+                players[i] = null; // If not spawned, set to null
+            }
         }
 
         bindKeys();

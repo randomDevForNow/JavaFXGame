@@ -30,6 +30,14 @@ import javafx.scene.paint.Color;
 import javafx.animation.TranslateTransition;
 import javafx.util.Duration;
 
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+
 public class RiderMainMenuScene extends FXGLMenu {
 
     public RiderMainMenuScene() {
@@ -41,6 +49,7 @@ public class RiderMainMenuScene extends FXGLMenu {
         Media clickedSound = new Media(getClass().getResource("/assets/sounds/clickedSoundfx.mp3").toExternalForm());
         MediaPlayer clickedMedia = new MediaPlayer(clickedSound);
 
+    
         // Image backgroundImage = new
         // Image(getClass().getResource("/assets/textures/backgroundMainMenu.gif").toExternalForm());
         // ImageView backgroundView = new ImageView(backgroundImage);
