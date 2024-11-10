@@ -18,6 +18,12 @@
 # Target directory
 /target/
 
+# system directory
+/system/
+
+# logs directory
+/logs/
+
 # Compiled class file
 *.class
 
