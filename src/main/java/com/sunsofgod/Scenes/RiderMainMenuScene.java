@@ -39,6 +39,8 @@ import java.io.IOException;
 import java.util.Map;
 
 public class RiderMainMenuScene extends FXGLMenu {
+    File file = new File("src/main/resources/database.json");
+    ObjectMapper objectMapper = new ObjectMapper();
 
     public RiderMainMenuScene() {
         super(MenuType.MAIN_MENU);
@@ -137,6 +139,26 @@ public class RiderMainMenuScene extends FXGLMenu {
 
         
         startButton.setOnAction(e -> {
+            try {
+                // Parse the JSON from the file into a JsonNode
+                JsonNode rootNode = objectMapper.readTree(file);
+    
+                // Manually set each player's value to false
+                ((ObjectNode) rootNode).put("player1", false);
+                ((ObjectNode) rootNode).put("player2", false);
+                ((ObjectNode) rootNode).put("player3", false);
+                ((ObjectNode) rootNode).put("player4", false);
+    
+                // Save the modified JSON back to the file
+                objectMapper.writeValue(file, rootNode);
+    
+                // Print the modified JSON to verify
+                System.out.println(rootNode.toString());
+    
+            } catch (IOException s) {
+                s.printStackTrace();
+            }
+
             getSceneService().pushSubScene(new PlayerSelectScene());
             // getSceneService().pushSubScene(new VideokeScene()); call this when videoke
             // ready
