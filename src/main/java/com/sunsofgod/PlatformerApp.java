@@ -52,21 +52,22 @@ public class PlatformerApp extends GameApplication {
     private static final int MAX_LEVEL = 5;
     private static int STARTING_LEVEL = 0;
 
-    //finds the starting level
+    // finds the starting level
     public void loadGameConfig(String configFilePath) {
         ObjectMapper objectMapper = new ObjectMapper();
-        
+
         try {
             // Read the JSON file into a strongly-typed Map
             Map<String, Boolean> gameConfig = objectMapper.readValue(
-                    new File(configFilePath), new TypeReference<Map<String, Boolean>>() {});
-            
+                    new File(configFilePath), new TypeReference<Map<String, Boolean>>() {
+                    });
+
             // Iterate through the levels to find which one is true
             for (int level = 1; level <= 4; level++) {
                 if (gameConfig.get("level" + level)) {
                     // Update startingLevel based on which level is true
-                    //starting level is -1 as we start from 0
-                    STARTING_LEVEL = level-1;
+                    // starting level is -1 as we start from 0
+                    STARTING_LEVEL = level - 1;
                     break; // Exit the loop once the starting level is found
                 }
             }
@@ -199,8 +200,7 @@ public class PlatformerApp extends GameApplication {
     /* For Global Variables (Refunds of each player) */
     @Override
     protected void initGameVars(Map<String, Object> vars) {
-        
-        
+
         PlatformerApp config = new PlatformerApp();
         config.loadGameConfig("src/main/resources/database.json");
         System.out.println("The starting level is: " + STARTING_LEVEL);
@@ -251,12 +251,13 @@ public class PlatformerApp extends GameApplication {
         for (int i = 0; i < players.length; i++) {
             // Construct the player key dynamically (player1, player2, etc.)
             String playerKey = "player" + (i + 1);
-            
+
             // Check if the player should be spawned based on the JSON value
             if (playerStatus.getOrDefault(playerKey, false)) {
-                // Dynamically adjust the player type based on the loop index (player1, player2, etc.)
+                // Dynamically adjust the player type based on the loop index (player1, player2,
+                // etc.)
                 players[i] = spawn(playerKey, 50 + i * 100, 50); // Spawn and assign players
-                
+
                 // Optionally store in the global map
                 set(playerKey, players[i]); // Store the player in the global map with its key
             } else {
@@ -312,7 +313,6 @@ public class PlatformerApp extends GameApplication {
 
         /* PLAYER COLLISION HANLDERS */
 
-        // Adjust this to include player 3 and 4 collisions
         onCollision(PLAYER, PLAYER, (player1, player2) -> {
             player1.getComponent(PlayerComponent.class).stop();
             player2.getComponent(PlayerComponent.class).stop();

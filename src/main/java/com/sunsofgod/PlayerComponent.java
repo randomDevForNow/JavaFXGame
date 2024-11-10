@@ -26,13 +26,13 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.almasb.fxgl.dsl.FXGL.image;
-
 public class PlayerComponent extends Component {
 
     private PhysicsComponent physics;
     private AnimatedTexture texture;
     private AnimationChannel animIdle, animWalk;
+
+    private static final double MAX_VELOCITY_X = 300.0;
 
     // Player Dimensions
     public int pWidth = 32;
@@ -135,6 +135,7 @@ public class PlayerComponent extends Component {
     private void propagateRiders(Entity playerAbove) {
         PlayerComponent abovePlayerComp = playerAbove.getComponent(PlayerComponent.class);
         abovePlayerComp.setPlayerSpeed(170);
+        abovePlayerComp.setSlip(false);
         for (Entity rider : abovePlayerComp.topPlayers) {
             if (!topPlayers.contains(rider)) {
                 topPlayers.add(rider);
@@ -160,21 +161,41 @@ public class PlayerComponent extends Component {
         if (!isOnGround) {
             stopped = false;
         }
+
+        double carrierVelocityX = physics.getVelocityX();
+
+        if (Math.abs(carrierVelocityX) > MAX_VELOCITY_X) {
+            carrierVelocityX = Math.signum(carrierVelocityX) * MAX_VELOCITY_X;
+            physics.setVelocityX(carrierVelocityX);
+        }
+
+        for (Entity rider : topPlayers) {
+            PhysicsComponent riderPhysics = rider.getComponent(PhysicsComponent.class);
+            double riderVelocityX = riderPhysics.getVelocityX();
+
+            if (Math.abs(riderVelocityX) > MAX_VELOCITY_X) {
+                riderVelocityX = Math.signum(riderVelocityX) * MAX_VELOCITY_X;
+                riderPhysics.setVelocityX(riderVelocityX);
+            }
+
+            if (slip) {
+                riderPhysics.setVelocityX(carrierVelocityX + riderVelocityX);
+            } else if (!slip && Math.abs(carrierVelocityX) > 0) {
+                if (Math.abs(riderVelocityX) < Math.abs(carrierVelocityX)) {
+                    riderPhysics.setVelocityX(carrierVelocityX);
+                }
+            }
+        }
+
     }
 
     public void left() {
-
         texture.setScaleX(-1.5);
 
         if (slip) {
             physics.applyForce(new Point2D(-movementSpeed, 0), entity.getPosition());
         } else
             physics.setVelocityX(-movementSpeed);
-
-        // Move each top player when moving left
-        for (Entity rider : topPlayers) {
-            rider.getComponent(PhysicsComponent.class).setVelocityX(-movementSpeed);
-        }
     }
 
     public void right() {
@@ -185,11 +206,6 @@ public class PlayerComponent extends Component {
             physics.applyForce(new Point2D(movementSpeed, 0), entity.getPosition());
         } else
             physics.setVelocityX(movementSpeed);
-
-        // Move each top player when moving right
-        for (Entity rider : topPlayers) {
-            rider.getComponent(PhysicsComponent.class).setVelocityX(movementSpeed);
-        }
     }
 
     public void stop() {
@@ -199,11 +215,6 @@ public class PlayerComponent extends Component {
         } else {
             physics.setVelocityX(0);
             physics.setAngularVelocity(0);
-        }
-
-        // Stop each top player when stopping
-        for (Entity rider : topPlayers) {
-            rider.getComponent(PhysicsComponent.class).setVelocityX(0);
         }
     }
 
