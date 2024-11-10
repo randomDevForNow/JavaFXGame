@@ -32,8 +32,15 @@ import com.sunsofgod.Scenes.*;
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.sunsofgod.EntityType.*;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.io.File;
+import java.io.IOException;
+
 public class PlatformerApp extends GameApplication {
 
+    ObjectMapper objectMapper = new ObjectMapper();
     // sets the timer to be off at the start
     private boolean timerOnP1 = false;
     private boolean timerOnP2 = false;
@@ -241,6 +248,7 @@ public class PlatformerApp extends GameApplication {
 
         // starts the indvidual timers based on a collision with an object
         onCollision(PLAYER, EXIT_SIGN, (player, sign) -> {
+
             if (player == players[0]) {
                 timerOnP1 = true;
             }

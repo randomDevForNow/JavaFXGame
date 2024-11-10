@@ -4,4 +4,7 @@ open module com.sunsofgod {
     requires javafx.controls;
     requires javafx.graphics;
     requires javafx.media;
+    requires com.fasterxml.jackson.databind;
+    requires com.fasterxml.jackson.core;
+    requires com.fasterxml.jackson.annotation;
 }
