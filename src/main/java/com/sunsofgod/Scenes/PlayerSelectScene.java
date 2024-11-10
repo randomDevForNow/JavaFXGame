@@ -2,8 +2,14 @@ package com.sunsofgod.Scenes;
 
 import static com.almasb.fxgl.dsl.FXGL.getSceneService;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
@@ -25,6 +31,12 @@ import javafx.util.Duration;
 import javafx.scene.media.MediaPlayer;
 
 public class PlayerSelectScene extends FXGLMenu {
+
+    // Path to the JSON file
+    String filePath = "C:\\Users\\user\\Desktop\\JavaFXGame\\src\\main\\resources\\database.json";  
+    ObjectMapper objectMapper = new ObjectMapper();
+    File file = new File(filePath);
+    
 
     public PlayerSelectScene() {
         super(MenuType.MAIN_MENU);
@@ -206,9 +218,33 @@ public class PlayerSelectScene extends FXGLMenu {
             if (pandaClicked[0]) {
                 pandaView.setImage(unclickedpandaImage);
                 System.out.println("Unclicked panda");
+
+                try {
+
+                Map<String, Boolean> jsonMap = objectMapper.readValue(file, new TypeReference<Map<String, Boolean>>() {});
+                jsonMap.put("player1", false);
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, jsonMap);
+                System.out.println("Updated JSON: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap));
+
+                } catch (IOException s) {
+                    s.printStackTrace();
+                }
+                
+                
             } else {
                 pandaView.setImage(clickedpandaImage);
                 System.out.println("Clicked panda");
+
+                try {
+
+                    Map<String, Boolean> jsonMap = objectMapper.readValue(file, new TypeReference<Map<String, Boolean>>() {});
+                    jsonMap.put("player1", true);
+                    objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, jsonMap);
+                    System.out.println("Updated JSON: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap));
+
+                    } catch (IOException s) {
+                        s.printStackTrace();
+                    }
             }
             pandaClicked[0] = !pandaClicked[0];
         });
@@ -232,9 +268,32 @@ public class PlayerSelectScene extends FXGLMenu {
             if (shoppeeClicked[0]) {
                 shoppeeView.setImage(unclickedshoppeeImage);
                 System.out.println("Unclicked shoppee");
+
+                try {
+
+                    Map<String, Boolean> jsonMap = objectMapper.readValue(file, new TypeReference<Map<String, Boolean>>() {});
+                    jsonMap.put("player3", false);
+                    objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, jsonMap);
+                    System.out.println("Updated JSON: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap));
+    
+                    } catch (IOException s) {
+                        s.printStackTrace();
+                    }
+
             } else {
                 shoppeeView.setImage(clickedshoppeeImage);
                 System.out.println("Clicked shoppee");
+
+                try {
+
+                    Map<String, Boolean> jsonMap = objectMapper.readValue(file, new TypeReference<Map<String, Boolean>>() {});
+                    jsonMap.put("player3", true);
+                    objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, jsonMap);
+                    System.out.println("Updated JSON: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap));
+    
+                    } catch (IOException s) {
+                        s.printStackTrace();
+                    }
             }
             shoppeeClicked[0] = !shoppeeClicked[0];
         });
@@ -258,9 +317,31 @@ public class PlayerSelectScene extends FXGLMenu {
             if (lazadaClicked[0]) {
                 lazadaView.setImage(unclickedlazadaImage);
                 System.out.println("Unclicked lazada");
+
+                try {
+
+                    Map<String, Boolean> jsonMap = objectMapper.readValue(file, new TypeReference<Map<String, Boolean>>() {});
+                    jsonMap.put("player2", false);
+                    objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, jsonMap);
+                    System.out.println("Updated JSON: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap));
+    
+                    } catch (IOException s) {
+                        s.printStackTrace();
+                    }
             } else {
                 lazadaView.setImage(clickedlazadaImage);
                 System.out.println("Clicked lazada");
+
+                try {
+
+                    Map<String, Boolean> jsonMap = objectMapper.readValue(file, new TypeReference<Map<String, Boolean>>() {});
+                    jsonMap.put("player2", true);
+                    objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, jsonMap);
+                    System.out.println("Updated JSON: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap));
+    
+                    } catch (IOException s) {
+                        s.printStackTrace();
+                    }
             }
             lazadaClicked[0] = !lazadaClicked[0];
         });
@@ -284,9 +365,30 @@ public class PlayerSelectScene extends FXGLMenu {
             if (zaloraClicked[0]) {
                 zaloraView.setImage(unclickedzaloraImage);
                 System.out.println("Unclicked ZALORA");
+
+                try {
+
+                    Map<String, Boolean> jsonMap = objectMapper.readValue(file, new TypeReference<Map<String, Boolean>>() {});
+                    jsonMap.put("player4", false);
+                    objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, jsonMap);
+                    System.out.println("Updated JSON: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap));
+    
+                    } catch (IOException s) {
+                        s.printStackTrace();
+                    }
             } else {
                 zaloraView.setImage(clickedzaloraImage);
                 System.out.println("Clicked ZALORA");
+                try {
+
+                    Map<String, Boolean> jsonMap = objectMapper.readValue(file, new TypeReference<Map<String, Boolean>>() {});
+                    jsonMap.put("player4", true);
+                    objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, jsonMap);
+                    System.out.println("Updated JSON: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap));
+    
+                    } catch (IOException s) {
+                        s.printStackTrace();
+                    }
             }
             zaloraClicked[0] = !zaloraClicked[0];
         });
