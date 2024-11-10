@@ -44,13 +44,17 @@ public class PlatformerFactory implements EntityFactory {
 
         @Spawns("platform")
         public Entity newPlatform(SpawnData data) {
+                String type = data.get("type");
                 return entityBuilder(data)
                                 .type(PLATFORM)
                                 .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"),
                                                 data.<Integer>get("height"))))
                                 .with(new PhysicsComponent())
+                                .with(new CollidableComponent(true))
+                                .with("type", type)
                                 .build();
         }
+
 
         @Spawns("exitTrigger")
         public Entity newExitTrigger(SpawnData data) {
@@ -81,10 +85,103 @@ public class PlatformerFactory implements EntityFactory {
                                 .build();
         }
 
-        @Spawns("player")
+        @Spawns("player1")
         public Entity newPlayer(SpawnData data) {
 
-                PlayerComponent playerComponent = new PlayerComponent();
+                PlayerComponent playerComponent = new PlayerComponent(image("player1.png"));
+                PhysicsComponent physics = new PhysicsComponent();
+
+                physics.setBodyType(BodyType.DYNAMIC);
+
+                // Add ground sensor for detecting ground contact
+                physics.addGroundSensor(new HitBox("GROUND_SENSOR", new Point2D(1, 40), BoundingShape.box(30, 2)));
+
+                // Avoid sticking to walls
+                physics.setFixtureDef(new FixtureDef().friction(0.0f));
+
+                // Player HitBox (starting from 0, 0 [top left] to Bounding Box [bottom right])
+                HitBox playerBBox = new HitBox(new Point2D(0, 0), BoundingShape.box(32, 42));
+
+                // Build the player entity
+                Entity player = entityBuilder(data)
+                                .type(PLAYER)
+                                .bbox(playerBBox)
+                                .with(physics)
+                                .with(new CollidableComponent(true))
+                                .with(new IrremovableComponent())
+                                .with(playerComponent)
+                                .build();
+
+                // Return the player entity
+                return player;
+        }
+
+        @Spawns("player2")
+        public Entity newPlayer2(SpawnData data) {
+
+                PlayerComponent playerComponent = new PlayerComponent(image("player2.png"));
+                PhysicsComponent physics = new PhysicsComponent();
+
+                physics.setBodyType(BodyType.DYNAMIC);
+
+                // Add ground sensor for detecting ground contact
+                physics.addGroundSensor(new HitBox("GROUND_SENSOR", new Point2D(1, 40), BoundingShape.box(30, 2)));
+
+                // Avoid sticking to walls
+                physics.setFixtureDef(new FixtureDef().friction(0.0f));
+
+                // Player HitBox (starting from 0, 0 [top left] to Bounding Box [bottom right])
+                HitBox playerBBox = new HitBox(new Point2D(0, 0), BoundingShape.box(32, 42));
+
+                // Build the player entity
+                Entity player = entityBuilder(data)
+                                .type(PLAYER)
+                                .bbox(playerBBox)
+                                .with(physics)
+                                .with(new CollidableComponent(true))
+                                .with(new IrremovableComponent())
+                                .with(playerComponent)
+                                .build();
+
+                // Return the player entity
+                return player;
+        }
+
+        @Spawns("player3")
+        public Entity newPlayer3(SpawnData data) {
+
+                PlayerComponent playerComponent = new PlayerComponent(image("player3.png"));
+                PhysicsComponent physics = new PhysicsComponent();
+
+                physics.setBodyType(BodyType.DYNAMIC);
+
+                // Add ground sensor for detecting ground contact
+                physics.addGroundSensor(new HitBox("GROUND_SENSOR", new Point2D(1, 40), BoundingShape.box(30, 2)));
+
+                // Avoid sticking to walls
+                physics.setFixtureDef(new FixtureDef().friction(0.0f));
+
+                // Player HitBox (starting from 0, 0 [top left] to Bounding Box [bottom right])
+                HitBox playerBBox = new HitBox(new Point2D(0, 0), BoundingShape.box(32, 42));
+
+                // Build the player entity
+                Entity player = entityBuilder(data)
+                                .type(PLAYER)
+                                .bbox(playerBBox)
+                                .with(physics)
+                                .with(new CollidableComponent(true))
+                                .with(new IrremovableComponent())
+                                .with(playerComponent)
+                                .build();
+
+                // Return the player entity
+                return player;
+        }
+
+        @Spawns("player4")
+        public Entity newPlayer4(SpawnData data) {
+
+                PlayerComponent playerComponent = new PlayerComponent(image("player4.png"));
                 PhysicsComponent physics = new PhysicsComponent();
 
                 physics.setBodyType(BodyType.DYNAMIC);
