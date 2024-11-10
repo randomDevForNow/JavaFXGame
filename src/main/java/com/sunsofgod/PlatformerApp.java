@@ -15,6 +15,7 @@ import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.entity.level.Level;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.input.view.KeyView;
+import com.almasb.fxgl.physics.CollisionHandler;
 import com.almasb.fxgl.physics.PhysicsComponent;
 
 import javafx.geometry.Point2D;
@@ -106,7 +107,7 @@ public class PlatformerApp extends GameApplication {
 
     private void bindKeys() {
         Map<String, Boolean> playerStatus = loadPlayerStatusFromJson(); // Load player status
-    
+
         int counter = 0;
         for (Entity player : players) {
             // Check if the player is active based on the JSON value
@@ -117,31 +118,31 @@ public class PlatformerApp extends GameApplication {
                         player.getComponent(PlayerComponent.class).jump();
                     }
                 }, bindings[counter][0]);
-    
+
                 getInput().addAction(new UserAction("Left" + counter) {
                     @Override
                     protected void onAction() {
                         player.getComponent(PlayerComponent.class).left();
                     }
-    
+
                     @Override
                     protected void onActionEnd() {
                         player.getComponent(PlayerComponent.class).stop();
                     }
                 }, bindings[counter][1]);
-    
+
                 getInput().addAction(new UserAction("Right" + counter) {
                     @Override
                     protected void onAction() {
                         player.getComponent(PlayerComponent.class).right();
                     }
-    
+
                     @Override
                     protected void onActionEnd() {
                         player.getComponent(PlayerComponent.class).stop();
                     }
                 }, bindings[counter][2]);
-    
+
                 getInput().addAction(new UserAction("Use" + counter) {
                     @Override
                     protected void onActionBegin() {
@@ -151,13 +152,13 @@ public class PlatformerApp extends GameApplication {
                                 .filter(btn -> btn.hasComponent(CollidableComponent.class) && player.isColliding(btn))
                                 .forEach(btn -> {
                                     btn.removeComponent(CollidableComponent.class);
-    
+
                                     Entity keyEntity = btn.getObject("keyEntity");
                                     keyEntity.setProperty("activated", true);
-    
+
                                     KeyView view = (KeyView) keyEntity.getViewComponent().getChildren().get(0);
                                     view.setKeyColor(Color.RED);
-    
+
                                     makeExitDoor();
                                 });
                     }
@@ -210,12 +211,10 @@ public class PlatformerApp extends GameApplication {
             player = null;
         }
 
-       
-
         nextLevel();
 
         // player must be spawned after call to nextLevel, otherwise player gets removed
-        // before the update tick _actually_ adds the player to game world
+        // before the update tick a_actually_ adds the player to game world
         Map<String, Boolean> playerStatus = loadPlayerStatusFromJson();
 
         for (int i = 0; i < players.length; i++) {
@@ -243,7 +242,21 @@ public class PlatformerApp extends GameApplication {
     protected void initPhysics() {
 
         getPhysicsWorld().setGravity(0, 980);
+
+        // Player Parcel Interaction
         getPhysicsWorld().addCollisionHandler(new PlayerButtonHandler());
+
+        /* Player & Blocks Physics */
+
+        onCollision(PLAYER, PLATFORM, (player, platform) -> {
+            String platformType = platform.getString("type");
+            if ("SLOW".equals(platformType)) {
+                // player.getComponent(PhysicsComponent.class).setVelocityX(100);
+                // ;
+                // player.getComponent(PlayerComponent.class).setPlayerSpeed(85);
+            }
+
+        });
 
         // Set collision of player and mail here:
 
@@ -255,7 +268,6 @@ public class PlatformerApp extends GameApplication {
         onCollision(PLAYER, PLAYER, (player1, player2) -> {
             player1.getComponent(PlayerComponent.class).stop();
             player2.getComponent(PlayerComponent.class).stop();
-            
 
             // if touching, stick
 
@@ -288,7 +300,7 @@ public class PlatformerApp extends GameApplication {
             } catch (ArrayIndexOutOfBoundsException e) {
                 // Handle exception if players[0] does not exist
             }
-            
+
             try {
                 if (player == players[1]) {
                     timerOnP2 = true;
@@ -296,7 +308,7 @@ public class PlatformerApp extends GameApplication {
             } catch (ArrayIndexOutOfBoundsException e) {
                 // Handle exception if players[1] does not exist
             }
-            
+
             try {
                 if (player == players[2]) {
                     timerOnP3 = true;
@@ -304,7 +316,7 @@ public class PlatformerApp extends GameApplication {
             } catch (ArrayIndexOutOfBoundsException e) {
                 // Handle exception if players[2] does not exist
             }
-            
+
             try {
                 if (player == players[3]) {
                     timerOnP4 = true;
@@ -443,7 +455,8 @@ public class PlatformerApp extends GameApplication {
             inc("levelTimeP4", -1);
         }
         // restarts the level if the timer/s reach 0
-        if (FXGL.geti("levelTimeP1") == 0 || FXGL.geti("levelTimeP2") == 0 || FXGL.geti("levelTimeP3") == 0 || FXGL.geti("levelTimeP4") == 0) {
+        if (FXGL.geti("levelTimeP1") == 0 || FXGL.geti("levelTimeP2") == 0 || FXGL.geti("levelTimeP3") == 0
+                || FXGL.geti("levelTimeP4") == 0) {
             onPlayerDied();
         }
     }

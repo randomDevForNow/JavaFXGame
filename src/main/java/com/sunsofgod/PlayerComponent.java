@@ -28,9 +28,23 @@ public class PlayerComponent extends Component {
     public int pWidth = 32;
     public int pHeight = 42;
 
+    // Player Attributes
+    private int movementSpeed = 170;
     private int jumps = 1;
     private boolean isJumping = false;
     private boolean isOnGround = true;
+
+    public int getPlayerSpeed() {
+        return movementSpeed;
+    }
+
+    public void setPlayerSpeed(int movementSpeed) {
+        this.movementSpeed = movementSpeed;
+    }
+
+    public void resetPlayerSpeed() {
+        movementSpeed = 170;
+    }
 
     // List of players standing on top of this player
     private List<Entity> topPlayers = new ArrayList<>();
@@ -73,35 +87,37 @@ public class PlayerComponent extends Component {
                 this.isOnGround = false;
         });
 
-        // Rectangle topSensorVisual = new Rectangle(25, 8, Color.RED); // Visualize the
-        // sensor
-        // entity.getViewComponent().addChild(topSensorVisual);
-
-        // Define the sensor at the top of the player
         HitBox topSensor = new HitBox("TOP_SENSOR", new Point2D(1, 0), BoundingShape.box(30, 1));
 
         SensorCollisionHandler s = new SensorCollisionHandler() {
             @Override
             protected void onCollisionBegin(Entity other) {
                 if (other.getType() == EntityType.PLAYER) {
-                    jumps = 0;
-                    topPlayers.add(other);
-                    System.out.println("Player detected above! Total riders: " + topPlayers.size());
+                    topPlayers.add(other); // Add the player on top
+                    // Check if the player above has any riders and propagate
+                    propagateRiders(other);
                 }
             }
 
             @Override
             protected void onCollisionEnd(Entity other) {
                 if (other.getType() == EntityType.PLAYER) {
-                    if (isOnGround) {
-                        jumps = 1;
-                    }
-                    topPlayers.remove(other);
-                    System.out.println("Player above moved away! Total riders: " + topPlayers.size());
+                    topPlayers.remove(other); // Remove the player when it moves away
                 }
             }
         };
         physics.addSensor(topSensor, s);
+    }
+
+    private void propagateRiders(Entity playerAbove) {
+        PlayerComponent abovePlayerComp = playerAbove.getComponent(PlayerComponent.class);
+        for (Entity rider : abovePlayerComp.topPlayers) {
+            if (!topPlayers.contains(rider)) {
+                topPlayers.add(rider);
+                // Recursively propagate if that rider also has riders
+                propagateRiders(rider);
+            }
+        }
     }
 
     @Override
@@ -136,6 +152,7 @@ public class PlayerComponent extends Component {
         for (Entity rider : topPlayers) {
             rider.getComponent(PhysicsComponent.class).setVelocityX(170);
         }
+        System.out.println(topPlayers.size());
     }
 
     public void stop() {

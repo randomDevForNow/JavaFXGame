@@ -44,13 +44,17 @@ public class PlatformerFactory implements EntityFactory {
 
         @Spawns("platform")
         public Entity newPlatform(SpawnData data) {
+                String type = data.get("type");
                 return entityBuilder(data)
                                 .type(PLATFORM)
                                 .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"),
                                                 data.<Integer>get("height"))))
                                 .with(new PhysicsComponent())
+                                .with(new CollidableComponent(true))
+                                .with("type", type)
                                 .build();
         }
+
 
         @Spawns("exitTrigger")
         public Entity newExitTrigger(SpawnData data) {
