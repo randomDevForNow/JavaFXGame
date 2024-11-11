@@ -47,12 +47,10 @@ public class KaraokeWindow {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("Delivery Rush Karaoke");
     
-        // Create main layout
-        VBox root = new VBox(10); // Reduced spacing
-        root.setPadding(new Insets(15));
-        root.setAlignment(Pos.CENTER);
-        
-        // Set background and size
+        // Create main layout as vertical
+        VBox root = new VBox(15);
+        root.setPadding(new Insets(20));
+        root.setAlignment(Pos.TOP_CENTER);
         root.setStyle("-fx-background-color: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d);");
     
         // Title section
@@ -69,51 +67,55 @@ public class KaraokeWindow {
         // Initialize components
         initializeComponents();
     
-        // Main content area - HBox to split player and controls
-        HBox mainContent = new HBox(15);
-        mainContent.setAlignment(Pos.CENTER);
-    
-        // Left side - YouTube player
+        // YouTube player section at the top
         VBox playerSection = new VBox(10);
         playerSection.setAlignment(Pos.CENTER);
         playerSection.setPadding(new Insets(10));
         playerSection.setStyle("-fx-background-color: rgba(0,0,0,0.7); -fx-background-radius: 10px;");
-        
-        // Make player bigger
-        youtubePlayer.setPrefSize(800, 650); // Increased size
+        youtubePlayer.setPrefSize(900, 506); // 16:9 ratio
         youtubePlayer.setVisible(false);
-        playerSection.getChildren().addAll(youtubePlayer);
+        playerSection.getChildren().add(youtubePlayer);
+        root.getChildren().add(playerSection);
     
-        // Right side - Controls
-        VBox controlSection = new VBox(10);
-        controlSection.setAlignment(Pos.TOP_CENTER);
-        controlSection.setPrefWidth(300); // Fixed width for controls
+        // Controls section below player
+        HBox controlsSection = new HBox(20);
+        controlsSection.setAlignment(Pos.CENTER);
+    
+        // Left side - Categories and Input
+        VBox leftControls = new VBox(10);
+        leftControls.setAlignment(Pos.TOP_CENTER);
+        leftControls.setPrefWidth(400);
     
         // Input section
         VBox inputBox = createInputSection();
         
-        // Create a ScrollPane for categories to make them scrollable
+        // Categories (scrollable)
         VBox categoryBox = createCategoryBox();
         ScrollPane categoryScroll = new ScrollPane(categoryBox);
         categoryScroll.setFitToWidth(true);
-        categoryScroll.setPrefHeight(200); // Limited height
+        categoryScroll.setPrefHeight(200);
         categoryScroll.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
-        
-        // Number pad
+    
+        leftControls.getChildren().addAll(inputBox, categoryScroll);
+    
+        // Right side - Number pad and controls
+        VBox rightControls = new VBox(10);
+        rightControls.setAlignment(Pos.TOP_CENTER);
+        rightControls.setPrefWidth(400);
+    
+        // Create new 5x2 number pad
         GridPane numberPad = createStyledNumberPad();
         
         // Control buttons
         HBox buttonBox = createControlButtons();
     
-        // Add all controls to right section
-        controlSection.getChildren().addAll(inputBox, categoryScroll, numberPad, buttonBox);
+        rightControls.getChildren().addAll(numberPad, buttonBox);
     
-        // Add sections to main content
-        mainContent.getChildren().addAll(playerSection, controlSection);
+        // Add both sides to controls section
+        controlsSection.getChildren().addAll(leftControls, rightControls);
+        root.getChildren().add(controlsSection);
     
-        root.getChildren().add(mainContent);
-    
-        // Create scene with adjusted size
+        // Create scene
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
         
@@ -123,10 +125,120 @@ public class KaraokeWindow {
         fadeIn.setToValue(1.0);
         fadeIn.play();
     
-        // Set stage size to accommodate larger player
-        stage.setWidth(1200);  // Increased width
-        stage.setHeight(800);  // Adjusted height
+        stage.setWidth(1000);
+        stage.setHeight(900);
         stage.setScene(scene);
+    }
+    
+    private GridPane createStyledNumberPad() {
+        GridPane numberPad = new GridPane();
+        numberPad.setHgap(15);
+        numberPad.setVgap(15);
+        numberPad.setAlignment(Pos.CENTER);
+        numberPad.setPadding(new Insets(15));
+        numberPad.setStyle(
+            "-fx-background-color: rgba(0,0,0,0.7); " +
+            "-fx-padding: 15px; " +
+            "-fx-background-radius: 10px;"
+        );
+    
+        // First row (1-5)
+        for (int i = 1; i <= 5; i++) {
+            Button btn = createStyledNumberButton(String.valueOf(i));
+            numberPad.add(btn, i-1, 0);
+        }
+    
+        // Second row (6-0)
+        for (int i = 6; i <= 9; i++) {
+            Button btn = createStyledNumberButton(String.valueOf(i));
+            numberPad.add(btn, i-6, 1);
+        }
+    
+        // Add 0 button
+        Button btn0 = createStyledNumberButton("0");
+        numberPad.add(btn0, 4, 1);
+    
+        // Add control buttons in a new row
+        Button clearBtn = createStyledActionButton("Clear");
+        clearBtn.setOnAction(e -> clearInput());
+        numberPad.add(clearBtn, 0, 2, 2, 1); // Span 2 columns
+    
+        Button enterBtn = createStyledActionButton("Enter");
+        enterBtn.setOnAction(e -> processInput());
+        numberPad.add(enterBtn, 3, 2, 2, 1); // Span 2 columns
+    
+        return numberPad;
+    }
+    
+    private Button createStyledNumberButton(String number) {
+        Button button = new Button(number);
+        button.setPrefSize(70, 70); // Slightly smaller buttons
+        button.setStyle(
+            "-fx-font-size: 24px; " +
+            "-fx-background-color: #4CAF50; " +
+            "-fx-text-fill: white; " +
+            "-fx-background-radius: 35; " + // Maintain circular shape
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 2);"
+        );
+        
+        // Add hover effect
+        button.setOnMouseEntered(e -> {
+            button.setStyle(
+                "-fx-font-size: 24px; " +
+                "-fx-background-color: #45a049; " +
+                "-fx-text-fill: white; " +
+                "-fx-background-radius: 35; " +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 15, 0, 0, 3);"
+            );
+        });
+        
+        button.setOnMouseExited(e -> {
+            button.setStyle(
+                "-fx-font-size: 24px; " +
+                "-fx-background-color: #4CAF50; " +
+                "-fx-text-fill: white; " +
+                "-fx-background-radius: 35; " +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 2);"
+            );
+        });
+        
+        button.setOnAction(e -> appendNumber(number));
+        return button;
+    }
+    
+    private Button createStyledActionButton(String text) {
+        Button button = new Button(text);
+        button.setPrefSize(150, 60); // Wider buttons for actions
+        button.setStyle(
+            "-fx-font-size: 18px; " +
+            "-fx-background-color: #2196F3; " +
+            "-fx-text-fill: white; " +
+            "-fx-background-radius: 30; " +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 2);"
+        );
+        
+        // Add hover effect
+        button.setOnMouseEntered(e -> {
+            button.setStyle(
+                "-fx-font-size: 18px; " +
+                "-fx-background-color: #1976D2; " +
+                "-fx-text-fill: white; " +
+                "-fx-background-radius: 30; " +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 15, 0, 0, 3);"
+            );
+        });
+        
+        button.setOnMouseExited(e -> {
+            button.setStyle(
+                "-fx-font-size: 18px; " +
+                "-fx-background-color: #2196F3; " +
+                "-fx-text-fill: white; " +
+                "-fx-background-radius: 30; " +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 2);"
+            );
+        });
+        
+        return button;
     }
     
     private VBox createCategoryBox() {
@@ -204,108 +316,6 @@ public class KaraokeWindow {
     
         inputBox.getChildren().addAll(inputLabel, inputDisplay, songInfo);
         return inputBox;
-    }
-
-    private GridPane createStyledNumberPad() {
-        GridPane numberPad = new GridPane();
-        numberPad.setHgap(10);
-        numberPad.setVgap(10);
-        numberPad.setAlignment(Pos.CENTER);
-        numberPad.setStyle(
-            "-fx-background-color: rgba(0,0,0,0.7); " +
-            "-fx-padding: 15px; " +
-            "-fx-background-radius: 10px;"
-        );
-
-        // Add number buttons with styling
-        for (int i = 1; i <= 9; i++) {
-            Button btn = createStyledNumberButton(String.valueOf(i));
-            numberPad.add(btn, (i - 1) % 3, (i - 1) / 3);
-        }
-
-        Button btn0 = createStyledNumberButton("0");
-        numberPad.add(btn0, 1, 3);
-
-        Button clearBtn = createStyledActionButton("Clear");
-        clearBtn.setOnAction(e -> clearInput());
-        numberPad.add(clearBtn, 0, 3);
-
-        Button enterBtn = createStyledActionButton("Enter");
-        enterBtn.setOnAction(e -> processInput());
-        numberPad.add(enterBtn, 2, 3);
-
-        return numberPad;
-    }
-
-    private Button createStyledNumberButton(String number) {
-        Button button = new Button(number);
-        button.setPrefSize(80, 80);
-        button.setStyle(
-            "-fx-font-size: 24px; " +
-            "-fx-background-color: #4CAF50; " +
-            "-fx-text-fill: white; " +
-            "-fx-background-radius: 40; " +
-            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 2);"
-        );
-        
-        // Add hover effect
-        button.setOnMouseEntered(e -> {
-            button.setStyle(
-                "-fx-font-size: 24px; " +
-                "-fx-background-color: #45a049; " +
-                "-fx-text-fill: white; " +
-                "-fx-background-radius: 40; " +
-                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 15, 0, 0, 3);"
-            );
-        });
-        
-        button.setOnMouseExited(e -> {
-            button.setStyle(
-                "-fx-font-size: 24px; " +
-                "-fx-background-color: #4CAF50; " +
-                "-fx-text-fill: white; " +
-                "-fx-background-radius: 40; " +
-                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 2);"
-            );
-        });
-        
-        button.setOnAction(e -> appendNumber(number));
-        return button;
-    }
-
-    private Button createStyledActionButton(String text) {
-        Button button = new Button(text);
-        button.setPrefSize(80, 80);
-        button.setStyle(
-            "-fx-font-size: 18px; " +
-            "-fx-background-color: #2196F3; " +
-            "-fx-text-fill: white; " +
-            "-fx-background-radius: 40; " +
-            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 2);"
-        );
-        
-        // Add hover effect
-        button.setOnMouseEntered(e -> {
-            button.setStyle(
-                "-fx-font-size: 18px; " +
-                "-fx-background-color: #1976D2; " +
-                "-fx-text-fill: white; " +
-                "-fx-background-radius: 40; " +
-                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 15, 0, 0, 3);"
-            );
-        });
-        
-        button.setOnMouseExited(e -> {
-            button.setStyle(
-                "-fx-font-size: 18px; " +
-                "-fx-background-color: #2196F3; " +
-                "-fx-text-fill: white; " +
-                "-fx-background-radius: 40; " +
-                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 2);"
-            );
-        });
-        
-        return button;
     }
 
     private HBox createControlButtons() {
