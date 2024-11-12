@@ -44,10 +44,8 @@ import java.io.IOException;
 public class PlatformerApp extends GameApplication {
 
     // sets the timer to be off at the start
-    private boolean timerOnP1 = false;
-    private boolean timerOnP2 = false;
-    private boolean timerOnP3 = false;
-    private boolean timerOnP4 = false;
+    private boolean globalTimerOn = true;
+    
 
     private static final int MAX_LEVEL = 5;
     private static int STARTING_LEVEL = 0;
@@ -188,6 +186,9 @@ public class PlatformerApp extends GameApplication {
                                     KeyView view = (KeyView) keyEntity.getViewComponent().getChildren().get(0);
                                     view.setKeyColor(Color.RED);
 
+                                    //function to disable 
+                                    globalTimerOn = false;
+
                                     makeExitDoor();
                                 });
                     }
@@ -210,8 +211,21 @@ public class PlatformerApp extends GameApplication {
         // vars.put("score", 0);
 
         // global variables for timers
-        vars.put("levelTimeP1", 0);
+        vars.put("globalTimer", 1000);
     }
+
+
+    @Override
+    protected void initUI() {
+        Label globalTimerLabel = new Label();
+        globalTimerLabel.setTextFill(Color.BLACK);
+        globalTimerLabel.setFont(Font.font(20.0));
+        globalTimerLabel.textProperty().bind(FXGL.getip("globalTimer").asString("Timer:"+ "%d"));
+        FXGL.addUINode(globalTimerLabel, 20, 10);
+
+    }
+
+    
 
     @Override
     protected void onPreInit() {
@@ -398,6 +412,14 @@ public class PlatformerApp extends GameApplication {
         // }
         // }
         // resets the properties of the buttons
+        if (globalTimerOn) {
+            inc("globalTimer", -1);
+        }
+
+        if (FXGL.geti("globalTimer") == 0){
+            onPlayerDied();
+        }
+        
 
     }
 
@@ -413,6 +435,9 @@ public class PlatformerApp extends GameApplication {
                 player.setZIndex(Integer.MAX_VALUE);
             }
         }
+
+        set("globalTimer", 1000);
+        globalTimerOn = true;
 
         // set("levelTime", 0.0);
 
