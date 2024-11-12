@@ -345,7 +345,7 @@ public class LevelSelectScene extends FXGLMenu {
 
     private void startGame() {
         if (level != 0) {
-            ((PlatformerApp) FXGL.getApp()).levelNum = level;
+            ((PlatformerApp) FXGL.getApp()).setLevelNum(level);
             level = 0;
             fireNewGame();
         }
