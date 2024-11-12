@@ -197,8 +197,25 @@ public class PlayerSelectScene extends FXGLMenu {
         Animation.applyHoverAndClickEffects(pSelectButton, hoverMedia, clickedMedia);
 
         pSelectButton.setOnAction(e -> {
-            getSceneService().popSubScene();
-            getSceneService().pushSubScene(new WorldSelectScene());
+
+            try {
+                // Create an ObjectMapper instance
+                ObjectMapper objectMapper2 = new ObjectMapper();
+    
+                // Read the JSON file into a Map with a specific type
+                File file = new File("src/main/resources/database.json"); // Make sure to provide the correct path to your file
+                Map<String, Boolean> map2 = objectMapper2.readValue(file, new TypeReference<Map<String, Boolean>>() {});
+    
+                // Check if any player is selected
+                if (map2.get("player1") || map2.get("player2") || map2.get("player3") || map2.get("player4")) {
+                    getSceneService().popSubScene();
+                    getSceneService().pushSubScene(new WorldSelectScene());
+                }
+            } catch (Exception s) {
+                s.printStackTrace();
+            }
+
+           
         });
 
     
