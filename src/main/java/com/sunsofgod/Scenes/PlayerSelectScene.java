@@ -80,8 +80,6 @@ public class PlayerSelectScene extends FXGLMenu {
             else
                 players[count] = false;
             imageView.setImage(isClicked[0] ? clickedImage : unclickedImage);
-            System.out.println(isClicked[0] ? "Clicked " + playerKey : "Unclicked " + playerKey);
-            System.out.println("Clicked " + count);
         });
 
         return button;
@@ -240,15 +238,15 @@ public class PlayerSelectScene extends FXGLMenu {
                 "/assets/textures/buttons/clickedpandaButton.png",
                 "player1", 0);
 
-        Button shoppeeButton = createCustomButton(
-                "/assets/textures/buttons/unclickedshoppeeButton.png",
-                "/assets/textures/buttons/clickedshoppeeButton.png",
-                "player3", 2);
-
         Button lazadaButton = createCustomButton(
                 "/assets/textures/buttons/unclickedlazadaButton.png",
                 "/assets/textures/buttons/clickedlazadaButton.png",
                 "player2", 1);
+
+        Button shoppeeButton = createCustomButton(
+                "/assets/textures/buttons/unclickedshoppeeButton.png",
+                "/assets/textures/buttons/clickedshoppeeButton.png",
+                "player3", 2);
 
         Button zaloraButton = createCustomButton(
                 "/assets/textures/buttons/unclickedzaloraButton.png",
@@ -304,8 +302,7 @@ public class PlayerSelectScene extends FXGLMenu {
     }
 
     private void goToLevelSelect() {
-        ((PlatformerApp) FXGL.getApp()).playersI = players;
-        getSceneService().popSubScene();
+        ((PlatformerApp) FXGL.getApp()).setPlayers(players);
         getSceneService().pushSubScene(new LevelSelectScene());
     }
 }
