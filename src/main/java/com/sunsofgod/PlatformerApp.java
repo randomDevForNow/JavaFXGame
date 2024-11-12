@@ -45,6 +45,10 @@ import static com.sunsofgod.EntityType.*;
 
 public class PlatformerApp extends GameApplication {    
 
+
+    //handles the state so that levelselect will not be changed by fnished level function
+    private boolean levelSelectLock = false;
+
     //handles the database of completed levels
     File file = new File("src/main/resources/database.json");
     ObjectMapper objectMapper = new ObjectMapper();
@@ -238,7 +242,18 @@ public class PlatformerApp extends GameApplication {
         // break;
         // case 4:
         // levelNum += 12;
-        // }
+        // }int playerNumbers = activePlayers.size();
+        int playerNumbers2 = activePlayers.size();
+        if(playerNumbers2 == 1){
+            levelSelect = levelNum;
+        }else if (playerNumbers2 == 2){
+            levelSelect = levelNum + 4;
+        }else if (playerNumbers2 == 3){
+            levelSelect = levelNum + 8;
+        }else if (playerNumbers2 == 4){
+            levelSelect = levelNum + 12;
+        }
+
         setLevelFromMap("tmx/level" + levelNum + ".tmx");
     }
 
@@ -270,14 +285,21 @@ public class PlatformerApp extends GameApplication {
                 
                 int playerNumbers = activePlayers.size();
 
-                if(playerNumbers == 1){
-                    levelSelect = levelNum;
-                }else if (playerNumbers == 2){
-                    levelSelect = levelNum + 4;
-                }else if (playerNumbers == 3){
-                    levelSelect = levelNum + 8;
-                }else if (playerNumbers == 4){
-                    levelSelect = levelNum + 12;
+                if (!levelSelectLock){
+
+                
+
+                    if(playerNumbers == 1){
+                        levelSelect = levelNum;
+                    }else if (playerNumbers == 2){
+                        levelSelect = levelNum + 4;
+                    }else if (playerNumbers == 3){
+                        levelSelect = levelNum + 8;
+                    }else if (playerNumbers == 4){
+                        levelSelect = levelNum + 12;
+                    }
+
+                    levelSelectLock = true;
                 }
                    
                 // Manually set each player's value to false
@@ -342,8 +364,8 @@ public class PlatformerApp extends GameApplication {
         
 
         // TEMP
-        levelNum++;
-        setLevelFromMap("tmx/level" + levelNum + ".tmx");
+        levelSelect++;
+        setLevelFromMap("tmx/level" + levelSelect + ".tmx");
 
         spawnPlayers();
 
