@@ -40,8 +40,7 @@ import static com.sunsofgod.EntityType.*;
 
 public class PlatformerApp extends GameApplication {
 
-
-    //sets the onUpdate funtion to on and off
+    // sets the onUpdate funtion to on and off
     private boolean globalTimerPaused = false;
 
     // sets the timer to be off at the start
@@ -50,6 +49,8 @@ public class PlatformerApp extends GameApplication {
     /* Set to Private */
     private boolean[] players = { false, false, false, false };
     private int levelNum = 0;
+
+    private boolean dialogShown = false;
 
     public int getLevelNum() {
         return levelNum;
@@ -79,7 +80,6 @@ public class PlatformerApp extends GameApplication {
         settings.setHeight(720);
 
         settings.setMainMenuEnabled(true);
-        
 
         settings.setDeveloperMenuEnabled(true);
         /* Set Loading Screen Here: */
@@ -140,7 +140,10 @@ public class PlatformerApp extends GameApplication {
             getInput().addAction(new UserAction("Left" + i) {
                 @Override
                 protected void onAction() {
-                    player.getComponent(PlayerComponent.class).left();
+                    if (!dialogShown)
+                        player.getComponent(PlayerComponent.class).left();
+                    else
+                        player.getComponent(PlayerComponent.class).stop();
                 }
 
                 @Override
@@ -152,7 +155,10 @@ public class PlatformerApp extends GameApplication {
             getInput().addAction(new UserAction("Right" + i) {
                 @Override
                 protected void onAction() {
-                    player.getComponent(PlayerComponent.class).right();
+                    if (!dialogShown)
+                        player.getComponent(PlayerComponent.class).right();
+                    else
+                        player.getComponent(PlayerComponent.class).stop();
                 }
 
                 @Override
@@ -170,9 +176,15 @@ public class PlatformerApp extends GameApplication {
                             .filter(btn -> btn.hasComponent(CollidableComponent.class) && player.isColliding(btn))
                             .forEach(btn -> {
                                 btn.removeComponent(CollidableComponent.class);
-
-                                finishLevel();
+                                dialogShown = true;
                             });
+                }
+
+                @Override
+                protected void onActionEnd() {
+                    if (dialogShown)
+                        finishLevel();
+
                 }
             }, bindings[i][3]);
             i++;
@@ -227,13 +239,15 @@ public class PlatformerApp extends GameApplication {
     }
 
     private void resetLevel() {
+
         getGameScene().getViewport().fade(() -> {
+            // reset timer and etc.
+            x = 0;
+
             // teleport everyone to spawn
             spawnPlayers();
 
-            // reset timer and etc.
             // GIAN reset timer here
-            x = 0;
 
             resumeBGMusic();
             set("globalTimer", 1000);
@@ -254,6 +268,8 @@ public class PlatformerApp extends GameApplication {
             return;
         }
         // NON-BLOCKING dialogue here
+        getInput().clearAll();
+
         Dialog<Void> dialog = new Dialog<>();
         dialog.setTitle("Custom Dialog");
         dialog.setHeaderText("This is a custom dialog with a close button.");
@@ -279,14 +295,12 @@ public class PlatformerApp extends GameApplication {
 
         globalTimerPaused = false;
 
-        
-
         // TEMP
         levelNum++;
         setLevelFromMap("tmx/level" + levelNum + ".tmx");
 
+        dialogShown = false;
         spawnPlayers();
-
     }
 
     private void spawnPlayers() {
@@ -416,8 +430,7 @@ public class PlatformerApp extends GameApplication {
     protected void onUpdate(double tpf) {
         // inc("levelTime", tpf);
 
-
-        if (globalTimerPaused){
+        if (globalTimerPaused) {
             return;
         }
 
@@ -428,7 +441,7 @@ public class PlatformerApp extends GameApplication {
         }
         // resets the properties of the buttons
         if (globalTimerOn) {
-            if(FXGL.geti("globalTimer") > 0){
+            if (FXGL.geti("globalTimer") > 0) {
                 inc("globalTimer", -1);
             }
         }
