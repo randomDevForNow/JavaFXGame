@@ -18,6 +18,8 @@ import com.almasb.fxgl.input.view.KeyView;
 import com.almasb.fxgl.physics.PhysicsComponent;
 
 import javafx.geometry.Point2D;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
@@ -37,6 +39,10 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.sunsofgod.EntityType.*;
 
 public class PlatformerApp extends GameApplication {
+
+
+    //sets the onUpdate funtion to on and off
+    private boolean globalTimerPaused = false;
 
     // sets the timer to be off at the start
     public int level = 0;
@@ -245,6 +251,32 @@ public class PlatformerApp extends GameApplication {
             return;
         }
         // NON-BLOCKING dialogue here
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle("Custom Dialog");
+        dialog.setHeaderText("This is a custom dialog with a close button.");
+
+        // Add a ButtonType to close the dialog
+        ButtonType closeButtonType = new ButtonType("Close");
+
+        // Set the ButtonType to the dialog's buttons
+        dialog.getDialogPane().getButtonTypes().add(closeButtonType);
+
+        // Handle button click
+        dialog.setResultConverter(buttonType -> {
+            if (buttonType == closeButtonType) {
+                // Close the dialog when the "Close" button is clicked
+                dialog.close();
+            }
+            return null; // No return value needed
+        });
+
+        globalTimerPaused = true;
+        // Show the dialog and wait for it to be closed
+        dialog.showAndWait();
+
+        globalTimerPaused = false;
+
+        
 
         // TEMP
         levelNum++;
@@ -384,6 +416,11 @@ public class PlatformerApp extends GameApplication {
     @Override
     protected void onUpdate(double tpf) {
         // inc("levelTime", tpf);
+
+
+        if (globalTimerPaused){
+            return;
+        }
 
         for (Entity player : players) {
             if (player != null && player.getY() > getAppHeight()) {
