@@ -18,9 +18,11 @@ import com.almasb.fxgl.input.view.KeyView;
 import com.almasb.fxgl.physics.PhysicsComponent;
 
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -48,7 +50,6 @@ public class PlatformerApp extends GameApplication {
     private Entity spawnpoint;
     int x = 0;
     private boolean globalTimerOn = true;
-    
 
     private static final int MAX_LEVEL = 5;
     private static int STARTING_LEVEL = 0;
@@ -162,19 +163,8 @@ public class PlatformerApp extends GameApplication {
                 }
             }, bindings[i][3]);
             i++;
-                                    KeyView view = (KeyView) keyEntity.getViewComponent().getChildren().get(0);
-                                    view.setKeyColor(Color.RED);
-
-                                    //function to disable 
-                                    globalTimerOn = false;
-
-                                    makeExitDoor();
-                                });
-                    }
-                }, bindings[counter][3]);
-            }
-            counter++;
         }
+
     }
 
     /* For Global Variables (Refunds of each player) */
@@ -192,18 +182,15 @@ public class PlatformerApp extends GameApplication {
         vars.put("globalTimer", 1000);
     }
 
-
     @Override
     protected void initUI() {
         Label globalTimerLabel = new Label();
         globalTimerLabel.setTextFill(Color.BLACK);
         globalTimerLabel.setFont(Font.font(20.0));
-        globalTimerLabel.textProperty().bind(FXGL.getip("globalTimer").asString("Timer:"+ "%d"));
+        globalTimerLabel.textProperty().bind(FXGL.getip("globalTimer").asString("Timer:" + "%d"));
         FXGL.addUINode(globalTimerLabel, 20, 10);
 
     }
-
-    
 
     @Override
     protected void onPreInit() {
@@ -237,6 +224,7 @@ public class PlatformerApp extends GameApplication {
             spawnPlayers();
 
             // reset timer and etc.
+            // GIAN reset timer here
             x = 0;
 
             resumeBGMusic();
@@ -247,6 +235,11 @@ public class PlatformerApp extends GameApplication {
     }
 
     private void finishLevel() {
+        // reset all counts
+        x = 0;
+
+        // GIAN reset timer here
+
         if (levelNum % 4 == 0) {
             // level end scene
             return;
@@ -259,8 +252,6 @@ public class PlatformerApp extends GameApplication {
 
         spawnPlayers();
 
-        // reset all counts
-        x = 0;
     }
 
     private void spawnPlayers() {
@@ -397,10 +388,9 @@ public class PlatformerApp extends GameApplication {
             inc("globalTimer", -1);
         }
 
-        if (FXGL.geti("globalTimer") == 0){
+        if (FXGL.geti("globalTimer") == 0) {
             onPlayerDied();
         }
-        
 
     }
 
