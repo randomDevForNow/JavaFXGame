@@ -12,22 +12,4 @@ public class PlayerButtonHandler extends CollisionHandler {
         super(EntityType.PLAYER, EntityType.BUTTON);
     }
 
-    @Override
-    protected void onCollisionBegin(Entity player, Entity btn) {
-        Entity keyEntity = btn.getObject("keyEntity");
-
-        if (!keyEntity.isActive()) {
-            keyEntity.setProperty("activated", false);
-            getGameWorld().addEntity(keyEntity);
-        }
-
-    }
-
-    @Override
-    protected void onCollisionEnd(Entity player, Entity btn) {
-        Entity keyEntity = btn.getObject("keyEntity");
-        if (!keyEntity.getBoolean("activated")) {
-            keyEntity.setOpacity(0);
-        }
-    }
 }

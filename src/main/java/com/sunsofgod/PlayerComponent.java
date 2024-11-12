@@ -6,22 +6,11 @@ import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.SensorCollisionHandler;
-import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
 import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.geometry.Point2D;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -162,30 +151,7 @@ public class PlayerComponent extends Component {
             stopped = false;
         }
 
-        double carrierVelocityX = physics.getVelocityX();
-
-        if (Math.abs(carrierVelocityX) > MAX_VELOCITY_X) {
-            carrierVelocityX = Math.signum(carrierVelocityX) * MAX_VELOCITY_X;
-            physics.setVelocityX(carrierVelocityX);
-        }
-
-        for (Entity rider : topPlayers) {
-            PhysicsComponent riderPhysics = rider.getComponent(PhysicsComponent.class);
-            double riderVelocityX = riderPhysics.getVelocityX();
-
-            if (Math.abs(riderVelocityX) > MAX_VELOCITY_X) {
-                riderVelocityX = Math.signum(riderVelocityX) * MAX_VELOCITY_X;
-                riderPhysics.setVelocityX(riderVelocityX);
-            }
-
-            if (slip) {
-                riderPhysics.setVelocityX(carrierVelocityX + riderVelocityX);
-            } else if (!slip && Math.abs(carrierVelocityX) > 0) {
-                if (Math.abs(riderVelocityX) < Math.abs(carrierVelocityX)) {
-                    riderPhysics.setVelocityX(carrierVelocityX);
-                }
-            }
-        }
+        
 
     }
 

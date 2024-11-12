@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="70" tileheight="70" infinite="0" nextlayerid="3" nextobjectid="21">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="70" tileheight="70" infinite="0" nextlayerid="3" nextobjectid="24">
  <properties>
   <property name="star1time" type="float" value="7"/>
  </properties>
@@ -25,8 +25,13 @@
   <object id="15" type="platform" x="210" y="591" width="210" height="39"/>
   <object id="16" type="platform" x="631" y="591" width="210" height="39"/>
   <object id="17" type="exitSign" gid="65" x="910" y="630" width="70" height="70"/>
-  <object id="18" type="doorBot" gid="58" x="980" y="630" width="70" height="70"/>
-  <object id="19" type="doorTop" gid="46" x="980" y="560" width="70" height="70"/>
-  <object id="20" type="exitTrigger" x="630" y="490" width="210" height="70"/>
+  <object id="22" type="button" x="1015" y="609">
+   <properties>
+    <property name="doorX" type="int" value="980"/>
+    <property name="doorY" type="int" value="529"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="23" type="spawnpoint" x="269" y="535" width="128" height="42"/>
  </objectgroup>
 </map>

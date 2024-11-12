@@ -12,18 +12,13 @@ import com.almasb.fxgl.input.view.KeyView;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
-import com.almasb.fxgl.physics.SensorCollisionHandler;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
-import com.almasb.fxgl.ui.FontType;
 
-import javafx.beans.binding.Bindings;
 import javafx.geometry.Point2D;
 import javafx.scene.CacheHint;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
@@ -42,6 +37,15 @@ public class PlatformerFactory implements EntityFactory {
                                 .build();
         }
 
+        @Spawns("spawnpoint")
+        public Entity newSpawnPoint(SpawnData data) {
+                return entityBuilder()
+                                .type(SPAWNPOINT)
+                                .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"),
+                                                data.<Integer>get("height"))))
+                                .build();
+        }
+
         @Spawns("platform")
         public Entity newPlatform(SpawnData data) {
                 String type = data.get("type");
@@ -54,7 +58,6 @@ public class PlatformerFactory implements EntityFactory {
                                 .with("type", type)
                                 .build();
         }
-
 
         @Spawns("exitTrigger")
         public Entity newExitTrigger(SpawnData data) {

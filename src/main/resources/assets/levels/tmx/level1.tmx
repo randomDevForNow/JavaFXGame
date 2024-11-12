@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="70" tileheight="70" infinite="0" nextlayerid="3" nextobjectid="35">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="70" tileheight="70" infinite="0" nextlayerid="3" nextobjectid="38">
  <properties>
   <property name="star1time" type="float" value="7"/>
  </properties>
@@ -31,19 +31,18 @@
     <property name="type" value="SLIP"/>
    </properties>
   </object>
-  <object id="16" type="keyPrompt" x="70" y="560" width="140" height="70">
-   <properties>
-    <property name="key" value="D"/>
-   </properties>
-  </object>
-  <object id="17" type="keyPrompt" x="280" y="560" width="140" height="70">
-   <properties>
-    <property name="key" value="W"/>
-   </properties>
-  </object>
+  <object id="17" type="spawnpoint" x="165.85" y="584.043" width="128" height="42"/>
   <object id="18" type="exitSign" gid="65" x="490" y="590" width="70" height="70"/>
   <object id="19" type="doorBot" gid="58" x="980" y="630" width="70" height="70"/>
   <object id="20" type="doorTop" gid="46" x="980" y="560" width="70" height="70"/>
   <object id="21" type="exitTrigger" x="630" y="560" width="210" height="70"/>
+  <object id="36" type="button" x="424.185" y="552.114">
+   <point/>
+  </object>
+  <object id="37" type="keyPrompt" x="315.844" y="559.325" width="70" height="70">
+   <properties>
+    <property name="key" value="E"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

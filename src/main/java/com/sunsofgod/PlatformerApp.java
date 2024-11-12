@@ -15,16 +15,16 @@ import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.entity.level.Level;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.input.view.KeyView;
-import com.almasb.fxgl.physics.CollisionHandler;
 import com.almasb.fxgl.physics.PhysicsComponent;
-import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
 
 import javafx.geometry.Point2D;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.jetbrains.annotations.NotNull;
@@ -34,45 +34,26 @@ import com.sunsofgod.Scenes.*;
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.sunsofgod.EntityType.*;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import java.io.File;
-import java.io.IOException;
-
 public class PlatformerApp extends GameApplication {
 
     // sets the timer to be off at the start
+    public int level = 0;
+    private boolean[] selectedPlayers = {};
+    ArrayList<Entity> players = new ArrayList<>();
+
+    /* Set to Private */
+    public boolean[] playersI = { false, false, false, false };
+    public int levelNum = 0;
+
+    private Entity spawnpoint;
+    int x = 0;
     private boolean globalTimerOn = true;
     
 
     private static final int MAX_LEVEL = 5;
     private static int STARTING_LEVEL = 0;
 
-    // finds the starting level
-    public void loadGameConfig(String configFilePath) {
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        try {
-            // Read the JSON file into a strongly-typed Map
-            Map<String, Boolean> gameConfig = objectMapper.readValue(
-                    new File(configFilePath), new TypeReference<Map<String, Boolean>>() {
-                    });
-
-            // Iterate through the levels to find which one is true
-            for (int level = 1; level <= 4; level++) {
-                if (gameConfig.get("level" + level)) {
-                    // Update startingLevel based on which level is true
-                    // starting level is -1 as we start from 0
-                    STARTING_LEVEL = level - 1;
-                    break; // Exit the loop once the starting level is found
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    private ArrayList<Entity> lvlPlayers = new ArrayList<>();
 
     public int getStartingLevel() {
         return STARTING_LEVEL;
@@ -123,8 +104,6 @@ public class PlatformerApp extends GameApplication {
     // private LazyValue<LevelEndScene> levelEndScene = new LazyValue<>(() -> new
     // LevelEndScene());
 
-    private Entity[] players = new Entity[4];
-
     private KeyCode[][] bindings = new KeyCode[][] {
             { KeyCode.W, KeyCode.A, KeyCode.D, KeyCode.E },
             { KeyCode.UP, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.SLASH },
@@ -133,56 +112,56 @@ public class PlatformerApp extends GameApplication {
     };
 
     private void bindKeys() {
-        Map<String, Boolean> playerStatus = loadPlayerStatusFromJson(); // Load player status
 
-        int counter = 0;
-
+        int i = 0;
         for (Entity player : players) {
-            // Check if the player is active based on the JSON value
-            if (playerStatus.getOrDefault("player" + (counter + 1), false)) {
-                getInput().addAction(new UserAction("Jump" + counter) {
-                    @Override
-                    protected void onActionBegin() {
-                        player.getComponent(PlayerComponent.class).jump();
-                    }
-                }, bindings[counter][0]);
+            System.out.println(player);
+            getInput().addAction(new UserAction("Jump" + i) {
+                @Override
+                protected void onActionBegin() {
+                    player.getComponent(PlayerComponent.class).jump();
+                }
+            }, bindings[i][0]);
 
-                getInput().addAction(new UserAction("Left" + counter) {
-                    @Override
-                    protected void onAction() {
-                        player.getComponent(PlayerComponent.class).left();
-                    }
+            getInput().addAction(new UserAction("Left" + i) {
+                @Override
+                protected void onAction() {
+                    player.getComponent(PlayerComponent.class).left();
+                }
 
-                    @Override
-                    protected void onActionEnd() {
-                        player.getComponent(PlayerComponent.class).stop();
-                    }
-                }, bindings[counter][1]);
+                @Override
+                protected void onActionEnd() {
+                    player.getComponent(PlayerComponent.class).stop();
+                }
+            }, bindings[i][1]);
 
-                getInput().addAction(new UserAction("Right" + counter) {
-                    @Override
-                    protected void onAction() {
-                        player.getComponent(PlayerComponent.class).right();
-                    }
+            getInput().addAction(new UserAction("Right" + i) {
+                @Override
+                protected void onAction() {
+                    player.getComponent(PlayerComponent.class).right();
+                }
 
-                    @Override
-                    protected void onActionEnd() {
-                        player.getComponent(PlayerComponent.class).stop();
-                    }
-                }, bindings[counter][2]);
+                @Override
+                protected void onActionEnd() {
+                    player.getComponent(PlayerComponent.class).stop();
+                }
+            }, bindings[i][2]);
 
-                getInput().addAction(new UserAction("Use" + counter) {
-                    @Override
-                    protected void onActionBegin() {
-                        /* For Getting Mail */
-                        getGameWorld().getEntitiesByType(BUTTON)
-                                .stream()
-                                .filter(btn -> btn.hasComponent(CollidableComponent.class) && player.isColliding(btn))
-                                .forEach(btn -> {
-                                    btn.removeComponent(CollidableComponent.class);
-                                    Entity keyEntity = btn.getObject("keyEntity");
-                                    keyEntity.setProperty("activated", true);
+            getInput().addAction(new UserAction("Use" + i) {
+                @Override
+                protected void onActionBegin() {
+                    /* For Getting Mail */
+                    getGameWorld().getEntitiesByType(BUTTON)
+                            .stream()
+                            .filter(btn -> btn.hasComponent(CollidableComponent.class) && player.isColliding(btn))
+                            .forEach(btn -> {
+                                btn.removeComponent(CollidableComponent.class);
 
+                                finishLevel();
+                            });
+                }
+            }, bindings[i][3]);
+            i++;
                                     KeyView view = (KeyView) keyEntity.getViewComponent().getChildren().get(0);
                                     view.setKeyColor(Color.RED);
 
@@ -203,7 +182,6 @@ public class PlatformerApp extends GameApplication {
     protected void initGameVars(Map<String, Object> vars) {
 
         PlatformerApp config = new PlatformerApp();
-        config.loadGameConfig("src/main/resources/database.json");
         System.out.println("The starting level is: " + STARTING_LEVEL);
         vars.put("level", STARTING_LEVEL);
 
@@ -234,57 +212,95 @@ public class PlatformerApp extends GameApplication {
         /* Add Media Player Code here that loops */
     }
 
-    private static Map<String, Boolean> loadPlayerStatusFromJson() {
-        try {
-            // Create an ObjectMapper instance
-            ObjectMapper objectMapper = new ObjectMapper();
+    int xInit = 0;
 
-            // Read the JSON file into a Map<String, Boolean>
-            return objectMapper.readValue(new File("src/main/resources/database.json"),
-                    objectMapper.getTypeFactory().constructMapType(Map.class, String.class, Boolean.class));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return Map.of(); // Return an empty map in case of error
+    private void createLevel() {
+        /* Uncomment if levels up to 12 */
+
+        // switch (players.size()) {
+        // case 2:
+        // levelNum += 4;
+        // break;
+        // case 3:
+        // levelNum += 8;
+        // break;
+        // case 4:
+        // levelNum += 12;
+        // }
+
+        setLevelFromMap("tmx/level" + levelNum + ".tmx");
+    }
+
+    private void resetLevel() {
+        getGameScene().getViewport().fade(() -> {
+            // teleport everyone to spawn
+            spawnPlayers();
+
+            // reset timer and etc.
+            x = 0;
+
+            resumeBGMusic();
+
+            setLevelFromMap("tmx/level" + levelNum + ".tmx");
+
+        });
+    }
+
+    private void finishLevel() {
+        if (levelNum % 4 == 0) {
+            // level end scene
+            return;
         }
+        // NON-BLOCKING dialogue here
+
+        // TEMP
+        levelNum++;
+        setLevelFromMap("tmx/level" + levelNum + ".tmx");
+
+        spawnPlayers();
+
+        // reset all counts
+        x = 0;
+    }
+
+    private void spawnPlayers() {
+        spawnpoint = getGameWorld().getEntitiesByType(SPAWNPOINT).get(0);
+
+        System.out.println(spawnpoint.getX());
+        System.out.println(spawnpoint.getY());
+        if (players.isEmpty()) {
+            for (int i = 0; i < 4; i++) {
+                if (playersI[i]) {
+                    players.add(spawn("player" + ++i, spawnpoint.getX() + x, spawnpoint.getY()));
+                }
+            }
+            return;
+        } else {
+            players.forEach(player -> {
+                player.getComponent(PhysicsComponent.class)
+                        .overwritePosition(new Point2D(spawnpoint.getX() + x, spawnpoint.getY()));
+                player.setZIndex(Integer.MAX_VALUE);
+            });
+        }
+        x += 50;
     }
 
     @Override
     protected void initGame() {
         getGameWorld().addEntityFactory(new PlatformerFactory());
 
-        for (Entity player : players) {
-            player = null;
-        }
+        players.clear();
 
-        nextLevel();
+        createLevel();
 
-        // player must be spawned after call to nextLevel, otherwise player gets removed
-        // before the update tick a_actually_ adds the player to game world
-        Map<String, Boolean> playerStatus = loadPlayerStatusFromJson();
-
-        for (int i = 0; i < players.length; i++) {
-            // Construct the player key dynamically (player1, player2, etc.)
-            String playerKey = "player" + (i + 1);
-
-            // Check if the player should be spawned based on the JSON value
-            if (playerStatus.getOrDefault(playerKey, false)) {
-                // Dynamically adjust the player type based on the loop index (player1, player2,
-                // etc.)
-                players[i] = spawn(playerKey, 50 + i * 100, 50); // Spawn and assign players
-
-                // Optionally store in the global map
-                set(playerKey, players[i]); // Store the player in the global map with its key
-            } else {
-                // If not spawned, set to null
-                players[i] = null;
-            }
-        }
-
+        spawnPlayers();
         bindKeys();
 
         spawn("background");
 
-        /* Follows the player (can be turned off) */
+        // setViewPort();
+        // resetUINodes();
+
         Viewport viewport = getGameScene().getViewport();
         viewport.setBounds(-1500, 0, 250 * 70, getAppHeight());
         // viewport.bindToEntity(player, getAppWidth() / 2, getAppHeight() / 2);
@@ -293,7 +309,6 @@ public class PlatformerApp extends GameApplication {
 
     @Override
     protected void initPhysics() {
-
         getPhysicsWorld().setGravity(0, 980);
 
         // Player Parcel Interaction
@@ -306,7 +321,6 @@ public class PlatformerApp extends GameApplication {
 
             if ("NORMAL".equals(platformType)) {
                 player.getComponent(PlayerComponent.class).setSlip(false);
-                System.out.println(player.getComponent(PlayerComponent.class).getSlip());
 
                 if (!player.getComponent(PlayerComponent.class).getStopped()) {
                     player.getComponent(PlayerComponent.class).stop();
@@ -319,13 +333,8 @@ public class PlatformerApp extends GameApplication {
                 player.getComponent(PlayerComponent.class).setPlayerSpeed(85);
             } else if ("SLIP".equals(platformType)) {
                 player.getComponent(PlayerComponent.class).setSlip(true);
-                System.out.println(player.getComponent(PlayerComponent.class).getSlip());
             }
         });
-
-        /* Physics Interaction */
-
-        /* PLAYER COLLISION HANLDERS */
 
         onCollision(PLAYER, PLAYER, (player1, player2) -> {
             player1.getComponent(PlayerComponent.class).stop();
@@ -345,18 +354,10 @@ public class PlatformerApp extends GameApplication {
                     Duration.seconds(1.6));
         });
 
-        onCollisionOneTimeOnly(PLAYER, EXIT_TRIGGER, (player, trigger) -> {
-            makeExitDoor();
-        });
-
         onCollisionOneTimeOnly(PLAYER, DOOR_BOT, (player, door) -> {
             // levelEndScene.get().onLevelFinish();
 
-            // the above runs in its own scene, so fade will wait until
-            // the user exits that scene
-            getGameScene().getViewport().fade(() -> {
-                nextLevel();
-            });
+            finishLevel();
         });
 
         onCollisionOneTimeOnly(PLAYER, MESSAGE_PROMPT, (player, prompt) -> {
@@ -369,6 +370,7 @@ public class PlatformerApp extends GameApplication {
             String key = prompt.getString("key");
 
             var entity = getGameWorld().create("keyCode", new SpawnData(prompt.getX(),
+
                     prompt.getY()).put("key", key));
             spawnWithScale(entity, Duration.seconds(1),
                     Interpolators.ELASTIC.EASE_OUT());
@@ -381,36 +383,15 @@ public class PlatformerApp extends GameApplication {
 
     }
 
-    private void makeExitDoor() {
-        var doorTop = getGameWorld().getSingleton(DOOR_TOP);
-        var doorBot = getGameWorld().getSingleton(DOOR_BOT);
-
-        doorBot.getComponent(CollidableComponent.class).setValue(true);
-
-        doorTop.setOpacity(1);
-        doorBot.setOpacity(1);
-    }
-
-    private void nextLevel() {
-        if (geti("level") == MAX_LEVEL) {
-            showMessage("You finished the demo!");
-            return;
-        }
-
-        inc("level", +1);
-
-        setLevel(geti("level"));
-    }
-
     @Override
     protected void onUpdate(double tpf) {
         // inc("levelTime", tpf);
 
-        // for (Entity player: players){
-        // if (player.getY() > getAppHeight()) {
-        // onPlayerDied();
-        // }
-        // }
+        for (Entity player : players) {
+            if (player != null && player.getY() > getAppHeight()) {
+                onPlayerDied();
+            }
+        }
         // resets the properties of the buttons
         if (globalTimerOn) {
             inc("globalTimer", -1);
@@ -424,32 +405,27 @@ public class PlatformerApp extends GameApplication {
     }
 
     public void onPlayerDied() {
-        setLevel(geti("level"));
+
+        /* ADD THE IF STATEMENT FOR VIDEOKE */
+        // if (!bgMusicPaused) {
+        pauseBGMusic();
+        playDeathSFX();
+        // }
+        // Add videoke sound here
     }
 
-    private void setLevel(int levelNum) {
+    private void pauseBGMusic() {
+        System.out.println("pausing...");
+    }
 
-        for (Entity player : players) {
-            if (player != null) {
-                player.getComponent(PhysicsComponent.class).overwritePosition(new Point2D(50, 50));
-                player.setZIndex(Integer.MAX_VALUE);
-            }
-        }
+    private void resumeBGMusic() {
+        System.out.println("resuming...");
+    }
 
-        set("globalTimer", 1000);
-        globalTimerOn = true;
+    private void playDeathSFX() {
+        /* PLAY DEATH SFX HERE */
 
-        // set("levelTime", 0.0);
-
-        Level level = setLevelFromMap("tmx/level" + levelNum + ".tmx");
-
-        /* For Global Vars */
-        // var shortestTime = level.getProperties().getDouble("star1time");
-        //
-        // var levelTimeData = new LevelEndScene.LevelTimeData(shortestTime * 2.4,
-        // shortestTime * 1.3, shortestTime);
-        //
-        // set("levelTimeData", levelTimeData);
+        resetLevel();
     }
 
     public static void main(String[] args) {
