@@ -85,7 +85,6 @@ public class LevelSelectScene extends FXGLMenu {
         playselectInfoOutline.setStroke(Color.web("#2d5d8c"));
         playselectInfoOutline.setStrokeWidth(8);
         StackPane textStack = new StackPane();
-        Animation.applyContinuousBounceEffect(textStack, 250);
         // red hbox within black
 
         // green hbox within black
@@ -160,7 +159,6 @@ public class LevelSelectScene extends FXGLMenu {
         imageView.setFitWidth(225);
         imageView.setFitHeight(70);
         startgameButton.setGraphic(imageView);
-        Animation.applyContinuousBounceEffect(startgameButton, 450);
         Animation.applyHoverAndClickEffects(startgameButton, hoverMedia, clickedMedia);
         startgameButton.setOnAction(e -> {
             startGame();
@@ -173,7 +171,6 @@ public class LevelSelectScene extends FXGLMenu {
         backView.setFitWidth(100);
         backView.setFitHeight(70);
         goBackButton.setGraphic(backView);
-        Animation.applyContinuousBounceEffect(goBackButton, 0);
         Animation.applyHoverAndClickEffects(goBackButton, hoverMedia, clickedMedia);
 
         goBackButton.setOnAction(e -> {
