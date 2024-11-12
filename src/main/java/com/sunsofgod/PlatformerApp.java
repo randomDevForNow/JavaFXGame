@@ -244,6 +244,7 @@ public class PlatformerApp extends GameApplication {
         // levelNum += 12;
         // }int playerNumbers = activePlayers.size();
         int playerNumbers2 = activePlayers.size();
+
         if(playerNumbers2 == 1){
             levelSelect = levelNum;
         }else if (playerNumbers2 == 2){
@@ -253,6 +254,8 @@ public class PlatformerApp extends GameApplication {
         }else if (playerNumbers2 == 4){
             levelSelect = levelNum + 12;
         }
+
+        System.out.println("Selected level" + levelSelect);
 
         setLevelFromMap("tmx/level" + levelNum + ".tmx");
     }
@@ -378,10 +381,10 @@ public class PlatformerApp extends GameApplication {
             System.out.println(players[i]);
         }
         // Spawn Activated Playerss
-        if (activePlayers.isEmpty()) {
+        if (!activePlayers.get(0).hasComponent(PhysicsComponent.class)) {
             for (int i = 0; i < 4; i++) {
                 if (players[i]) {
-                    activePlayers.add(spawn("player" + (i + 1), spawnpoint.getX() + x, spawnpoint.getY()));
+                    activePlayers.set(i, spawn("player" + (i + 1), spawnpoint.getX() + x, spawnpoint.getY()));
                     System.out.println(activePlayers.size());
                 }
             }
@@ -396,12 +399,23 @@ public class PlatformerApp extends GameApplication {
         x += 50;
     }
 
+
+    private void initPlayers(){
+        for (int i = 0; i < 4; i++) {
+            if (players[i]) {
+                activePlayers.add(new Entity());
+                System.out.println(activePlayers.size());
+            }
+        }
+    }
+
     @Override
     protected void initGame() {
         getGameWorld().addEntityFactory(new PlatformerFactory());
 
         activePlayers.clear();
 
+        initPlayers();
         createLevel();
 
         spawnPlayers();
