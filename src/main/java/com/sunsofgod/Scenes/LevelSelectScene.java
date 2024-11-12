@@ -50,6 +50,7 @@ public class LevelSelectScene extends FXGLMenu {
         MediaPlayer hoverMedia = new MediaPlayer(hoverSound);
         Media clickedSound = new Media(getClass().getResource("/assets/sounds/clickedSoundfx.mp3").toExternalForm());
         MediaPlayer clickedMedia = new MediaPlayer(clickedSound);
+        
         // black vbox
         VBox blackVbox = new VBox(10);
 
