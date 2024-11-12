@@ -80,8 +80,6 @@ public class PlayerSelectScene extends FXGLMenu {
             else
                 players[count] = false;
             imageView.setImage(isClicked[0] ? clickedImage : unclickedImage);
-            System.out.println(isClicked[0] ? "Clicked " + playerKey : "Unclicked " + playerKey);
-            System.out.println("Clicked " + count);
         });
 
         return button;
@@ -134,7 +132,7 @@ public class PlayerSelectScene extends FXGLMenu {
         playselectInfoOutline.setStroke(Color.web("#2d5d8c"));
         playselectInfoOutline.setStrokeWidth(8);
         StackPane textStack = new StackPane();
-        Animation.applyContinuousBounceEffect(textStack, 250);
+    
         // red hbox within black
         HBox redHbox = new HBox(10);
         redHbox.setAlignment(javafx.geometry.Pos.CENTER);
@@ -153,7 +151,7 @@ public class PlayerSelectScene extends FXGLMenu {
         playselectInfoOutline2.setStroke(Color.web("#2d5d8c"));
         playselectInfoOutline2.setStrokeWidth(3);
         StackPane textStack2 = new StackPane();
-        Animation.applyContinuousBounceEffect(textStack2, 750);
+
 
         // green hbox within black
         HBox greenHbox = new HBox(10);
@@ -227,7 +225,7 @@ public class PlayerSelectScene extends FXGLMenu {
         playselectInfoOutline3.setStroke(Color.web("#2d5d8c"));
         playselectInfoOutline3.setStrokeWidth(8);
         StackPane textStack3 = new StackPane();
-        Animation.applyContinuousBounceEffect(textStack3, 950);
+    
 
         Media hoverSound = new Media(getClass().getResource("/assets/sounds/hoverSoundfx.mp3").toExternalForm());
         MediaPlayer hoverMedia = new MediaPlayer(hoverSound);
@@ -241,7 +239,6 @@ public class PlayerSelectScene extends FXGLMenu {
         imageView.setFitWidth(130);
         imageView.setFitHeight(55);
         pSelectButton.setGraphic(imageView);
-        Animation.applyContinuousBounceEffect(pSelectButton, 500);
         Animation.applyHoverAndClickEffects(pSelectButton, hoverMedia, clickedMedia);
 
         pSelectButton.setOnAction(e -> {
@@ -253,15 +250,15 @@ public class PlayerSelectScene extends FXGLMenu {
                 "/assets/textures/buttons/clickedpandaButton.png",
                 "player1", 0);
 
-        Button shoppeeButton = createCustomButton(
-                "/assets/textures/buttons/unclickedshoppeeButton.png",
-                "/assets/textures/buttons/clickedshoppeeButton.png",
-                "player3", 2);
-
         Button lazadaButton = createCustomButton(
                 "/assets/textures/buttons/unclickedlazadaButton.png",
                 "/assets/textures/buttons/clickedlazadaButton.png",
                 "player2", 1);
+
+        Button shoppeeButton = createCustomButton(
+                "/assets/textures/buttons/unclickedshoppeeButton.png",
+                "/assets/textures/buttons/clickedshoppeeButton.png",
+                "player3", 2);
 
         Button zaloraButton = createCustomButton(
                 "/assets/textures/buttons/unclickedzaloraButton.png",
@@ -280,7 +277,6 @@ public class PlayerSelectScene extends FXGLMenu {
         backView.setFitWidth(100);
         backView.setFitHeight(70);
         goBackButton.setGraphic(backView);
-        Animation.applyContinuousBounceEffect(goBackButton, 0);
         Animation.applyHoverAndClickEffects(goBackButton, hoverMedia, clickedMedia);
 
         goBackButton.setOnAction(e -> {
@@ -319,8 +315,7 @@ public class PlayerSelectScene extends FXGLMenu {
     }
 
     private void goToLevelSelect() {
-        ((PlatformerApp) FXGL.getApp()).playersI = players;
-        getSceneService().popSubScene();
+        ((PlatformerApp) FXGL.getApp()).setPlayers(players);
         getSceneService().pushSubScene(new LevelSelectScene());
     }
 }

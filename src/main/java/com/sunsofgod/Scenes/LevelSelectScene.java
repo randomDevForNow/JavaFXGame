@@ -85,7 +85,6 @@ public class LevelSelectScene extends FXGLMenu {
         playselectInfoOutline.setStroke(Color.web("#2d5d8c"));
         playselectInfoOutline.setStrokeWidth(8);
         StackPane textStack = new StackPane();
-        Animation.applyContinuousBounceEffect(textStack, 250);
         // red hbox within black
 
         // green hbox within black
@@ -160,7 +159,6 @@ public class LevelSelectScene extends FXGLMenu {
         imageView.setFitWidth(225);
         imageView.setFitHeight(70);
         startgameButton.setGraphic(imageView);
-        Animation.applyContinuousBounceEffect(startgameButton, 450);
         Animation.applyHoverAndClickEffects(startgameButton, hoverMedia, clickedMedia);
         startgameButton.setOnAction(e -> {
             startGame();
@@ -173,7 +171,6 @@ public class LevelSelectScene extends FXGLMenu {
         backView.setFitWidth(100);
         backView.setFitHeight(70);
         goBackButton.setGraphic(backView);
-        Animation.applyContinuousBounceEffect(goBackButton, 0);
         Animation.applyHoverAndClickEffects(goBackButton, hoverMedia, clickedMedia);
 
         goBackButton.setOnAction(e -> {
@@ -183,7 +180,7 @@ public class LevelSelectScene extends FXGLMenu {
         Image unclickedlevel1Image = new Image(
                 getClass().getResource("/assets/textures/buttons/level1.png").toExternalForm());
         Image clickedlevel1Image = new Image(
-                getClass().getResource("/assets/textures/buttons/level3.png").toExternalForm());
+                getClass().getResource("/assets/textures/buttons/clickedlevel1.png").toExternalForm());
 
         Button level1Button = new Button("");
         level1Button.setBackground(Background.EMPTY);
@@ -200,7 +197,7 @@ public class LevelSelectScene extends FXGLMenu {
         Image unclickedlevel2Image = new Image(
                 getClass().getResource("/assets/textures/buttons/level2.png").toExternalForm());
         Image clickedlevel2Image = new Image(
-                getClass().getResource("/assets/textures/buttons/level4.png").toExternalForm());
+                getClass().getResource("/assets/textures/buttons/clickedlevel2.png").toExternalForm());
 
         Button level2Button = new Button("");
         level2Button.setBackground(Background.EMPTY);
@@ -217,7 +214,7 @@ public class LevelSelectScene extends FXGLMenu {
         Image unclickedlevel3Image = new Image(
                 getClass().getResource("/assets/textures/buttons/level3.png").toExternalForm());
         Image clickedlevel3Image = new Image(
-                getClass().getResource("/assets/textures/buttons/level1.png").toExternalForm());
+                getClass().getResource("/assets/textures/buttons/clickedlevel3.png").toExternalForm());
 
         Button level3Button = new Button("");
         level3Button.setBackground(Background.EMPTY);
@@ -234,7 +231,7 @@ public class LevelSelectScene extends FXGLMenu {
         Image unclickedlevel4Image = new Image(
                 getClass().getResource("/assets/textures/buttons/level4.png").toExternalForm());
         Image clickedlevel4Image = new Image(
-                getClass().getResource("/assets/textures/buttons/level2.png").toExternalForm());
+                getClass().getResource("/assets/textures/buttons/clickedlevel4.png").toExternalForm());
 
         Button level4Button = new Button("");
         level4Button.setBackground(Background.EMPTY);
@@ -348,7 +345,7 @@ public class LevelSelectScene extends FXGLMenu {
 
     private void startGame() {
         if (level != 0) {
-            ((PlatformerApp) FXGL.getApp()).levelNum = level;
+            ((PlatformerApp) FXGL.getApp()).setLevelNum(level);
             level = 0;
             fireNewGame();
         }

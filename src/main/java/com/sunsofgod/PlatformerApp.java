@@ -45,26 +45,33 @@ public class PlatformerApp extends GameApplication {
     private boolean globalTimerPaused = false;
 
     // sets the timer to be off at the start
-    public int level = 0;
-    private boolean[] selectedPlayers = {};
-    ArrayList<Entity> players = new ArrayList<>();
+    private ArrayList<Entity> activePlayers = new ArrayList<>();
 
     /* Set to Private */
-    public boolean[] playersI = { false, false, false, false };
-    public int levelNum = 0;
+    private boolean[] players = { false, false, false, false };
+    private int levelNum = 0;
+
+    public int getLevelNum() {
+        return levelNum;
+    }
+
+    public void setLevelNum(int levelNum) {
+        this.levelNum = levelNum;
+    }
+
+    public boolean[] getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(boolean[] players) {
+        this.players = players;
+    }
 
     private Entity spawnpoint;
     int x = 0;
     private boolean globalTimerOn = true;
 
-    private static final int MAX_LEVEL = 5;
-    private static int STARTING_LEVEL = 0;
-
-    private ArrayList<Entity> lvlPlayers = new ArrayList<>();
-
-    public int getStartingLevel() {
-        return STARTING_LEVEL;
-    }
+    /* Getters and Setters */
 
     @Override
     protected void initSettings(GameSettings settings) {
@@ -121,7 +128,7 @@ public class PlatformerApp extends GameApplication {
     private void bindKeys() {
 
         int i = 0;
-        for (Entity player : players) {
+        for (Entity player : activePlayers) {
             System.out.println(player);
             getInput().addAction(new UserAction("Jump" + i) {
                 @Override
@@ -177,10 +184,6 @@ public class PlatformerApp extends GameApplication {
     @Override
     protected void initGameVars(Map<String, Object> vars) {
 
-        PlatformerApp config = new PlatformerApp();
-        System.out.println("The starting level is: " + STARTING_LEVEL);
-        vars.put("level", STARTING_LEVEL);
-
         // vars.put("levelTime", 0.0);
         // vars.put("score", 0);
 
@@ -210,7 +213,7 @@ public class PlatformerApp extends GameApplication {
     private void createLevel() {
         /* Uncomment if levels up to 12 */
 
-        // switch (players.size()) {
+        // switch (activePlayers.size()) {
         // case 2:
         // levelNum += 4;
         // break;
@@ -289,29 +292,25 @@ public class PlatformerApp extends GameApplication {
     private void spawnPlayers() {
         spawnpoint = getGameWorld().getEntitiesByType(SPAWNPOINT).get(0);
 
-        System.out.println(spawnpoint.getX());
-        System.out.println(spawnpoint.getY());
-
-
-        for(boolean players: playersI){
-            System.out.println(players + "TesTING");
+        for (int i = 0; i < 4; i++) {
+            System.out.println(players[i]);
         }
-
-        if (players.isEmpty()) {
-            for (int i = 1; i <= 4; i++) {
-                if (playersI[i-1]) {
-                    System.out.println(i + "before");
-                    players.add(spawn("player" + i, spawnpoint.getX() + x, spawnpoint.getY()));
+        // Spawn Activated Playerss
+        if (activePlayers.isEmpty()) {
+            for (int i = 0; i < 4; i++) {
+                if (players[i]) {
+                    activePlayers.add(spawn("player" + (i + 1), spawnpoint.getX() + x, spawnpoint.getY()));
+                    System.out.println(activePlayers.size());
                 }
             }
-            return;
         } else {
-            players.forEach(player -> {
+            activePlayers.forEach(player -> {
                 player.getComponent(PhysicsComponent.class)
                         .overwritePosition(new Point2D(spawnpoint.getX() + x, spawnpoint.getY()));
                 player.setZIndex(Integer.MAX_VALUE);
             });
         }
+        System.out.println(activePlayers.size());
         x += 50;
     }
 
@@ -319,7 +318,7 @@ public class PlatformerApp extends GameApplication {
     protected void initGame() {
         getGameWorld().addEntityFactory(new PlatformerFactory());
 
-        players.clear();
+        activePlayers.clear();
 
         createLevel();
 
@@ -422,7 +421,7 @@ public class PlatformerApp extends GameApplication {
             return;
         }
 
-        for (Entity player : players) {
+        for (Entity player : activePlayers) {
             if (player != null && player.getY() > getAppHeight()) {
                 onPlayerDied();
             }
