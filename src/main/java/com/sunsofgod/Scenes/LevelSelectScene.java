@@ -183,7 +183,7 @@ public class LevelSelectScene extends FXGLMenu {
         Image unclickedlevel1Image = new Image(
                 getClass().getResource("/assets/textures/buttons/level1.png").toExternalForm());
         Image clickedlevel1Image = new Image(
-                getClass().getResource("/assets/textures/buttons/level3.png").toExternalForm());
+                getClass().getResource("/assets/textures/buttons/clickedlevel1.png").toExternalForm());
 
         Button level1Button = new Button("");
         level1Button.setBackground(Background.EMPTY);
@@ -200,7 +200,7 @@ public class LevelSelectScene extends FXGLMenu {
         Image unclickedlevel2Image = new Image(
                 getClass().getResource("/assets/textures/buttons/level2.png").toExternalForm());
         Image clickedlevel2Image = new Image(
-                getClass().getResource("/assets/textures/buttons/level4.png").toExternalForm());
+                getClass().getResource("/assets/textures/buttons/clickedlevel2.png").toExternalForm());
 
         Button level2Button = new Button("");
         level2Button.setBackground(Background.EMPTY);
@@ -217,7 +217,7 @@ public class LevelSelectScene extends FXGLMenu {
         Image unclickedlevel3Image = new Image(
                 getClass().getResource("/assets/textures/buttons/level3.png").toExternalForm());
         Image clickedlevel3Image = new Image(
-                getClass().getResource("/assets/textures/buttons/level1.png").toExternalForm());
+                getClass().getResource("/assets/textures/buttons/clickedlevel3.png").toExternalForm());
 
         Button level3Button = new Button("");
         level3Button.setBackground(Background.EMPTY);
@@ -234,7 +234,7 @@ public class LevelSelectScene extends FXGLMenu {
         Image unclickedlevel4Image = new Image(
                 getClass().getResource("/assets/textures/buttons/level4.png").toExternalForm());
         Image clickedlevel4Image = new Image(
-                getClass().getResource("/assets/textures/buttons/level2.png").toExternalForm());
+                getClass().getResource("/assets/textures/buttons/clickedlevel4.png").toExternalForm());
 
         Button level4Button = new Button("");
         level4Button.setBackground(Background.EMPTY);
