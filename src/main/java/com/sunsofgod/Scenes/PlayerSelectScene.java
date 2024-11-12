@@ -256,12 +256,12 @@ public class PlayerSelectScene extends FXGLMenu {
         Button shoppeeButton = createCustomButton(
                 "/assets/textures/buttons/unclickedshoppeeButton.png",
                 "/assets/textures/buttons/clickedshoppeeButton.png",
-                "player3", 1);
+                "player3", 2);
 
         Button lazadaButton = createCustomButton(
                 "/assets/textures/buttons/unclickedlazadaButton.png",
                 "/assets/textures/buttons/clickedlazadaButton.png",
-                "player2", 2);
+                "player2", 1);
 
         Button zaloraButton = createCustomButton(
                 "/assets/textures/buttons/unclickedzaloraButton.png",

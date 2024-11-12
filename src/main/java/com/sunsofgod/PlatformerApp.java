@@ -66,7 +66,7 @@ public class PlatformerApp extends GameApplication {
         settings.setHeight(720);
 
         settings.setMainMenuEnabled(true);
-        System.out.println("Hello!");
+        
 
         settings.setDeveloperMenuEnabled(true);
         /* Set Loading Screen Here: */
@@ -259,10 +259,17 @@ public class PlatformerApp extends GameApplication {
 
         System.out.println(spawnpoint.getX());
         System.out.println(spawnpoint.getY());
+
+
+        for(boolean players: playersI){
+            System.out.println(players + "TesTING");
+        }
+
         if (players.isEmpty()) {
-            for (int i = 0; i < 4; i++) {
-                if (playersI[i]) {
-                    players.add(spawn("player" + ++i, spawnpoint.getX() + x, spawnpoint.getY()));
+            for (int i = 1; i <= 4; i++) {
+                if (playersI[i-1]) {
+                    System.out.println(i + "before");
+                    players.add(spawn("player" + i, spawnpoint.getX() + x, spawnpoint.getY()));
                 }
             }
             return;
