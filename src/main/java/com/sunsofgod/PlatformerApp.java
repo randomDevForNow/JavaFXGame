@@ -214,7 +214,6 @@ public class PlatformerApp extends GameApplication {
         // case 4:
         // levelNum += 12;
         // }
-
         setLevelFromMap("tmx/level" + levelNum + ".tmx");
     }
 
@@ -228,7 +227,7 @@ public class PlatformerApp extends GameApplication {
             x = 0;
 
             resumeBGMusic();
-
+            set("globalTimer", 1000);
             setLevelFromMap("tmx/level" + levelNum + ".tmx");
 
         });
@@ -239,6 +238,7 @@ public class PlatformerApp extends GameApplication {
         x = 0;
 
         // GIAN reset timer here
+        set("globalTimer", 1000);
 
         if (levelNum % 4 == 0) {
             // level end scene
@@ -385,7 +385,9 @@ public class PlatformerApp extends GameApplication {
         }
         // resets the properties of the buttons
         if (globalTimerOn) {
-            inc("globalTimer", -1);
+            if(FXGL.geti("globalTimer") > 0){
+                inc("globalTimer", -1);
+            }
         }
 
         if (FXGL.geti("globalTimer") == 0) {
