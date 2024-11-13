@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="100" height="60" tilewidth="70" tileheight="70" infinite="0" nextlayerid="3" nextobjectid="175">
+ <properties>
+  <property name="star1time" type="float" value="7"/>
+ </properties>
+ <tileset firstgid="1" name="tiles_spritesheet" tilewidth="70" tileheight="70" spacing="2" tilecount="156" columns="12">
+  <image source="tiles_spritesheet.png" width="914" height="936"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="100" height="60">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,65,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,56,56,56,56,56,56,56,56,56,56,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,56,56,56,56,56,56,56,56,68,68,68,0,0,0,0,0,0,118,118,0,0,118,118,118,56,0,0,56,56,56,56,56,56,56,56,56,56,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,127,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,0,0,0,118,118,118,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,0,118,118,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,118,118,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,110,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,79,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,118,118,118,118,118,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,118,0,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,118,118,118,118,118,118,118,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,0,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,0,0,118,118,0,0,118,118,118,0,118,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,118,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,118,118,118,118,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,79,0,0,0,0,0,0,118,118,118,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,0,118,118,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,118,118,0,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,118,118,118,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,118,118,118,118,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,118,118,118,0,0,0,0,0,0,0,0,0,110,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,118,118,118,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,0,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,0,0,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,0,118,118,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,118,118,118,118,118,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,79,0,0,0,0,0,118,118,118,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,118,118,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,118,118,0,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,118,118,118,118,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,118,118,118,118,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,0,118,118,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,0,0,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,118,118,118,118,118,118,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,118,118,118,118,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,118,0,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,0,0,118,118,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,0,118,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,118,118,118,0,0,0,0,0,0,0,0,110,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,118,118,118,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,79,0,0,0,118,118,118,118,118,118,0,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,118,118,0,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,0,0,118,118,118,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,0,118,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,118,118,118,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,118,118,118,118,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,118,0,0,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,118,0,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,118,118,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,118,118,118,118,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,118,118,0,118,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,118,118,118,118,118,118,118,118,56,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,110,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36
+</data>
+ </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="42" type="doorTop" gid="46" x="6090" y="630" width="70" height="70"/>
+  <object id="43" type="doorBot" gid="58" x="6090" y="700" width="70" height="70"/>
+  <object id="44" type="button" x="1223" y="1141">
+   <properties>
+    <property name="Type" value="package"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="45" type="button" x="1217" y="1625">
+   <properties>
+    <property name="TYPE" value="package"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="46" type="button" x="1221" y="2340">
+   <properties>
+    <property name="TYPE" value="PACKAGE"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="47" type="button" x="1224" y="3313">
+   <properties>
+    <property name="TYPE" value="Package"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="48" type="button" x="6127" y="3085">
+   <properties>
+    <property name="TYPE" value="Receiver"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="49" type="button" x="6123" y="1941">
+   <properties>
+    <property name="TYPE" value="Receiver"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="50" type="button" x="6127" y="1043">
+   <properties>
+    <property name="TYPE" value="Receiver"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="51" type="button" x="5499" y="4079">
+   <properties>
+    <property name="TYPE" value="Receiver"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="53" type="platform" x="-1" y="4131" width="3991" height="69">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="54" type="platform" x="1048" y="770" width="72" height="3222">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="55" type="platform" x="1960" y="845" width="72" height="3285">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="56" type="platform" x="2940" y="771" width="72" height="3360">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="57" type="platform" x="5178" y="700" width="72" height="3289">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="58" type="platform" x="6229" y="702" width="72" height="3428">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="59" type="platform" x="3849" y="772" width="72" height="3217">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="60" type="platform" x="1261" y="770" width="556" height="69">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="61" type="platform" x="3150" y="772" width="697" height="69">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="62" type="platform" x="5532" y="700" width="697" height="69">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="63" type="platform" x="1118" y="3291" width="72" height="69"/>
+  <object id="64" type="platform" x="1118" y="2311" width="72" height="69"/>
+  <object id="65" type="platform" x="1118" y="1610" width="72" height="69"/>
+  <object id="66" type="platform" x="1119" y="1119" width="72" height="69"/>
+  <object id="67" type="platform" x="1680" y="3429" width="279" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="68" type="platform" x="1610" y="3989" width="349" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="69" type="platform" x="1119" y="3850" width="561" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="70" type="platform" x="1119" y="3710" width="491" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="71" type="platform" x="1259" y="3569" width="701" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="72" type="platform" x="1121" y="3150" width="628" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="73" type="platform" x="1749" y="3711" width="209" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="74" type="platform" x="1400" y="3289" width="419" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="75" type="platform" x="1889" y="3291" width="71" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="76" type="platform" x="1607" y="2940" width="352" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="77" type="platform" x="1121" y="3009" width="209" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="78" type="platform" x="1188" y="2871" width="281" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="79" type="platform" x="1119" y="2379" width="281" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="80" type="platform" x="1470" y="2729" width="490" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="81" type="platform" x="1120" y="2731" width="210" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="82" type="platform" x="1121" y="2589" width="699" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="83" type="platform" x="1541" y="2311" width="210" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="84" type="platform" x="1680" y="2451" width="280" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="85" type="platform" x="1611" y="2169" width="348" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="86" type="platform" x="1120" y="2171" width="348" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="87" type="platform" x="1260" y="2030" width="699" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="88" type="platform" x="1118" y="1679" width="282" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="89" type="platform" x="1120" y="1891" width="699" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="90" type="platform" x="1612" y="1749" width="348" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="91" type="platform" x="1610" y="1610" width="211" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="92" type="platform" x="1121" y="1470" width="490" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="93" type="platform" x="1540" y="1329" width="418" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="94" type="platform" x="1122" y="1190" width="418" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="95" type="platform" x="1471" y="1049" width="489" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="96" type="platform" x="1120" y="910" width="419" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="98" type="platform" x="2451" y="769" width="140" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="99" type="platform" x="2730" y="769" width="210" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="100" type="platform" x="3011" y="980" width="140" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="101" type="platform" x="3218" y="979" width="629" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="102" type="platform" x="3011" y="1188" width="488" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="103" type="platform" x="3568" y="1189" width="282" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="104" type="platform" x="3010" y="1401" width="350" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="105" type="platform" x="3428" y="1399" width="421" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="106" type="platform" x="3012" y="1607" width="137" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="107" type="platform" x="3218" y="1610" width="628" height="41"/>
+  <object id="108" type="platform" x="3012" y="1821" width="558" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="109" type="platform" x="3640" y="1821" width="209" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="110" type="platform" x="3429" y="2028" width="420" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="111" type="platform" x="3011" y="2028" width="348" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="112" type="platform" x="3220" y="2241" width="629" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="113" type="platform" x="3012" y="2242" width="138" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="114" type="platform" x="3012" y="2451" width="559" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="115" type="platform" x="3640" y="2450" width="210" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="116" type="platform" x="3222" y="2661" width="626" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="117" type="platform" x="3013" y="2659" width="137" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="118" type="platform" x="3569" y="2870" width="278" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="119" type="platform" x="3012" y="2872" width="489" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="120" type="platform" x="3290" y="3079" width="560" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="121" type="platform" x="3010" y="3290" width="560" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="122" type="platform" x="3010" y="3081" width="209" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="123" type="platform" x="3640" y="3289" width="209" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="124" type="platform" x="3012" y="3500" width="209" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="125" type="platform" x="3289" y="3499" width="560" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="126" type="platform" x="3011" y="3709" width="489" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="127" type="platform" x="3569" y="3711" width="280" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="128" type="platform" x="3289" y="3919" width="560" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="129" type="platform" x="3013" y="3919" width="207" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="130" type="platform" x="5253" y="3849" width="488" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="131" type="platform" x="5529" y="4061" width="72" height="69"/>
+  <object id="132" type="platform" x="6160" y="3081" width="72" height="69"/>
+  <object id="133" type="platform" x="6158" y="1960" width="72" height="69"/>
+  <object id="134" type="platform" x="6157" y="1050" width="72" height="69"/>
+  <object id="135" type="platform" x="5671" y="3988" width="560" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="136" type="platform" x="5456" y="3639" width="773" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="137" type="platform" x="5249" y="3709" width="70" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="138" type="platform" x="5249" y="3500" width="281" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="139" type="platform" x="5251" y="3359" width="138" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="140" type="platform" x="5529" y="3359" width="700" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="141" type="platform" x="5251" y="3221" width="350" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="142" type="platform" x="5880" y="3151" width="350" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="143" type="platform" x="5391" y="3079" width="209" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="144" type="platform" x="5250" y="2940" width="209" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="145" type="platform" x="5599" y="2939" width="629" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="146" type="platform" x="5250" y="2801" width="838" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="147" type="platform" x="5739" y="2659" width="489" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="148" type="platform" x="5251" y="2592" width="206" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="149" type="platform" x="5741" y="2521" width="279" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="150" type="platform" x="5251" y="2378" width="558" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="151" type="platform" x="5389" y="2239" width="839" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="152" type="platform" x="5252" y="2101" width="280" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="153" type="platform" x="5950" y="2031" width="280" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="154" type="platform" x="5320" y="1959" width="211" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="155" type="platform" x="5528" y="1818" width="700" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="156" type="platform" x="5250" y="1681" width="422" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="157" type="platform" x="5459" y="1539" width="765" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="158" type="platform" x="5251" y="1259" width="910" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="159" type="platform" x="5388" y="1119" width="839" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="160" type="platform" x="5530" y="838" width="699" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="161" type="platform" x="5248" y="980" width="563" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="162" type="platform" x="5251" y="841" width="66" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="164" type="platform" x="5391" y="770" width="66" height="41">
+   <properties>
+    <property name="TYPE " value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="165" type="platform" x="5251" y="1399" width="208" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="166" type="platform" x="5600" y="1402" width="141" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="167" type="platform" x="5880" y="1402" width="208" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="168" type="platform" x="6158" y="1401" width="72" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="169" type="platform" x="1121" y="3361" width="205" height="41">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="170" type="platform" x="3993" y="4128" width="1045" height="71">
+   <properties>
+    <property name="TYPE" value="SLOW"/>
+   </properties>
+  </object>
+  <object id="172" type="platform" x="5041" y="4129" width="1958" height="71"/>
+  <object id="173" type="platform" x="1817" y="770" width="212" height="71">
+   <properties>
+    <property name="TYPE" value="SLIP"/>
+   </properties>
+  </object>
+  <object id="174" type="spawnpoint" x="488" y="4012" width="161" height="55"/>
+ </objectgroup>
+</map>

@@ -1,4 +1,4 @@
-package com.sunsofgod;
+        package com.sunsofgod;
 
 import com.almasb.fxgl.dsl.components.LiftComponent;
 import com.almasb.fxgl.dsl.views.ScrollingBackgroundView;

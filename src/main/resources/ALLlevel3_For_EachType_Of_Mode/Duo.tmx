@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="85" height="25" tilewidth="70" tileheight="70" infinite="0" nextlayerid="3" nextobjectid="103">
+ <properties>
+  <property name="star1time" type="float" value="7"/>
+ </properties>
+ <tileset firstgid="1" name="tiles_spritesheet" tilewidth="70" tileheight="70" spacing="2" tilecount="156" columns="12">
+  <image source="tiles_spritesheet.png" width="914" height="936"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="85" height="25">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,65,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,56,56,56,56,56,56,56,56,0,0,56,56,56,56,56,56,56,56,0,0,0,68,68,0,0,56,56,56,56,118,0,0,56,56,56,56,56,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,118,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,118,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,79,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,118,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,118,0,0,118,0,0,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,118,0,0,0,79,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,118,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,118,118,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,118,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,68,68,0,0,68,68,0,0,68,68,0,0,56,56,56,68,68,0,0,0,68,0,0,0,56,56,56,56,56,56,56,56,56,56,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,118,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,118,7,7,7,7,7,7,7,7,7,118,118,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,118,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,118,118,118,118,118,0,0,0,0,0,0,0,0,0,56,0,0,0,118,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,118,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,118,118,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,118,118,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+36,36,36,36,36,103,103,36,36,103,103,36,36,36,68,68,68,103,103,103,103,68,68,103,103,103,103,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,103,103,103,103,103,103,103,103,103,103,103,103,103,103,103,103,103
+</data>
+ </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="41" type="button" x="4593" y="597">
+   <point/>
+  </object>
+  <object id="42" type="button" x="3036" y="509">
+   <point/>
+  </object>
+  <object id="45" type="platform" x="-1" y="1677" width="348" height="71">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="46" type="platform" x="490" y="1680" width="139" height="71">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="47" type="platform" x="771" y="1679" width="209" height="71">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="48" type="platform" x="1889" y="1681" width="2873" height="71">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="49" type="platform" x="4691" y="281" width="71" height="1399">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="50" type="platform" x="4339" y="281" width="351" height="71">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="51" type="platform" x="3848" y="280" width="282" height="71">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="52" type="platform" x="4058" y="351" width="71" height="554">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="53" type="platform" x="3849" y="910" width="699" height="71">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="54" type="platform" x="2029" y="280" width="71" height="1258">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="55" type="platform" x="2102" y="279" width="558" height="71">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="56" type="platform" x="3148" y="910" width="71" height="771">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="57" type="platform" x="3011" y="908" width="135" height="71">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="58" type="platform" x="3150" y="351" width="71" height="420">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="59" type="platform" x="2798" y="278" width="562" height="71">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="60" type="platform" x="2168" y="1328" width="353" height="40">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="61" type="platform" x="2450" y="1540" width="138" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="62" type="platform" x="2661" y="1402" width="139" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="63" type="platform" x="2236" y="1190" width="71" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="64" type="platform" x="2099" y="1053" width="71" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="65" type="platform" x="2942" y="1189" width="209" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="66" type="platform" x="2237" y="771" width="71" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="67" type="platform" x="2378" y="632" width="71" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="68" type="platform" x="2518" y="561" width="71" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="69" type="platform" x="2729" y="561" width="71" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="70" type="platform" x="2942" y="561" width="206" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="71" type="platform" x="3430" y="1329" width="71" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="72" type="platform" x="4546" y="1189" width="71" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="73" type="platform" x="4621" y="1330" width="71" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="74" type="platform" x="4622" y="1049" width="71" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="75" type="platform" x="4130" y="770" width="71" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="76" type="platform" x="4270" y="702" width="137" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="77" type="platform" x="4341" y="561" width="71" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="78" type="platform" x="4200" y="492" width="71" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="79" type="platform" x="4131" y="423" width="71" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="80" type="platform" x="4267" y="348" width="71" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="81" type="platform" x="4127" y="284" width="71" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="82" type="platform" x="4478" y="627" width="210" height="39">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="84" type="platform" x="2169" y="911" width="139" height="68">
+   <properties>
+    <property name="TYPE" value="SLIP"/>
+   </properties>
+  </object>
+  <object id="85" type="platform" x="2446" y="910" width="144" height="68">
+   <properties>
+    <property name="TYPE" value="SLIP"/>
+   </properties>
+  </object>
+  <object id="86" type="platform" x="2731" y="910" width="141" height="68">
+   <properties>
+    <property name="TYPE" value="SLIP"/>
+   </properties>
+  </object>
+  <object id="87" type="platform" x="979" y="1678" width="210" height="68">
+   <properties>
+    <property name="TYPE" value="SLIP"/>
+   </properties>
+  </object>
+  <object id="88" type="platform" x="1467" y="1677" width="144" height="68">
+   <properties>
+    <property name="TYPE" value="SLIP"/>
+   </properties>
+  </object>
+  <object id="89" type="platform" x="3218" y="909" width="139" height="68">
+   <properties>
+    <property name="TYPE" value="SLIP"/>
+   </properties>
+  </object>
+  <object id="90" type="platform" x="3569" y="910" width="73" height="68">
+   <properties>
+    <property name="TYPE" value="SLIP"/>
+   </properties>
+  </object>
+  <object id="91" type="platform" x="3564" y="280" width="142" height="68">
+   <properties>
+    <property name="TYPE" value="SLIP"/>
+   </properties>
+  </object>
+  <object id="92" type="button" x="4009" y="876">
+   <point/>
+  </object>
+  <object id="93" type="button" x="3085" y="242">
+   <point/>
+  </object>
+  <object id="98" type="platform" x="2310" y="1223" width="627" height="5">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="99" type="platform" x="3501" y="1363" width="1119" height="5">
+   <properties>
+    <property name="TYPE" value="NORMAL"/>
+   </properties>
+  </object>
+  <object id="100" type="doorTop" gid="46" x="2101" y="210" width="70" height="70"/>
+  <object id="101" type="doorBot" gid="58" x="2100" y="281" width="70" height="70"/>
+  <object id="102" type="spawnpoint" x="70" y="1610" width="72" height="42"/>
+ </objectgroup>
+</map>
