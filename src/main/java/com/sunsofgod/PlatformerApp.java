@@ -16,6 +16,9 @@ import com.almasb.fxgl.entity.level.Level;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.input.view.KeyView;
 import com.almasb.fxgl.physics.PhysicsComponent;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import javafx.geometry.Point2D;
 import javafx.scene.control.ButtonType;
@@ -34,6 +37,8 @@ import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +52,17 @@ import static com.sunsofgod.EntityType.*;
 
 public class PlatformerApp extends GameApplication {
 
+    // handles the state so that levelselect will not be changed by fnished level
+    // function
+    private boolean levelSelectLock = false;
+
+    // handles the database of completed levels
+    File file = new File("src/main/resources/database.json");
+    ObjectMapper objectMapper = new ObjectMapper();
+    private int levelSelect = 0;
+
+    private boolean dialogShown = false;
+
     // sets the onUpdate funtion to on and off
     private boolean globalTimerPaused = false;
 
@@ -56,8 +72,6 @@ public class PlatformerApp extends GameApplication {
     /* Set to Private */
     private boolean[] players = { false, false, false, false };
     private int levelNum = 0;
-
-    private boolean dialogShown = false;
 
     public int getLevelNum() {
         return levelNum;
@@ -140,10 +154,7 @@ public class PlatformerApp extends GameApplication {
             getInput().addAction(new UserAction("Left" + i) {
                 @Override
                 protected void onAction() {
-                    if (!dialogShown)
-                        player.getComponent(PlayerComponent.class).left();
-                    else
-                        player.getComponent(PlayerComponent.class).stop();
+                    player.getComponent(PlayerComponent.class).left();
                 }
 
                 @Override
@@ -155,10 +166,11 @@ public class PlatformerApp extends GameApplication {
             getInput().addAction(new UserAction("Right" + i) {
                 @Override
                 protected void onAction() {
-                    if (!dialogShown)
+                    if (!dialogShown) {
                         player.getComponent(PlayerComponent.class).right();
-                    else
+                    } else {
                         player.getComponent(PlayerComponent.class).stop();
+                    }
                 }
 
                 @Override
@@ -176,15 +188,9 @@ public class PlatformerApp extends GameApplication {
                             .filter(btn -> btn.hasComponent(CollidableComponent.class) && player.isColliding(btn))
                             .forEach(btn -> {
                                 btn.removeComponent(CollidableComponent.class);
-                                dialogShown = true;
+
+                                finishLevel();
                             });
-                }
-
-                @Override
-                protected void onActionEnd() {
-                    if (dialogShown)
-                        finishLevel();
-
                 }
             }, bindings[i][3]);
             i++;
@@ -234,20 +240,41 @@ public class PlatformerApp extends GameApplication {
         // break;
         // case 4:
         // levelNum += 12;
-        // }
-        setLevelFromMap("tmx/level" + levelNum + ".tmx");
+        // }int playerNumbers = activePlayers.size();
+        int playerNumbers2 = 0;
+        for (int i = 0; i < 4; i++) {
+            if (players[i]) {
+                playerNumbers2++;
+            }
+        }
+
+        System.out.println("THIS NEW" + playerNumbers2);
+
+        System.out.println("ACTIVE PLAYERS");
+
+        if (playerNumbers2 == 1) {
+            levelSelect = levelNum;
+        } else if (playerNumbers2 == 2) {
+            levelSelect = levelNum + 4;
+        } else if (playerNumbers2 == 3) {
+            levelSelect = levelNum + 8;
+        } else if (playerNumbers2 == 4) {
+            levelSelect = levelNum + 12;
+        }
+
+        System.out.println("Selected level" + levelSelect);
+
+        setLevelFromMap("tmx/level" + levelSelect + ".tmx");
     }
 
     private void resetLevel() {
-
         getGameScene().getViewport().fade(() -> {
-            // reset timer and etc.
-            x = 0;
-
             // teleport everyone to spawn
             spawnPlayers();
 
+            // reset timer and etc.
             // GIAN reset timer here
+            x = 0;
 
             resumeBGMusic();
             set("globalTimer", 1000);
@@ -260,6 +287,42 @@ public class PlatformerApp extends GameApplication {
         // reset all counts
         x = 0;
 
+        // sets the finished level on the database.json
+        try {
+            // Parse the JSON from the file into a JsonNode
+            JsonNode rootNode = objectMapper.readTree(file);
+
+            int playerNumbers = activePlayers.size();
+
+            if (!levelSelectLock) {
+
+                if (playerNumbers == 1) {
+                    levelSelect = levelNum;
+                } else if (playerNumbers == 2) {
+                    levelSelect = levelNum + 4;
+                } else if (playerNumbers == 3) {
+                    levelSelect = levelNum + 8;
+                } else if (playerNumbers == 4) {
+                    levelSelect = levelNum + 12;
+                }
+
+                levelSelectLock = true;
+            }
+
+            // Manually set each player's value to false
+            System.out.println("Size of arraylsit" + playerNumbers);
+            ((ObjectNode) rootNode).put("level" + levelSelect, true);
+
+            // Save the modified JSON back to the file
+            objectMapper.writeValue(file, rootNode);
+
+            // Print the modified JSON to verify
+            System.out.println("Completed Level" + levelSelect);
+
+        } catch (IOException s) {
+            s.printStackTrace();
+        }
+
         // GIAN reset timer here
         set("globalTimer", 1000);
 
@@ -267,90 +330,46 @@ public class PlatformerApp extends GameApplication {
             // level end scene
             return;
         }
-        //BLOCKING dialogue here
-        getInput().clearAll();
-Dialog<Void> dialog = new Dialog<>();
-dialog.getDialogPane().setPrefSize(550, 450);
-dialog.initModality(Modality.APPLICATION_MODAL);
-dialog.initStyle(StageStyle.TRANSPARENT);
-dialog.getDialogPane().setOpacity(0.7);
 
-    
-        VBox redVbox = new VBox(10);
-        redVbox.setAlignment(javafx.geometry.Pos.CENTER);
-        
-        redVbox.setPrefWidth(550);
-        redVbox.setPrefHeight(450);
-        redVbox.setMaxWidth(550);
-        redVbox.setMaxHeight(450);
-        redVbox.setStyle(
-            "-fx-background-color: transparent; " +
-            "-fx-border-color: red; " +
-            "-fx-border-width: 2; " +
-            "-fx-border-radius: 5; " +
-            "-fx-background-image: url(''); " + 
-            "-fx-background-size: cover; " + 
-            "-fx-background-position: center;" 
-        );
+        showCompletionDialog();
 
-        HBox blueHbox = new HBox(10);
-        blueHbox.setAlignment(javafx.geometry.Pos.CENTER);
-        blueHbox.setStyle("-fx-border-color: blue; -fx-border-width: 2; -fx-border-radius: 5;");
+        // TEMP
+        levelSelect++;
+        setLevelFromMap("tmx/level" + levelSelect + ".tmx");
 
-        blueHbox.setPrefWidth(550);
-        blueHbox.setPrefHeight(100);
-        blueHbox.setMaxWidth(550);
-        blueHbox.setMaxHeight(100);
+        spawnPlayers();
 
-        HBox blueHbox2 = new HBox(10);
-        blueHbox2.setAlignment(javafx.geometry.Pos.CENTER);
-        blueHbox2.setStyle("-fx-border-color: blue; -fx-border-width: 2; -fx-border-radius: 5;");
+    }
 
-        blueHbox2.setPrefWidth(550);
-        blueHbox2.setPrefHeight(100);
-        blueHbox2.setMaxWidth(550);
-        blueHbox2.setMaxHeight(100);
+    private void showCompletionDialog() {
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle("Custom Dialog");
+        dialog.setHeaderText("This is a custom dialog with a close button.");
 
-        HBox blueHbox3 = new HBox(10);
-        blueHbox.setAlignment(javafx.geometry.Pos.CENTER);
-        blueHbox3.setStyle("-fx-border-color: blue; -fx-border-width: 2; -fx-border-radius: 5;");
-
-        blueHbox3.setPrefWidth(550);
-        blueHbox3.setPrefHeight(100);
-        blueHbox3.setMaxWidth(550);
-        blueHbox3.setMaxHeight(100);
-
-        HBox blueHbox4 = new HBox(10);
-        blueHbox4.setAlignment(javafx.geometry.Pos.CENTER);
-        blueHbox4.setStyle("-fx-border-color: blue; -fx-border-width: 2; -fx-border-radius: 5;");
-
-        blueHbox4.setPrefWidth(550);
-        blueHbox4.setPrefHeight(100);
-        blueHbox4.setMaxWidth(550);
-        blueHbox4.setMaxHeight(100);
         ButtonType closeButtonType = new ButtonType("Close");
         
         dialog.getDialogPane().getButtonTypes().add(closeButtonType);
-        dialog.getDialogPane().setContent(redVbox);
-        redVbox.getChildren().addAll(blueHbox,blueHbox2,blueHbox3,blueHbox4);
+
+        // Handle button click
         dialog.setResultConverter(buttonType -> {
             if (buttonType == closeButtonType) {
                 dialog.close();
             }
-            return null; 
+            return null;
+        });
+        dialogShown = true;
+
+        activePlayers.forEach(player -> {
+            player.getComponent(PlayerComponent.class).stop();
+            player.getComponent(PhysicsComponent.class).getVelocityX();
+
         });
 
         globalTimerPaused = true;
-        dialog.showAndWait();   
-
-        globalTimerPaused = false;
-
-        // TEMP
-        levelNum++;
-        setLevelFromMap("tmx/level" + levelNum + ".tmx");
+        dialog.showAndWait();
 
         dialogShown = false;
-        spawnPlayers();
+        globalTimerPaused = false;
     }
 
     private void spawnPlayers() {
@@ -396,7 +415,7 @@ dialog.getDialogPane().setOpacity(0.7);
 
         Viewport viewport = getGameScene().getViewport();
         viewport.setBounds(-1500, 0, 250 * 70, getAppHeight());
-        // viewport.bindToEntity(player, getAppWidth() / 2, getAppHeight() / 2);
+        viewport.bindToEntity(activePlayers.get(0), getAppWidth() / 2, getAppHeight() / 2);
         viewport.setLazy(true);
     }
 
