@@ -8,12 +8,13 @@ import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.SensorCollisionHandler;
 import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
-
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.almasb.fxgl.dsl.FXGL.*;
 
 public class PlayerComponent extends Component {
 
@@ -88,10 +89,13 @@ public class PlayerComponent extends Component {
 
         physics.onGroundProperty().addListener((obs, old, isOnGround) -> {
             this.isOnGround = isOnGround;
+            
             if (isOnGround) {
                 if (jumps == 0) {
                     jumps = 1;
                 }
+                // Play landing sound
+                play("land.wav");
                 this.isOnGround = true;
             } else {
                 if (jumps > 0)
@@ -151,8 +155,6 @@ public class PlayerComponent extends Component {
             stopped = false;
         }
 
-        
-
     }
 
     public void left() {
@@ -186,8 +188,11 @@ public class PlayerComponent extends Component {
 
     public void jump() {
         if (jumps > 0) {
-            physics.setVelocityY(-400);
+            physics.setVelocityY(-450);
             jumps--;
+
+            // Play jump sound
+            play("jump.wav");
         }
     }
 }
