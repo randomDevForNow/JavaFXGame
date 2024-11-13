@@ -24,10 +24,17 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -111,19 +118,12 @@ public class PlatformerApp extends GameApplication {
                 return new RiderMainMenuScene();
             }
 
-            /*
-             * Uncomment nyo ito para maedit yung
-             * Pause Menu natin yung kapag
-             * Nagpress ng escape yung user/s
-             * May lalabas na resume, option,
-             * go to main menu, go to level select
-             * goto
-             */
-            // @NotNull
-            // @Override
-            // public FXGLMenu newGameMenu() {
-            // return new PauseMenuScene();
-            // }
+             
+             @NotNull
+             @Override
+             public FXGLMenu newGameMenu() {
+             return new PauseMenuScene();
+             }
 
         });
     }
@@ -347,9 +347,10 @@ public class PlatformerApp extends GameApplication {
         dialog.setHeaderText("This is a custom dialog with a close button.");
 
         ButtonType closeButtonType = new ButtonType("Close");
-
+        
         dialog.getDialogPane().getButtonTypes().add(closeButtonType);
 
+        // Handle button click
         dialog.setResultConverter(buttonType -> {
             if (buttonType == closeButtonType) {
                 dialog.close();

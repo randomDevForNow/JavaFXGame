@@ -198,7 +198,7 @@ public class RiderMainMenuScene extends FXGLMenu {
         blueVbox.getChildren().addAll(optionButton);
         orangeHbox.getChildren().addAll(redVbox, greenVbox, blueVbox);
         getContentRoot().getChildren().add(blackVbox);
-
+        
         // PANLAGAY CLIPPING ETC.)
         // Pede rin magsearch ng ano kung pano yung nagalaw na background na wallpaper
         // ng mga parcel tapos stripes background

@@ -1,9 +1,11 @@
 package com.sunsofgod.Scenes;
 
+import static com.almasb.fxgl.dsl.FXGL.getApp;
 import static com.almasb.fxgl.dsl.FXGL.getSceneService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
 
 import com.almasb.fxgl.app.scene.FXGLMenu;
@@ -27,20 +29,36 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sunsofgod.PlatformerApp;
 
 public class LevelSelectScene extends FXGLMenu {
 
     private int level = 0;
+    int playerCounter = 0;
+    boolean[] players = ((PlatformerApp) FXGL.getApp()).getPlayers();
 
     // Path to the JSON file
     String filePath = "src/main/resources/database.json";
     ObjectMapper objectMapper = new ObjectMapper();
     File file = new File(filePath);
 
+
     public LevelSelectScene() {
         super(MenuType.MAIN_MENU);
+        System.out.println(Arrays.toString(players)); 
+
+        for (int i = 0; i < 4; i++) {
+            if (players[i]) {
+                playerCounter++;
+            }
+        }
+
+        System.out.println("PLAYER COUNT" + playerCounter);
+
+
+
         Image backgroundImage = new Image(
                 getClass().getResource("/assets/textures/bgPlayerSelect.png").toExternalForm());
         ImageView backgroundView = new ImageView(backgroundImage);
@@ -329,6 +347,85 @@ public class LevelSelectScene extends FXGLMenu {
             level4ImageClicked[0] = !level4ImageClicked[0];
         });
 
+        
+        if (playerCounter == 1) {
+
+            for(int i =1 ; i<5; i++){
+                String levelToCheck = "level" + (i); // The level you want to check
+                boolean isLevelTrue = checkLevelStatus("src/main/resources/database.json", levelToCheck);
+                if(isLevelTrue){
+                    if(i == 1){
+                        level1View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                    }else if(i == 2){
+                        level2View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                    }
+                    else if(i == 3){
+                        level3View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                    }
+                    else if(i == 4){
+                        level4View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                    }
+                }
+            }
+            
+        } else if (playerCounter  == 2) {
+            for(int i=5 ; i<9; i++){
+                String levelToCheck = "level" + (i); // The level you want to check
+                boolean isLevelTrue = checkLevelStatus("src/main/resources/database.json", levelToCheck);
+                if(isLevelTrue){
+                    if(i == 5){
+                        level1View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                    }else if(i == 6){
+                        level2View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                    }
+                    else if(i == 7){
+                        level3View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                    }
+                    else if(i == 8){
+                        level4View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                    }
+                }
+            }
+            
+        } else if (playerCounter  == 3) {
+            for(int i=9 ; i<13; i++){
+                String levelToCheck = "level" + (i); // The level you want to check
+                boolean isLevelTrue = checkLevelStatus("src/main/resources/database.json", levelToCheck);
+                if(isLevelTrue){
+                    if(i == 9){
+                        level1View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                    }else if(i == 10){
+                        level2View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                    }
+                    else if(i == 11){
+                        level3View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                    }
+                    else if(i == 12){
+                        level4View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                    }
+                }
+            }
+            
+        } else if (playerCounter  == 4) {
+            for(int i=13 ; i<17; i++){
+                String levelToCheck = "level" + (i); // The level you want to check
+                boolean isLevelTrue = checkLevelStatus("src/main/resources/database.json", levelToCheck);
+                if(isLevelTrue){
+                    if(i == 13){
+                        level1View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                    }else if(i == 14){
+                        level2View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                    }
+                    else if(i == 15){
+                        level3View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                    }
+                    else if(i == 16){
+                        level4View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                    }
+                }
+            }
+        }
+
         getContentRoot().getChildren().add(backgroundView);
         blackVbox.getChildren().addAll(yellowHbox, orangeHbox, greenHbox, cyanHbox);
         greenHbox.getChildren().addAll(pinkVbox, purpleVbox, brownVbox, indigoVbox);
@@ -344,7 +441,23 @@ public class LevelSelectScene extends FXGLMenu {
         textStack.getChildren().addAll(playselectInfoOutline, playselectInfo);
     }
 
+    public static boolean checkLevelStatus(String filePath, String level) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            // Read the JSON file into a JsonNode
+            JsonNode rootNode = objectMapper.readTree(new File(filePath));
+            
+            // Check if the level exists and is true
+            JsonNode levelNode = rootNode.get(level);
+            return levelNode != null && levelNode.asBoolean();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false; // Return false if there's an error reading the file
+        }
+    }
+
     private void startGame() {
+        
         if (level != 0) {
             ((PlatformerApp) FXGL.getApp()).setLevelNum(level);
             level = 0;
