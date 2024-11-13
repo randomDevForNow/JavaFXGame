@@ -141,6 +141,7 @@ public class PlatformerApp extends GameApplication {
 
     private void bindKeys() {
 
+        getInput().clearAll();
         int i = 0;
         for (Entity player : activePlayers) {
             System.out.println(player);
