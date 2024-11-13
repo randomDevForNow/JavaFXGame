@@ -25,6 +25,7 @@ public class LevelCompletionScene extends FXGLMenu {
         Media clickedSound = new Media(getClass().getResource("/assets/sounds/clickedSoundfx.mp3").toExternalForm());
         MediaPlayer clickedMedia = new MediaPlayer(clickedSound);
 
+
         VBox blackVbox = new VBox(10);
         blackVbox.setAlignment(javafx.geometry.Pos.CENTER);
 
@@ -33,37 +34,47 @@ public class LevelCompletionScene extends FXGLMenu {
         blackVbox.setMaxWidth(1280);
         blackVbox.setMaxHeight(720);
 
-        VBox redVbox = new VBox(10);
-        redVbox.setAlignment(javafx.geometry.Pos.CENTER);
-        
-        redVbox.setPrefWidth(650);
-        redVbox.setPrefHeight(550);
-        redVbox.setMaxWidth(650);
-        redVbox.setMaxHeight(550);
-        redVbox.setStyle(
-            "-fx-background-color: transparent; " +
-            "-fx-border-width: 2; " +
-            "-fx-border-radius: 5; " +
-            "-fx-background-image: url('/assets/textures/background/pauseMenu.png'); " + 
-            "-fx-background-size: cover; " + 
-            "-fx-background-position: center;" 
-        );
-        redVbox.setPadding(new Insets(200, 140, 50, 140));
+        HBox redHbox = new HBox(10);
+        redHbox.setAlignment(javafx.geometry.Pos.CENTER);
 
-        HBox blueHbox = new HBox(10);
+
+        redHbox.setPrefWidth(860);
+        redHbox.setPrefHeight(400);
+        redHbox.setMaxWidth(860);
+        redHbox.setMaxHeight(400);
+        redHbox.setStyle(
+            "-fx-background-color: transparent; " +
+            "-fx-border-width: 5; " +
+            "-fx-border-radius: 5; " +
+            "-fx-background-image: url('/assets/textures/background/levelCompleted.png'); " +
+            "-fx-background-position: center; " 
+        );
+        redHbox.setPadding(new Insets(90, 250, 0, 140));
+        
+
+
+      
+        VBox blueHbox = new VBox(10);
         blueHbox.setAlignment(javafx.geometry.Pos.CENTER);
 
-        blueHbox.setPrefWidth(550);
+        blueHbox.setPrefWidth(150);
         blueHbox.setPrefHeight(100);
-        blueHbox.setMaxWidth(550);
-        blueHbox.setMaxHeight(100);
+
+
+        VBox blueHbox2 = new VBox(10);
+        blueHbox2.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+
+        blueHbox2.setPrefWidth(150);
+        blueHbox2.setPrefHeight(100);
+        blueHbox2.setPadding(new Insets(0, 40, 0, 0));
+     
 
         Button resumeButton = new Button("");
         resumeButton.setBackground(Background.EMPTY);
-        Image resumeImage = new Image(getClass().getResource("/assets/textures/buttons/resumeButton.png").toExternalForm());
+        Image resumeImage = new Image(getClass().getResource("/assets/textures/buttons/nextLevelButton.png").toExternalForm());
         ImageView resumeImageView = new ImageView(resumeImage);
-        resumeImageView.setFitWidth(250);
-        resumeImageView.setFitHeight(65);
+        resumeImageView.setFitWidth(150);
+        resumeImageView.setFitHeight(80);
         resumeButton.setGraphic(resumeImageView);
         Animation.applyHoverAndClickEffects(resumeButton, hoverMedia, clickedMedia);
 
@@ -72,52 +83,19 @@ public class LevelCompletionScene extends FXGLMenu {
             getSceneService().popSubScene();
         });
 
-        HBox blueHbox2 = new HBox(10);
-        blueHbox2.setAlignment(javafx.geometry.Pos.CENTER);
-
-        blueHbox2.setPrefWidth(550);
-        blueHbox2.setPrefHeight(100);
-        blueHbox2.setMaxWidth(550);
-        blueHbox2.setMaxHeight(100);
-
-        Button videokeButton = new Button("");
-        videokeButton.setBackground(Background.EMPTY);
-        Image videokeImage = new Image(getClass().getResource("/assets/textures/buttons/videokeButton.png").toExternalForm());
-        ImageView videokeImageView = new ImageView(videokeImage);
-        videokeImageView.setFitWidth(250);
-        videokeImageView.setFitHeight(65);
-        videokeButton.setGraphic(videokeImageView);
-        Animation.applyHoverAndClickEffects(videokeButton, hoverMedia, clickedMedia);
-
-        HBox blueHbox3 = new HBox(10);
-        blueHbox3.setAlignment(javafx.geometry.Pos.CENTER);
-        blueHbox3.setPrefWidth(550);
-        blueHbox3.setPrefHeight(100);
-        blueHbox3.setMaxWidth(550);
-        blueHbox3.setMaxHeight(100);
-
-        Button menuButton = new Button("");
-        menuButton.setBackground(Background.EMPTY);
-        Image menuImage = new Image(getClass().getResource("/assets/textures/buttons/menuButton.png").toExternalForm());
+        Button menuButton2 = new Button("");
+        menuButton2.setBackground(Background.EMPTY);
+        Image menuImage = new Image(getClass().getResource("/assets/textures/buttons/menuButton2.png").toExternalForm());
         ImageView menuImageView = new ImageView(menuImage);
-        menuImageView.setFitWidth(250);
-        menuImageView.setFitHeight(65);
-        menuButton.setGraphic(menuImageView);
-        Animation.applyHoverAndClickEffects(menuButton, hoverMedia, clickedMedia);
+        menuImageView.setFitWidth(150);
+        menuImageView.setFitHeight(80);
+        menuButton2.setGraphic(menuImageView);
+        Animation.applyHoverAndClickEffects(menuButton2, hoverMedia, clickedMedia);
 
-        HBox blueHbox4 = new HBox(10);
-        blueHbox4.setAlignment(javafx.geometry.Pos.CENTER);
-
-        blueHbox4.setPrefWidth(550);
-        blueHbox4.setPrefHeight(100);
-        blueHbox4.setMaxWidth(550);
-        blueHbox4.setMaxHeight(100);
-
-        blackVbox.getChildren().addAll(redVbox);
-        redVbox.getChildren().addAll(blueHbox,blueHbox2,blueHbox3,blueHbox4);
-        blueHbox.getChildren().addAll(resumeButton);
-        blueHbox2.getChildren().addAll(videokeButton);
-        blueHbox3.getChildren().addAll(menuButton);
+        blackVbox.getChildren().addAll(redHbox);
+        redHbox.getChildren().addAll(blueHbox,  blueHbox2);
+        blueHbox.getChildren().addAll(menuButton2);
+        blueHbox2.getChildren().addAll(resumeButton);
         getContentRoot().getChildren().add(blackVbox);
 
     }
