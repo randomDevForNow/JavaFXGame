@@ -43,20 +43,20 @@ import com.sunsofgod.Scenes.*;
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.sunsofgod.EntityType.*;
 
-public class PlatformerApp extends GameApplication {    
+public class PlatformerApp extends GameApplication {
 
-
-    //handles the state so that levelselect will not be changed by fnished level function
+    // handles the state so that levelselect will not be changed by fnished level
+    // function
     private boolean levelSelectLock = false;
 
-    //handles the database of completed levels
+    // handles the database of completed levels
     File file = new File("src/main/resources/database.json");
     ObjectMapper objectMapper = new ObjectMapper();
     private int levelSelect = 0;
 
     private boolean dialogShown = false;
 
-    //sets the onUpdate funtion to on and off
+    // sets the onUpdate funtion to on and off
     private boolean globalTimerPaused = false;
 
     // sets the timer to be off at the start
@@ -94,7 +94,6 @@ public class PlatformerApp extends GameApplication {
         settings.setHeight(720);
 
         settings.setMainMenuEnabled(true);
-        
 
         settings.setDeveloperMenuEnabled(true);
         /* Set Loading Screen Here: */
@@ -167,10 +166,9 @@ public class PlatformerApp extends GameApplication {
             getInput().addAction(new UserAction("Right" + i) {
                 @Override
                 protected void onAction() {
-                    if (!dialogShown){
+                    if (!dialogShown) {
                         player.getComponent(PlayerComponent.class).right();
-                    }
-                    else{
+                    } else {
                         player.getComponent(PlayerComponent.class).stop();
                     }
                 }
@@ -244,24 +242,23 @@ public class PlatformerApp extends GameApplication {
         // levelNum += 12;
         // }int playerNumbers = activePlayers.size();
         int playerNumbers2 = 0;
-        for (int i = 0; i < 4; i++){
-            if (players[i]){
+        for (int i = 0; i < 4; i++) {
+            if (players[i]) {
                 playerNumbers2++;
             }
         }
 
         System.out.println("THIS NEW" + playerNumbers2);
-    
 
         System.out.println("ACTIVE PLAYERS");
 
-        if(playerNumbers2 == 1){
+        if (playerNumbers2 == 1) {
             levelSelect = levelNum;
-        }else if (playerNumbers2 == 2){
+        } else if (playerNumbers2 == 2) {
             levelSelect = levelNum + 4;
-        }else if (playerNumbers2 == 3){
+        } else if (playerNumbers2 == 3) {
             levelSelect = levelNum + 8;
-        }else if (playerNumbers2 == 4){
+        } else if (playerNumbers2 == 4) {
             levelSelect = levelNum + 12;
         }
 
@@ -286,95 +283,55 @@ public class PlatformerApp extends GameApplication {
         });
     }
 
-    
     private void finishLevel() {
         // reset all counts
         x = 0;
 
-        //sets the finished level on the database.json
+        // sets the finished level on the database.json
         try {
-                // Parse the JSON from the file into a JsonNode
-                JsonNode rootNode = objectMapper.readTree(file);
-                
-                int playerNumbers = activePlayers.size();
+            // Parse the JSON from the file into a JsonNode
+            JsonNode rootNode = objectMapper.readTree(file);
 
-                if (!levelSelectLock){
+            int playerNumbers = activePlayers.size();
 
-                
+            if (!levelSelectLock) {
 
-                    if(playerNumbers == 1){
-                        levelSelect = levelNum;
-                    }else if (playerNumbers == 2){
-                        levelSelect = levelNum + 4;
-                    }else if (playerNumbers == 3){
-                        levelSelect = levelNum + 8;
-                    }else if (playerNumbers == 4){
-                        levelSelect = levelNum + 12;
-                    }
-
-                    levelSelectLock = true;
+                if (playerNumbers == 1) {
+                    levelSelect = levelNum;
+                } else if (playerNumbers == 2) {
+                    levelSelect = levelNum + 4;
+                } else if (playerNumbers == 3) {
+                    levelSelect = levelNum + 8;
+                } else if (playerNumbers == 4) {
+                    levelSelect = levelNum + 12;
                 }
-                   
-                // Manually set each player's value to false
-                System.out.println("Size of arraylsit" + playerNumbers);
-                ((ObjectNode) rootNode).put("level" + levelSelect, true);
-                
-                  
-                // Save the modified JSON back to the file
-                objectMapper.writeValue(file, rootNode);
-    
-                // Print the modified JSON to verify
-                System.out.println("Completed Level" + levelSelect);
-    
-            } catch (IOException s) {
-                s.printStackTrace();
+
+                levelSelectLock = true;
             }
+
+            // Manually set each player's value to false
+            System.out.println("Size of arraylsit" + playerNumbers);
+            ((ObjectNode) rootNode).put("level" + levelSelect, true);
+
+            // Save the modified JSON back to the file
+            objectMapper.writeValue(file, rootNode);
+
+            // Print the modified JSON to verify
+            System.out.println("Completed Level" + levelSelect);
+
+        } catch (IOException s) {
+            s.printStackTrace();
+        }
 
         // GIAN reset timer here
         set("globalTimer", 1000);
-
-
 
         if (levelNum % 4 == 0) {
             // level end scene
             return;
         }
-        // NON-BLOCKING dialogue here
-        Dialog<Void> dialog = new Dialog<>();
-        dialog.setTitle("Custom Dialog");
-        dialog.setHeaderText("This is a custom dialog with a close button.");
 
-        // Add a ButtonType to close the dialog
-        ButtonType closeButtonType = new ButtonType("Close");
-
-        // Set the ButtonType to the dialog's buttons
-        dialog.getDialogPane().getButtonTypes().add(closeButtonType);
-
-        // Handle button click
-        dialog.setResultConverter(buttonType -> {
-            if (buttonType == closeButtonType) {
-                // Close the dialog when the "Close" button is clicked
-                dialog.close();
-            }
-            return null; // No return value needed
-        });
-        dialogShown = true;
-
-        activePlayers.forEach(player -> {
-            player.getComponent(PlayerComponent.class).stop();
-            player.getComponent(PhysicsComponent.class).getVelocityX();
-            
-        });
-
-
-        globalTimerPaused = true;
-        // Show the dialog and wait for it to be closed
-        dialog.showAndWait();
-
-        dialogShown = false;
-        globalTimerPaused = false;
-
-        
+        showCompletionDialog();
 
         // TEMP
         levelSelect++;
@@ -382,6 +339,36 @@ public class PlatformerApp extends GameApplication {
 
         spawnPlayers();
 
+    }
+
+    private void showCompletionDialog() {
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle("Custom Dialog");
+        dialog.setHeaderText("This is a custom dialog with a close button.");
+
+        ButtonType closeButtonType = new ButtonType("Close");
+
+        dialog.getDialogPane().getButtonTypes().add(closeButtonType);
+
+        dialog.setResultConverter(buttonType -> {
+            if (buttonType == closeButtonType) {
+                dialog.close();
+            }
+            return null;
+        });
+        dialogShown = true;
+
+        activePlayers.forEach(player -> {
+            player.getComponent(PlayerComponent.class).stop();
+            player.getComponent(PhysicsComponent.class).getVelocityX();
+
+        });
+
+        globalTimerPaused = true;
+        dialog.showAndWait();
+
+        dialogShown = false;
+        globalTimerPaused = false;
     }
 
     private void spawnPlayers() {
@@ -511,8 +498,7 @@ public class PlatformerApp extends GameApplication {
     protected void onUpdate(double tpf) {
         // inc("levelTime", tpf);
 
-
-        if (globalTimerPaused){
+        if (globalTimerPaused) {
             return;
         }
 
@@ -523,7 +509,7 @@ public class PlatformerApp extends GameApplication {
         }
         // resets the properties of the buttons
         if (globalTimerOn) {
-            if(FXGL.geti("globalTimer") > 0){
+            if (FXGL.geti("globalTimer") > 0) {
                 inc("globalTimer", -1);
             }
         }
