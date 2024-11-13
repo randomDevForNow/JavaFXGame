@@ -243,7 +243,17 @@ public class PlatformerApp extends GameApplication {
         // case 4:
         // levelNum += 12;
         // }int playerNumbers = activePlayers.size();
-        int playerNumbers2 = activePlayers.size();
+        int playerNumbers2 = 0;
+        for (int i = 0; i < 4; i++){
+            if (players[i]){
+                playerNumbers2++;
+            }
+        }
+
+        System.out.println("THIS NEW" + playerNumbers2);
+    
+
+        System.out.println("ACTIVE PLAYERS");
 
         if(playerNumbers2 == 1){
             levelSelect = levelNum;
@@ -257,7 +267,7 @@ public class PlatformerApp extends GameApplication {
 
         System.out.println("Selected level" + levelSelect);
 
-        setLevelFromMap("tmx/level" + levelNum + ".tmx");
+        setLevelFromMap("tmx/level" + levelSelect + ".tmx");
     }
 
     private void resetLevel() {
@@ -381,10 +391,10 @@ public class PlatformerApp extends GameApplication {
             System.out.println(players[i]);
         }
         // Spawn Activated Playerss
-        if (!activePlayers.get(0).hasComponent(PhysicsComponent.class)) {
+        if (activePlayers.isEmpty()) {
             for (int i = 0; i < 4; i++) {
                 if (players[i]) {
-                    activePlayers.set(i, spawn("player" + (i + 1), spawnpoint.getX() + x, spawnpoint.getY()));
+                    activePlayers.add(spawn("player" + (i + 1), spawnpoint.getX() + x, spawnpoint.getY()));
                     System.out.println(activePlayers.size());
                 }
             }
@@ -399,23 +409,12 @@ public class PlatformerApp extends GameApplication {
         x += 50;
     }
 
-
-    private void initPlayers(){
-        for (int i = 0; i < 4; i++) {
-            if (players[i]) {
-                activePlayers.add(new Entity());
-                System.out.println(activePlayers.size());
-            }
-        }
-    }
-
     @Override
     protected void initGame() {
         getGameWorld().addEntityFactory(new PlatformerFactory());
 
         activePlayers.clear();
 
-        initPlayers();
         createLevel();
 
         spawnPlayers();
