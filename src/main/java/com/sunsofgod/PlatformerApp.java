@@ -21,10 +21,17 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -97,19 +104,12 @@ public class PlatformerApp extends GameApplication {
                 return new RiderMainMenuScene();
             }
 
-            /*
-             * Uncomment nyo ito para maedit yung
-             * Pause Menu natin yung kapag
-             * Nagpress ng escape yung user/s
-             * May lalabas na resume, option,
-             * go to main menu, go to level select
-             * goto
-             */
-            // @NotNull
-            // @Override
-            // public FXGLMenu newGameMenu() {
-            // return new PauseMenuScene();
-            // }
+             
+             @NotNull
+             @Override
+             public FXGLMenu newGameMenu() {
+             return new PauseMenuScene();
+             }
 
         });
     }
@@ -267,31 +267,81 @@ public class PlatformerApp extends GameApplication {
             // level end scene
             return;
         }
-        // NON-BLOCKING dialogue here
+        //BLOCKING dialogue here
         getInput().clearAll();
+Dialog<Void> dialog = new Dialog<>();
+dialog.getDialogPane().setPrefSize(550, 450);
+dialog.initModality(Modality.APPLICATION_MODAL);
+dialog.initStyle(StageStyle.TRANSPARENT);
+dialog.getDialogPane().setOpacity(0.7);
 
-        Dialog<Void> dialog = new Dialog<>();
-        dialog.setTitle("Custom Dialog");
-        dialog.setHeaderText("This is a custom dialog with a close button.");
+    
+        VBox redVbox = new VBox(10);
+        redVbox.setAlignment(javafx.geometry.Pos.CENTER);
+        
+        redVbox.setPrefWidth(550);
+        redVbox.setPrefHeight(450);
+        redVbox.setMaxWidth(550);
+        redVbox.setMaxHeight(450);
+        redVbox.setStyle(
+            "-fx-background-color: transparent; " +
+            "-fx-border-color: red; " +
+            "-fx-border-width: 2; " +
+            "-fx-border-radius: 5; " +
+            "-fx-background-image: url(''); " + 
+            "-fx-background-size: cover; " + 
+            "-fx-background-position: center;" 
+        );
 
-        // Add a ButtonType to close the dialog
+        HBox blueHbox = new HBox(10);
+        blueHbox.setAlignment(javafx.geometry.Pos.CENTER);
+        blueHbox.setStyle("-fx-border-color: blue; -fx-border-width: 2; -fx-border-radius: 5;");
+
+        blueHbox.setPrefWidth(550);
+        blueHbox.setPrefHeight(100);
+        blueHbox.setMaxWidth(550);
+        blueHbox.setMaxHeight(100);
+
+        HBox blueHbox2 = new HBox(10);
+        blueHbox2.setAlignment(javafx.geometry.Pos.CENTER);
+        blueHbox2.setStyle("-fx-border-color: blue; -fx-border-width: 2; -fx-border-radius: 5;");
+
+        blueHbox2.setPrefWidth(550);
+        blueHbox2.setPrefHeight(100);
+        blueHbox2.setMaxWidth(550);
+        blueHbox2.setMaxHeight(100);
+
+        HBox blueHbox3 = new HBox(10);
+        blueHbox.setAlignment(javafx.geometry.Pos.CENTER);
+        blueHbox3.setStyle("-fx-border-color: blue; -fx-border-width: 2; -fx-border-radius: 5;");
+
+        blueHbox3.setPrefWidth(550);
+        blueHbox3.setPrefHeight(100);
+        blueHbox3.setMaxWidth(550);
+        blueHbox3.setMaxHeight(100);
+
+        HBox blueHbox4 = new HBox(10);
+        blueHbox4.setAlignment(javafx.geometry.Pos.CENTER);
+        blueHbox4.setStyle("-fx-border-color: blue; -fx-border-width: 2; -fx-border-radius: 5;");
+
+        blueHbox4.setPrefWidth(550);
+        blueHbox4.setPrefHeight(100);
+        blueHbox4.setMaxWidth(550);
+        blueHbox4.setMaxHeight(100);
         ButtonType closeButtonType = new ButtonType("Close");
-
-        // Set the ButtonType to the dialog's buttons
+        
         dialog.getDialogPane().getButtonTypes().add(closeButtonType);
-
-        // Handle button click
+        dialog.getDialogPane().setContent(redVbox);
+        redVbox.getChildren().addAll(blueHbox,blueHbox2,blueHbox3,blueHbox4);
         dialog.setResultConverter(buttonType -> {
             if (buttonType == closeButtonType) {
-                // Close the dialog when the "Close" button is clicked
                 dialog.close();
             }
-            return null; // No return value needed
+            return null; 
         });
 
         globalTimerPaused = true;
-        // Show the dialog and wait for it to be closed
-        dialog.showAndWait();
+        dialog.showAndWait();   
 
         globalTimerPaused = false;
 
