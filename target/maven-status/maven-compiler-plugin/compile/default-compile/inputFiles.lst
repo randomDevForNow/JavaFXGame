@@ -1,6 +1,7 @@
 /Users/aaron/JavaFXGame/src/main/java/com/sunsofgod/PlatformerFactory.java
 /Users/aaron/JavaFXGame/src/main/java/module-info.java
 /Users/aaron/JavaFXGame/src/main/java/com/sunsofgod/Scenes/LevelEndScene.java
+/Users/aaron/JavaFXGame/src/main/java/com/sunsofgod/Scenes/LevelCompletionScene.java
 /Users/aaron/JavaFXGame/src/main/java/com/sunsofgod/Scenes/VideokeScene.java
 /Users/aaron/JavaFXGame/src/main/java/com/sunsofgod/PlatformerApp.java
 /Users/aaron/JavaFXGame/src/main/java/com/sunsofgod/Scenes/PauseMenuScene.java
@@ -12,4 +13,5 @@
 /Users/aaron/JavaFXGame/src/main/java/com/sunsofgod/Scenes/Animation.java
 /Users/aaron/JavaFXGame/src/main/java/com/sunsofgod/Scenes/PlayerSelectScene.java
 /Users/aaron/JavaFXGame/src/main/java/com/sunsofgod/PlayerButtonHandler.java
+/Users/aaron/JavaFXGame/src/main/java/com/sunsofgod/Scenes/MouseUIController.java
 /Users/aaron/JavaFXGame/src/main/java/com/sunsofgod/PlayerComponent.java

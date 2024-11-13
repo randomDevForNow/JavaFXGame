@@ -1,12 +1,12 @@
 com/sunsofgod/EntityType.class
 com/sunsofgod/PlatformerApp$1.class
 com/sunsofgod/PlatformerApp$4.class
-com/sunsofgod/PlatformerApp.class
 com/sunsofgod/PlayerComponent.class
+module-info.class
+com/sunsofgod/PlatformerApp$5.class
+com/sunsofgod/PlatformerApp.class
 com/sunsofgod/PlatformerApp$3.class
 com/sunsofgod/PlayerComponent$1.class
 com/sunsofgod/PlatformerFactory.class
-module-info.class
 com/sunsofgod/PlatformerApp$2.class
-com/sunsofgod/PlatformerApp$5.class
 com/sunsofgod/PlayerButtonHandler.class
