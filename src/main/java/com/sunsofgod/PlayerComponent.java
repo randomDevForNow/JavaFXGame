@@ -95,7 +95,7 @@ public class PlayerComponent extends Component {
                     jumps = 1;
                 }
                 // Play landing sound
-                play("land.wav");
+                //play("land.wav");
                 this.isOnGround = true;
             } else {
                 if (jumps > 0)
