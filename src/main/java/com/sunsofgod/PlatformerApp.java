@@ -20,7 +20,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
@@ -28,6 +30,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -53,7 +56,7 @@ import static com.sunsofgod.EntityType.*;
 public class PlatformerApp extends GameApplication {
 
     // handles the state so that levelselect will not be changed by fnished level
-    // function 
+    // function
     private boolean levelSelectLock = false;
 
     // handles the database of completed levels
@@ -72,6 +75,14 @@ public class PlatformerApp extends GameApplication {
     /* Set to Private */
     private boolean[] players = { false, false, false, false };
     private int levelNum = 0;
+
+    public boolean getDialogShown() {
+        return dialogShown;
+    }
+
+    public void setDialogShown(boolean dialogShown) {
+        this.dialogShown = dialogShown;
+    }
 
     public int getLevelNum() {
         return levelNum;
@@ -118,12 +129,11 @@ public class PlatformerApp extends GameApplication {
                 return new RiderMainMenuScene();
             }
 
-             
-             @NotNull
-             @Override
-             public FXGLMenu newGameMenu() {
-             return new PauseMenuScene();
-             }
+            @NotNull
+            @Override
+            public FXGLMenu newGameMenu() {
+                return new PauseMenuScene();
+            }
 
         });
     }
@@ -141,6 +151,7 @@ public class PlatformerApp extends GameApplication {
 
     private void bindKeys() {
 
+        getInput().clearAll();
         int i = 0;
         for (Entity player : activePlayers) {
             System.out.println(player);
@@ -154,7 +165,11 @@ public class PlatformerApp extends GameApplication {
             getInput().addAction(new UserAction("Left" + i) {
                 @Override
                 protected void onAction() {
-                    player.getComponent(PlayerComponent.class).left();
+                    if (!dialogShown) {
+                        player.getComponent(PlayerComponent.class).left();
+                    } else {
+                        player.getComponent(PlayerComponent.class).stop();
+                    }
                 }
 
                 @Override
@@ -187,15 +202,45 @@ public class PlatformerApp extends GameApplication {
                             .stream()
                             .filter(btn -> btn.hasComponent(CollidableComponent.class) && player.isColliding(btn))
                             .forEach(btn -> {
-                                btn.removeComponent(CollidableComponent.class);
 
                                 finishLevel();
                             });
                 }
+
+                @Override
+                protected void onActionEnd() {
+
+                }
             }, bindings[i][3]);
             i++;
         }
+        if (activePlayers.size() == 4) {
+            bindMousePlayer();
+        }
 
+    }
+
+    private void bindMousePlayer() {
+        try {
+            System.out.println("MOUSERRRR");
+            MouseUIController controller = new MouseUIController();
+            controller.setPlayer(activePlayers.get(3));
+            controller.setButton(getGameWorld().getEntitiesByType(BUTTON));
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/mouseUi.fxml"));
+
+            System.out.println(loader);
+            loader.setController(controller);
+            Parent root = loader.load();
+
+            AnchorPane anchorPane = (AnchorPane) root;
+            anchorPane.setLayoutX(FXGL.getAppWidth() - 300);
+            anchorPane.setLayoutY(FXGL.getAppHeight() - 150);
+            FXGL.getGameScene().addUINode(anchorPane);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /* For Global Variables (Refunds of each player) */
@@ -226,8 +271,6 @@ public class PlatformerApp extends GameApplication {
         /* Add Media Player Code here that loops */
     }
 
-    int xInit = 0;
-
     private void createLevel() {
         /* Uncomment if levels up to 12 */
 
@@ -249,7 +292,7 @@ public class PlatformerApp extends GameApplication {
         }
 
         System.out.println("THIS NEW" + playerNumbers2);
-                                                                                                                                  
+
         System.out.println("ACTIVE PLAYERS");
 
         if (playerNumbers2 == 1) {
@@ -283,7 +326,7 @@ public class PlatformerApp extends GameApplication {
         });
     }
 
-    private void finishLevel() {
+    public void finishLevel() {
         // reset all counts
         x = 0;
 
@@ -332,46 +375,12 @@ public class PlatformerApp extends GameApplication {
         }
 
         getSceneService().pushSubScene(new LevelCompletionScene());
-        //showCompletionDialog();
+        dialogShown = false;
 
-        // TEMP
         levelSelect++;
         setLevelFromMap("tmx/level" + levelSelect + ".tmx");
 
         spawnPlayers();
-
-    }
-
-
-    private void showCompletionDialog() {
-        Dialog<Void> dialog = new Dialog<>();
-        dialog.setTitle("Custom Dialog");
-        dialog.setHeaderText("This is a custom dialog with a close button.");
-
-        ButtonType closeButtonType = new ButtonType("Close");
-        
-        dialog.getDialogPane().getButtonTypes().add(closeButtonType);
-
-        // Handle button click
-        dialog.setResultConverter(buttonType -> {
-            if (buttonType == closeButtonType) {
-                dialog.close();
-            }
-            return null;
-        });
-        dialogShown = true;
-
-        activePlayers.forEach(player -> {
-            player.getComponent(PlayerComponent.class).stop();
-            player.getComponent(PhysicsComponent.class).getVelocityX();
-
-        });
-
-        globalTimerPaused = true;
-        dialog.showAndWait();
-
-        dialogShown = false;
-        globalTimerPaused = false;
     }
 
     private void spawnPlayers() {
@@ -507,11 +516,11 @@ public class PlatformerApp extends GameApplication {
 
         for (Entity player : activePlayers) {
             if (player != null && player.getY() > getAppHeight()) {
-                    activePlayers.forEach(p -> {
-                        p.getComponent(PhysicsComponent.class)
-                                .overwritePosition(new Point2D(spawnpoint.getX() + x, spawnpoint.getY()));
-                        p.setZIndex(Integer.MAX_VALUE);
-                    });
+                activePlayers.forEach(p -> {
+                    p.getComponent(PhysicsComponent.class)
+                            .overwritePosition(new Point2D(spawnpoint.getX() + x, spawnpoint.getY()));
+                    p.setZIndex(Integer.MAX_VALUE);
+                });
             }
         }
         // resets the properties of the buttons
@@ -548,7 +557,7 @@ public class PlatformerApp extends GameApplication {
     private void playDeathSFX() {
         // Play death sound effect
         play("dead.wav");
-        
+
         resetLevel();
     }
 

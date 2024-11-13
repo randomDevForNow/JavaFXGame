@@ -1,5 +1,7 @@
 package com.sunsofgod.Scenes;
 
+import static com.almasb.fxgl.dsl.FXGL.getSceneService;
+
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
 
@@ -98,6 +100,12 @@ public class PauseMenuScene extends FXGLMenu {
         menuButton.setGraphic(menuImageView);
         Animation.applyHoverAndClickEffects(menuButton, hoverMedia, clickedMedia);
 
+        menuButton.setOnMouseReleased(event -> {
+         getInput().clearAll();
+         getSceneService().popSubScene();  
+         getSceneService().pushSubScene(new RiderMainMenuScene()); 
+         
+        });
         HBox blueHbox4 = new HBox(10);
         blueHbox4.setAlignment(javafx.geometry.Pos.CENTER);
 
