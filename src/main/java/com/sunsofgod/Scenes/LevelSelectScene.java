@@ -287,8 +287,8 @@ public class LevelSelectScene extends FXGLMenu {
                 level2View.setImage(unclickedlevel2Image);
                 level3View.setImage(unclickedlevel3Image);
                 level4View.setImage(unclickedlevel4Image);
-                checkCompleted();
                 level1View.setImage(clickedlevel1Image);
+                checkCompletedClicked(1);
                 level2ImageClicked[0] = false;
                 level3ImageClicked[0] = false;
                 level4ImageClicked[0] = false;
@@ -310,8 +310,8 @@ public class LevelSelectScene extends FXGLMenu {
                 level1View.setImage(unclickedlevel1Image);
                 level3View.setImage(unclickedlevel3Image);
                 level4View.setImage(unclickedlevel4Image);
-                checkCompleted();
                 level2View.setImage(clickedlevel2Image);
+                checkCompletedClicked(2);
                 level1ImageClicked[0] = false;
                 level3ImageClicked[0] = false;
                 level4ImageClicked[0] = false;
@@ -334,8 +334,8 @@ public class LevelSelectScene extends FXGLMenu {
                 level1View.setImage(unclickedlevel1Image);
                 level2View.setImage(unclickedlevel2Image);
                 level4View.setImage(unclickedlevel4Image);
-                checkCompleted();
                 level3View.setImage(clickedlevel3Image);
+                checkCompletedClicked(3);
                 level1ImageClicked[0] = false;
                 level2ImageClicked[0] = false;
                 level4ImageClicked[0] = false;
@@ -359,8 +359,8 @@ public class LevelSelectScene extends FXGLMenu {
                 level1View.setImage(unclickedlevel1Image);
                 level2View.setImage(unclickedlevel2Image);
                 level3View.setImage(unclickedlevel3Image);
-                checkCompleted();
                 level4View.setImage(clickedlevel4Image);
+                checkCompletedClicked(4);
                 level1ImageClicked[0] = false;
                 level2ImageClicked[0] = false;
                 level3ImageClicked[0] = false;
@@ -464,6 +464,153 @@ public class LevelSelectScene extends FXGLMenu {
                         }
                         else if(i == 16){
                             level4View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                        }
+                    }
+                }
+            }
+        }
+
+
+        //Completed Level Clicked w highlight
+        private void checkCompletedClicked(int levelChecker){
+            if (playerCounter == 1) {
+
+                for(int i =1 ; i<5; i++){
+                    String levelToCheck = "level" + (i); // The level you want to check
+                    boolean isLevelTrue = checkLevelStatus("src/main/resources/database.json", levelToCheck);
+                    if(isLevelTrue){
+                        if(i == 1){
+                            if(levelChecker == 1){
+                                level1View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                            }else{
+                                level1View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            }
+                            
+                        }else if(i == 2){
+                            if(levelChecker == 2){
+                                level2View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                            }else{
+                                level2View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            }
+                        }
+                        else if(i == 3){
+                            if(levelChecker == 3){
+                                level3View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                            }else{
+                                level3View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            }
+                        }
+                        else if(i == 4){
+                            if(levelChecker == 4){
+                                level4View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                            }else{
+                                level4View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            }
+                        }
+                    }
+                }
+                
+            } else if (playerCounter  == 2) {
+                for(int i=5 ; i<9; i++){
+                    String levelToCheck = "level" + (i); // The level you want to check
+                    boolean isLevelTrue = checkLevelStatus("src/main/resources/database.json", levelToCheck);
+                    if(isLevelTrue){
+                        if(i == 5){
+                            if(levelChecker == 1){
+                                level1View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                            }else{
+                                level1View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            }
+                        }else if(i == 6){
+                            if(levelChecker == 2){
+                                level2View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                            }else{
+                                level2View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            }
+                        }
+                        else if(i == 7){
+                            if(levelChecker == 3){
+                                level3View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                            }else{
+                                level3View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            }
+                        }
+                        else if(i == 8){
+                            if(levelChecker == 4){
+                                level4View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                            }else{
+                                level4View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            }
+                        }
+                    }
+                }
+                
+            } else if (playerCounter  == 3) {
+                for(int i=9 ; i<13; i++){
+                    String levelToCheck = "level" + (i); // The level you want to check
+                    boolean isLevelTrue = checkLevelStatus("src/main/resources/database.json", levelToCheck);
+                    if(isLevelTrue){
+                        if(i == 9){
+                            if(levelChecker == 1){
+                                level1View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                            }else{
+                                level1View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            }
+                        }else if(i == 10){
+                            if(levelChecker == 2){
+                                level2View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                            }else{
+                                level2View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            }
+                        }
+                        else if(i == 11){
+                            if(levelChecker == 3){
+                                level3View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                            }else{
+                                level3View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            }
+                        }
+                        else if(i == 12){
+                            if(levelChecker == 4){
+                                level4View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                            }else{
+                                level4View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            }
+                        }
+                    }
+                }
+                
+            } else if (playerCounter  == 4) {
+                for(int i=13 ; i<17; i++){
+                    String levelToCheck = "level" + (i); // The level you want to check
+                    boolean isLevelTrue = checkLevelStatus("src/main/resources/database.json", levelToCheck);
+                    if(isLevelTrue){
+                        if(i == 13){
+                            if(levelChecker == 1){
+                                level1View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                            }else{
+                                level1View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            }
+                        }else if(i == 14){
+                            if(levelChecker == 2){
+                                level2View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                            }else{
+                                level2View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            }
+                        }
+                        else if(i == 15){
+                            if(levelChecker == 3){
+                                level3View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                            }else{
+                                level3View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            }
+                        }
+                        else if(i == 16){
+                            if(levelChecker == 4){
+                                level4View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                            }else{
+                                level4View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            }
                         }
                     }
                 }
