@@ -46,7 +46,7 @@ import static com.sunsofgod.EntityType.*;
 public class PlatformerApp extends GameApplication {
 
     // handles the state so that levelselect will not be changed by fnished level
-    // function
+    // function 
     private boolean levelSelectLock = false;
 
     // handles the database of completed levels
@@ -539,8 +539,9 @@ public class PlatformerApp extends GameApplication {
     }
 
     private void playDeathSFX() {
-        /* PLAY DEATH SFX HERE */
-
+        // Play death sound effect
+        play("dead.wav");
+        
         resetLevel();
     }
 
