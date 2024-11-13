@@ -55,6 +55,8 @@ import static com.sunsofgod.EntityType.*;
 
 public class PlatformerApp extends GameApplication {
 
+    private int globalTimerValue = 0;
+
     // handles the state so that levelselect will not be changed by fnished level
     // function
     private boolean levelSelectLock = false;
@@ -246,8 +248,8 @@ public class PlatformerApp extends GameApplication {
     /* For Global Variables (Refunds of each player) */
     @Override
     protected void initGameVars(Map<String, Object> vars) {
-
-        vars.put("globalTimer", 5000);
+        
+        vars.put("globalTimer", 0);
     }
 
     @Override
@@ -290,6 +292,7 @@ public class PlatformerApp extends GameApplication {
             levelSelect = levelNum + 12;
         }
 
+        globalTimerValue = getLevelValue(levelSelect);
         System.out.println("Selected level" + levelSelect);
 
         setLevelFromMap("tmx/level" + levelSelect + ".tmx");
@@ -302,7 +305,10 @@ public class PlatformerApp extends GameApplication {
             x = 0;
 
             resumeBGMusic();
-            set("globalTimer", 1600);
+
+
+           
+            set("globalTimer", globalTimerValue);
             setLevelFromMap("tmx/level" + levelNum + ".tmx");
 
         });
@@ -349,7 +355,7 @@ public class PlatformerApp extends GameApplication {
         }
 
         // GIAN reset timer here
-        set("globalTimer", 1600);
+        
 
         if (levelNum % 4 == 0) {
             // level end scene
@@ -361,6 +367,9 @@ public class PlatformerApp extends GameApplication {
 
         levelSelect++;
         setLevelFromMap("tmx/level" + levelSelect + ".tmx");
+
+        globalTimerValue = getLevelValue(levelSelect);
+        set("globalTimer", globalTimerValue);
 
         spawnPlayers();
     }
@@ -388,6 +397,27 @@ public class PlatformerApp extends GameApplication {
         }
         System.out.println(activePlayers.size());
         x += 50;
+    }
+
+
+    public static int getLevelValue(int levelNum) {
+        // Create an ObjectMapper instance
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            // Read the JSON file and parse it into a JsonNode
+            JsonNode rootNode = objectMapper.readTree(new File("src/main/resources/timer.json"));
+
+            // Get the value of the specified level
+            JsonNode levelNode = rootNode.get("level" + levelNum);
+            if (levelNode != null) {
+                return levelNode.asInt(); // Return the integer value
+            } else {
+                throw new IllegalArgumentException("Invalid level: " + levelNum);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to read or parse the JSON file", e);
+        }
     }
 
     @Override
