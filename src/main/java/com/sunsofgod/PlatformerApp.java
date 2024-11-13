@@ -247,10 +247,6 @@ public class PlatformerApp extends GameApplication {
     @Override
     protected void initGameVars(Map<String, Object> vars) {
 
-        // vars.put("levelTime", 0.0);
-        // vars.put("score", 0);
-
-        // global variables for timers
         vars.put("globalTimer", 5000);
     }
 
@@ -272,18 +268,7 @@ public class PlatformerApp extends GameApplication {
     }
 
     private void createLevel() {
-        /* Uncomment if levels up to 12 */
-
-        // switch (activePlayers.size()) {
-        // case 2:
-        // levelNum += 4;
-        // break;
-        // case 3:
-        // levelNum += 8;
-        // break;
-        // case 4:
-        // levelNum += 12;
-        // }int playerNumbers = activePlayers.size();
+       
         int playerNumbers2 = 0;
         for (int i = 0; i < 4; i++) {
             if (players[i]) {
@@ -312,11 +297,8 @@ public class PlatformerApp extends GameApplication {
 
     private void resetLevel() {
         getGameScene().getViewport().fade(() -> {
-            // teleport everyone to spawn
             spawnPlayers();
 
-            // reset timer and etc.
-            // GIAN reset timer here
             x = 0;
 
             resumeBGMusic();
@@ -540,6 +522,7 @@ public class PlatformerApp extends GameApplication {
 
         /* ADD THE IF STATEMENT FOR VIDEOKE */
         // if (!bgMusicPaused) {
+        System.out.println("I run");
         pauseBGMusic();
         playDeathSFX();
         // }
