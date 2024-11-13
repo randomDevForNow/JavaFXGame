@@ -235,22 +235,22 @@ public class PlayerSelectScene extends FXGLMenu {
 
         Button pandaButton = createCustomButton(
                 "/assets/textures/buttons/unclickedpandaButton.png",
-                "/assets/textures/buttons/clickedpandaButton.png",
+                "/assets/textures/buttons/clickedpandaButton.gif",
                 "player1", 0);
 
         Button lazadaButton = createCustomButton(
                 "/assets/textures/buttons/unclickedlazadaButton.png",
-                "/assets/textures/buttons/clickedlazadaButton.png",
+                "/assets/textures/buttons/clickedlazadaButton.gif",
                 "player2", 1);
 
         Button shoppeeButton = createCustomButton(
                 "/assets/textures/buttons/unclickedshoppeeButton.png",
-                "/assets/textures/buttons/clickedshoppeeButton.png",
+                "/assets/textures/buttons/clickedshoppeeButton.gif",
                 "player3", 2);
 
         Button zaloraButton = createCustomButton(
                 "/assets/textures/buttons/unclickedzaloraButton.png",
-                "/assets/textures/buttons/clickedzaloraButton.png",
+                "/assets/textures/buttons/clickedzaloraButton.gif",
                 "player4", 3);
 
         // Button optionsButton = new Button("Options");
