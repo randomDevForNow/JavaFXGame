@@ -398,15 +398,15 @@ public class LevelSelectScene extends FXGLMenu {
                     boolean isLevelTrue = checkLevelStatus("src/main/resources/database.json", levelToCheck);
                     if(isLevelTrue){
                         if(i == 1){
-                            level1View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            level1View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L1_Completed.png").toExternalForm()));
                         }else if(i == 2){
-                            level2View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            level2View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L2_Completed.png").toExternalForm()));
                         }
                         else if(i == 3){
-                            level3View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            level3View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L3_Completed.png").toExternalForm()));
                         }
                         else if(i == 4){
-                            level4View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            level4View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L4_Completed.png").toExternalForm()));
                         }
                     }
                 }
@@ -417,15 +417,15 @@ public class LevelSelectScene extends FXGLMenu {
                     boolean isLevelTrue = checkLevelStatus("src/main/resources/database.json", levelToCheck);
                     if(isLevelTrue){
                         if(i == 5){
-                            level1View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            level1View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L1_Completed.png").toExternalForm()));
                         }else if(i == 6){
-                            level2View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            level2View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L2_Completed.png").toExternalForm()));
                         }
                         else if(i == 7){
-                            level3View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            level3View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L3_Completed.png").toExternalForm()));
                         }
                         else if(i == 8){
-                            level4View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            level4View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L4_Completed.png").toExternalForm()));
                         }
                     }
                 }
@@ -436,15 +436,15 @@ public class LevelSelectScene extends FXGLMenu {
                     boolean isLevelTrue = checkLevelStatus("src/main/resources/database.json", levelToCheck);
                     if(isLevelTrue){
                         if(i == 9){
-                            level1View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            level1View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L1_Completed.png").toExternalForm()));
                         }else if(i == 10){
-                            level2View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            level2View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L2_Completed.png").toExternalForm()));
                         }
                         else if(i == 11){
-                            level3View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            level3View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L3_Completed.png").toExternalForm()));
                         }
                         else if(i == 12){
-                            level4View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            level4View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L4_Completed.png").toExternalForm()));
                         }
                     }
                 }
@@ -455,15 +455,15 @@ public class LevelSelectScene extends FXGLMenu {
                     boolean isLevelTrue = checkLevelStatus("src/main/resources/database.json", levelToCheck);
                     if(isLevelTrue){
                         if(i == 13){
-                            level1View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            level1View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L1_Completed.png").toExternalForm()));
                         }else if(i == 14){
-                            level2View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            level2View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L2_Completed.png").toExternalForm()));
                         }
                         else if(i == 15){
-                            level3View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            level3View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L3_Completed.png").toExternalForm()));
                         }
                         else if(i == 16){
-                            level4View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                            level4View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L4_Completed.png").toExternalForm()));
                         }
                     }
                 }
@@ -481,30 +481,30 @@ public class LevelSelectScene extends FXGLMenu {
                     if(isLevelTrue){
                         if(i == 1){
                             if(levelChecker == 1){
-                                level1View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                                level1View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L1_Completed_Clicked.png").toExternalForm()));
                             }else{
-                                level1View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                                level1View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L1_Completed.png").toExternalForm()));
                             }
                             
                         }else if(i == 2){
                             if(levelChecker == 2){
-                                level2View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                                level2View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L2_Completed_Clicked.png").toExternalForm()));
                             }else{
-                                level2View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                                level2View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L2_Completed.png").toExternalForm()));
                             }
                         }
                         else if(i == 3){
                             if(levelChecker == 3){
-                                level3View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                                level3View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L3_Completed_Clicked.png").toExternalForm()));
                             }else{
-                                level3View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                                level3View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L3_Completed.png").toExternalForm()));
                             }
                         }
                         else if(i == 4){
                             if(levelChecker == 4){
-                                level4View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                                level4View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L4_Completed_Clicked.png").toExternalForm()));
                             }else{
-                                level4View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                                level4View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L4_Completed.png").toExternalForm()));
                             }
                         }
                     }
@@ -517,29 +517,29 @@ public class LevelSelectScene extends FXGLMenu {
                     if(isLevelTrue){
                         if(i == 5){
                             if(levelChecker == 1){
-                                level1View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                                level1View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L1_Completed_Clicked.png").toExternalForm()));
                             }else{
-                                level1View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                                level1View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L1_Completed.png").toExternalForm()));
                             }
                         }else if(i == 6){
                             if(levelChecker == 2){
-                                level2View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                                level2View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L2_Completed_Clicked.png").toExternalForm()));
                             }else{
-                                level2View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                                level2View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L2_Completed.png").toExternalForm()));
                             }
                         }
                         else if(i == 7){
                             if(levelChecker == 3){
-                                level3View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                                level3View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L3_Completed_Clicked.png").toExternalForm()));
                             }else{
-                                level3View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                                level3View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L3_Completed.png").toExternalForm()));
                             }
                         }
                         else if(i == 8){
                             if(levelChecker == 4){
-                                level4View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                                level4View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L4_Completed_Clicked.png").toExternalForm()));
                             }else{
-                                level4View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                                level4View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L4_Completed.png").toExternalForm()));
                             }
                         }
                     }
@@ -552,29 +552,29 @@ public class LevelSelectScene extends FXGLMenu {
                     if(isLevelTrue){
                         if(i == 9){
                             if(levelChecker == 1){
-                                level1View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                                level1View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L1_Completed_Clicked.png").toExternalForm()));
                             }else{
-                                level1View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                                level1View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L1_Completed.png").toExternalForm()));
                             }
                         }else if(i == 10){
                             if(levelChecker == 2){
-                                level2View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                                level2View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L2_Completed_Clicked.png").toExternalForm()));
                             }else{
-                                level2View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                                level2View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L2_Completed.png").toExternalForm()));
                             }
                         }
                         else if(i == 11){
                             if(levelChecker == 3){
-                                level3View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                                level3View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L3_Completed_Clicked.png").toExternalForm()));
                             }else{
-                                level3View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                                level3View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L3_Completed.png").toExternalForm()));
                             }
                         }
                         else if(i == 12){
                             if(levelChecker == 4){
-                                level4View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                                level4View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L4_Completed_Clicked.png").toExternalForm()));
                             }else{
-                                level4View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                                level4View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L4_Completed.png").toExternalForm()));
                             }
                         }
                     }
@@ -587,29 +587,29 @@ public class LevelSelectScene extends FXGLMenu {
                     if(isLevelTrue){
                         if(i == 13){
                             if(levelChecker == 1){
-                                level1View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                                level1View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L1_Completed_Clicked.png").toExternalForm()));
                             }else{
-                                level1View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                                level1View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L1_Completed.png").toExternalForm()));
                             }
                         }else if(i == 14){
                             if(levelChecker == 2){
-                                level2View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                                level2View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L2_Completed_Clicked.png").toExternalForm()));
                             }else{
-                                level2View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                                level2View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L2_Completed.png").toExternalForm()));
                             }
                         }
                         else if(i == 15){
                             if(levelChecker == 3){
-                                level3View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                                level3View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L3_Completed_Clicked.png").toExternalForm()));
                             }else{
-                                level3View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                                level3View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L3_Completed.png").toExternalForm()));
                             }
                         }
                         else if(i == 16){
                             if(levelChecker == 4){
-                                level4View.setImage(new Image(getClass().getResource("/assets/textures/star_empty.png").toExternalForm()));
+                                level4View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L4_Completed_Clicked.png").toExternalForm()));
                             }else{
-                                level4View.setImage(new Image(getClass().getResource("/assets/textures/star_full.png").toExternalForm()));
+                                level4View.setImage(new Image(getClass().getResource("/assets/textures/buttons/L4_Completed.png").toExternalForm()));
                             }
                         }
                     }
