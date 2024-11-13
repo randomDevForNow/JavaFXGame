@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
@@ -257,7 +258,12 @@ public class PlatformerApp extends GameApplication {
         Label globalTimerLabel = new Label();
         globalTimerLabel.setTextFill(Color.BLACK);
         globalTimerLabel.setFont(Font.font(20.0));
-        globalTimerLabel.textProperty().bind(FXGL.getip("globalTimer").asString("Timer:" + "%d"));
+        globalTimerLabel.textProperty().bind(Bindings.createStringBinding(() -> {
+            int timer = FXGL.getip("globalTimer").get();
+            int seconds = (timer / 1000); // Convert to seconds
+            int milliseconds = (timer % 1000) / 10; // Get the milliseconds and convert to two digits
+            return String.format("Timer: %02d:%02d", seconds, milliseconds); // Display seconds and milliseconds
+        }, FXGL.getip("globalTimer")));
         FXGL.addUINode(globalTimerLabel, 20, 10);
 
     }
