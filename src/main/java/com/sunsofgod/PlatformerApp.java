@@ -331,7 +331,8 @@ public class PlatformerApp extends GameApplication {
             return;
         }
 
-        showCompletionDialog();
+        getSceneService().pushSubScene(new LevelCompletionScene());
+        //showCompletionDialog();
 
         // TEMP
         levelSelect++;
@@ -340,6 +341,7 @@ public class PlatformerApp extends GameApplication {
         spawnPlayers();
 
     }
+
 
     private void showCompletionDialog() {
         Dialog<Void> dialog = new Dialog<>();
