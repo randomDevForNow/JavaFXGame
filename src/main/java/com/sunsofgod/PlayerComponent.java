@@ -188,7 +188,7 @@ public class PlayerComponent extends Component {
 
     public void jump() {
         if (jumps > 0) {
-            physics.setVelocityY(-400);
+            physics.setVelocityY(-450);
             jumps--;
 
             // Play jump sound

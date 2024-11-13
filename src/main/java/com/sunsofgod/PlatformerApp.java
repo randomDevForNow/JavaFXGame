@@ -206,7 +206,7 @@ public class PlatformerApp extends GameApplication {
         // vars.put("score", 0);
 
         // global variables for timers
-        vars.put("globalTimer", 1000);
+        vars.put("globalTimer", 5000);
     }
 
     @Override
@@ -249,7 +249,7 @@ public class PlatformerApp extends GameApplication {
         }
 
         System.out.println("THIS NEW" + playerNumbers2);
-
+                                                                                                                                  
         System.out.println("ACTIVE PLAYERS");
 
         if (playerNumbers2 == 1) {
@@ -277,7 +277,7 @@ public class PlatformerApp extends GameApplication {
             x = 0;
 
             resumeBGMusic();
-            set("globalTimer", 1000);
+            set("globalTimer", 1600);
             setLevelFromMap("tmx/level" + levelNum + ".tmx");
 
         });
@@ -324,7 +324,7 @@ public class PlatformerApp extends GameApplication {
         }
 
         // GIAN reset timer here
-        set("globalTimer", 1000);
+        set("globalTimer", 1600);
 
         if (levelNum % 4 == 0) {
             // level end scene
@@ -507,7 +507,11 @@ public class PlatformerApp extends GameApplication {
 
         for (Entity player : activePlayers) {
             if (player != null && player.getY() > getAppHeight()) {
-                onPlayerDied();
+                    activePlayers.forEach(p -> {
+                        p.getComponent(PhysicsComponent.class)
+                                .overwritePosition(new Point2D(spawnpoint.getX() + x, spawnpoint.getY()));
+                        p.setZIndex(Integer.MAX_VALUE);
+                    });
             }
         }
         // resets the properties of the buttons
