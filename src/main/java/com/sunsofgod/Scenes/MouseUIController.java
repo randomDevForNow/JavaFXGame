@@ -2,7 +2,6 @@ package com.sunsofgod.Scenes;
 
 import java.util.List;
 
-import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.components.CollidableComponent;

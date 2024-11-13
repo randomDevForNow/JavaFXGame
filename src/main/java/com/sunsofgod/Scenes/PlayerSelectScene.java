@@ -4,22 +4,14 @@ import static com.almasb.fxgl.dsl.FXGL.getGameScene;
 import static com.almasb.fxgl.dsl.FXGL.getSceneService;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
 
-import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.dsl.FXGL;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sunsofgod.PlatformerApp;
 
-import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,8 +25,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
-import javafx.scene.media.MediaPlayer;
 
 public class PlayerSelectScene extends FXGLMenu {
 
@@ -113,6 +103,7 @@ public class PlayerSelectScene extends FXGLMenu {
         yellowHbox.setMaxWidth(1280);
         yellowHbox.setMaxHeight(60);
         yellowHbox.setPadding(new Insets(20, 0, 0, 40));
+        
         // orange hbox within black
         HBox orangeHbox = new HBox(10);
         orangeHbox.setAlignment(javafx.geometry.Pos.CENTER);

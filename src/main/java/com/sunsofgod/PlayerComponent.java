@@ -89,13 +89,11 @@ public class PlayerComponent extends Component {
 
         physics.onGroundProperty().addListener((obs, old, isOnGround) -> {
             this.isOnGround = isOnGround;
-            
+
             if (isOnGround) {
                 if (jumps == 0) {
                     jumps = 1;
                 }
-                // Play landing sound
-                //play("land.wav");
                 this.isOnGround = true;
             } else {
                 if (jumps > 0)
@@ -126,6 +124,7 @@ public class PlayerComponent extends Component {
     }
 
     private void propagateRiders(Entity playerAbove) {
+        playerAbove.getComponent(PlayerComponent.class).setSlip(false);
         PlayerComponent abovePlayerComp = playerAbove.getComponent(PlayerComponent.class);
         abovePlayerComp.setPlayerSpeed(170);
         abovePlayerComp.setSlip(false);
@@ -153,6 +152,12 @@ public class PlayerComponent extends Component {
 
         if (!isOnGround) {
             stopped = false;
+        }
+
+        if (slip) {
+            for (Entity rider : topPlayers) {
+                rider.getComponent(PhysicsComponent.class).setVelocityX(physics.getVelocityX());
+            }
         }
 
     }
