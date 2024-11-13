@@ -141,11 +141,11 @@ public class PlayerSelectScene extends FXGLMenu {
         redHbox.setPrefHeight(100);
         redHbox.setMaxWidth(1280);
         redHbox.setMaxHeight(100);
-        Text playselectInfo2 = new Text("Select multiple for Multiplayer");
+        Text playselectInfo2 = new Text("Single Player");
         playselectInfo2.setFont(Font.font("Tahoma", FontWeight.BOLD, 40));
         playselectInfo2.setFill(Color.WHITE);
 
-        Text playselectInfoOutline2 = new Text("Select multiple for Multiplayer");
+        Text playselectInfoOutline2 = new Text("Single Player");
         playselectInfoOutline2.setFont(Font.font("Tahoma", FontWeight.BOLD, 40));
         playselectInfoOutline2.setFill(Color.TRANSPARENT);
         playselectInfoOutline2.setStroke(Color.web("#2d5d8c"));
@@ -212,21 +212,9 @@ public class PlayerSelectScene extends FXGLMenu {
         cyanHbox3.setPrefHeight(60);
         cyanHbox3.setMaxWidth(1280);
         cyanHbox3.setMaxHeight(60);
-        cyanHbox.setPadding(new Insets(0, 0, 30, 450));
-        HBox.setMargin(cyanHbox3, new Insets(0, 0, 0, 250));
+        cyanHbox3.setPadding(new Insets(0, 0, -40, 0));
 
-        Text playselectInfo3 = new Text("Single Player");
-        playselectInfo3.setFont(Font.font("Tahoma", FontWeight.BOLD, 60));
-        playselectInfo3.setFill(Color.WHITE);
-
-        Text playselectInfoOutline3 = new Text("Single Player");
-        playselectInfoOutline3.setFont(Font.font("Tahoma", FontWeight.BOLD, 60));
-        playselectInfoOutline3.setFill(Color.TRANSPARENT);
-        playselectInfoOutline3.setStroke(Color.web("#2d5d8c"));
-        playselectInfoOutline3.setStrokeWidth(8);
-        StackPane textStack3 = new StackPane();
     
-
         Media hoverSound = new Media(getClass().getResource("/assets/sounds/hoverSoundfx.mp3").toExternalForm());
         MediaPlayer hoverMedia = new MediaPlayer(hoverSound);
         Media clickedSound = new Media(getClass().getResource("/assets/sounds/clickedSoundfx.mp3").toExternalForm());
@@ -236,8 +224,8 @@ public class PlayerSelectScene extends FXGLMenu {
         pSelectButton.setBackground(Background.EMPTY);
         Image image = new Image(getClass().getResource("/assets/textures/buttons/selectButton.png").toExternalForm());
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(130);
-        imageView.setFitHeight(55);
+        imageView.setFitWidth(200);
+        imageView.setFitHeight(200);
         pSelectButton.setGraphic(imageView);
         Animation.applyHoverAndClickEffects(pSelectButton, hoverMedia, clickedMedia);
 
@@ -292,16 +280,15 @@ public class PlayerSelectScene extends FXGLMenu {
         brownVbox.getChildren().addAll(shoppeeButton);
         orangeHbox.getChildren().addAll(textStack);
         redHbox.getChildren().addAll(textStack2);
-        cyanHbox.getChildren().addAll(textStack3, cyanHbox3);
+        cyanHbox.getChildren().addAll(cyanHbox3);
         cyanHbox3.getChildren().addAll(pSelectButton);
         getContentRoot().getChildren().add(blackVbox);
         textStack.getChildren().addAll(playselectInfoOutline, playselectInfo);
         textStack2.getChildren().addAll(playselectInfoOutline2, playselectInfo2);
-        textStack3.getChildren().addAll(playselectInfoOutline3, playselectInfo3);
     }
 
     private void checkBtns() {
-        // check if global vars are committed
+     
         for (boolean b : players) {
             if (b) {
                 System.out.println("i work");

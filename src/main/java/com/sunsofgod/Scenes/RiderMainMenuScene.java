@@ -138,25 +138,25 @@ public class RiderMainMenuScene extends FXGLMenu {
         Animation.applyHoverAndClickEffects(startButton, hoverMedia, clickedMedia);
         
         startButton.setOnAction(e -> {
-            try {
-                // Parse the JSON from the file into a JsonNode
-                JsonNode rootNode = objectMapper.readTree(file);
+            // try {
+            //     // Parse the JSON from the file into a JsonNode
+            //     JsonNode rootNode = objectMapper.readTree(file);
     
-                // Manually set each player's value to false
-                ((ObjectNode) rootNode).put("player1", false);
-                ((ObjectNode) rootNode).put("player2", false);
-                ((ObjectNode) rootNode).put("player3", false);
-                ((ObjectNode) rootNode).put("player4", false);
+            //     // Manually set each player's value to false
+            //     ((ObjectNode) rootNode).put("player1", false);
+            //     ((ObjectNode) rootNode).put("player2", false);
+            //     ((ObjectNode) rootNode).put("player3", false);
+            //     ((ObjectNode) rootNode).put("player4", false);
     
-                // Save the modified JSON back to the file
-                objectMapper.writeValue(file, rootNode);
+            //     // Save the modified JSON back to the file
+            //     objectMapper.writeValue(file, rootNode);
     
-                // Print the modified JSON to verify
-                System.out.println(rootNode.toString());
+            //     // Print the modified JSON to verify
+            //     System.out.println(rootNode.toString());
     
-            } catch (IOException s) {
-                s.printStackTrace();
-            }
+            // } catch (IOException s) {
+            //     s.printStackTrace();
+            // }
 
             getSceneService().pushSubScene(new PlayerSelectScene());
             // getSceneService().pushSubScene(new VideokeScene()); call this when videoke
@@ -198,7 +198,7 @@ public class RiderMainMenuScene extends FXGLMenu {
         blueVbox.getChildren().addAll(optionButton);
         orangeHbox.getChildren().addAll(redVbox, greenVbox, blueVbox);
         getContentRoot().getChildren().add(blackVbox);
-
+        
         // PANLAGAY CLIPPING ETC.)
         // Pede rin magsearch ng ano kung pano yung nagalaw na background na wallpaper
         // ng mga parcel tapos stripes background

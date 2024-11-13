@@ -16,15 +16,29 @@ import com.almasb.fxgl.entity.level.Level;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.input.view.KeyView;
 import com.almasb.fxgl.physics.PhysicsComponent;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import javafx.geometry.Point2D;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +51,20 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.sunsofgod.EntityType.*;
 
 public class PlatformerApp extends GameApplication {
+
+    // handles the state so that levelselect will not be changed by fnished level
+    // function
+    private boolean levelSelectLock = false;
+
+    // handles the database of completed levels
+    File file = new File("src/main/resources/database.json");
+    ObjectMapper objectMapper = new ObjectMapper();
+    private int levelSelect = 0;
+
+    private boolean dialogShown = false;
+
+    // sets the onUpdate funtion to on and off
+    private boolean globalTimerPaused = false;
 
     // sets the timer to be off at the start
     private ArrayList<Entity> activePlayers = new ArrayList<>();
@@ -73,7 +101,6 @@ public class PlatformerApp extends GameApplication {
         settings.setHeight(720);
 
         settings.setMainMenuEnabled(true);
-        
 
         settings.setDeveloperMenuEnabled(true);
         /* Set Loading Screen Here: */
@@ -91,19 +118,12 @@ public class PlatformerApp extends GameApplication {
                 return new RiderMainMenuScene();
             }
 
-            /*
-             * Uncomment nyo ito para maedit yung
-             * Pause Menu natin yung kapag
-             * Nagpress ng escape yung user/s
-             * May lalabas na resume, option,
-             * go to main menu, go to level select
-             * goto
-             */
-            // @NotNull
-            // @Override
-            // public FXGLMenu newGameMenu() {
-            // return new PauseMenuScene();
-            // }
+             
+             @NotNull
+             @Override
+             public FXGLMenu newGameMenu() {
+             return new PauseMenuScene();
+             }
 
         });
     }
@@ -146,7 +166,11 @@ public class PlatformerApp extends GameApplication {
             getInput().addAction(new UserAction("Right" + i) {
                 @Override
                 protected void onAction() {
-                    player.getComponent(PlayerComponent.class).right();
+                    if (!dialogShown) {
+                        player.getComponent(PlayerComponent.class).right();
+                    } else {
+                        player.getComponent(PlayerComponent.class).stop();
+                    }
                 }
 
                 @Override
@@ -216,8 +240,31 @@ public class PlatformerApp extends GameApplication {
         // break;
         // case 4:
         // levelNum += 12;
-        // }
-        setLevelFromMap("tmx/level" + levelNum + ".tmx");
+        // }int playerNumbers = activePlayers.size();
+        int playerNumbers2 = 0;
+        for (int i = 0; i < 4; i++) {
+            if (players[i]) {
+                playerNumbers2++;
+            }
+        }
+
+        System.out.println("THIS NEW" + playerNumbers2);
+
+        System.out.println("ACTIVE PLAYERS");
+
+        if (playerNumbers2 == 1) {
+            levelSelect = levelNum;
+        } else if (playerNumbers2 == 2) {
+            levelSelect = levelNum + 4;
+        } else if (playerNumbers2 == 3) {
+            levelSelect = levelNum + 8;
+        } else if (playerNumbers2 == 4) {
+            levelSelect = levelNum + 12;
+        }
+
+        System.out.println("Selected level" + levelSelect);
+
+        setLevelFromMap("tmx/level" + levelSelect + ".tmx");
     }
 
     private void resetLevel() {
@@ -240,6 +287,42 @@ public class PlatformerApp extends GameApplication {
         // reset all counts
         x = 0;
 
+        // sets the finished level on the database.json
+        try {
+            // Parse the JSON from the file into a JsonNode
+            JsonNode rootNode = objectMapper.readTree(file);
+
+            int playerNumbers = activePlayers.size();
+
+            if (!levelSelectLock) {
+
+                if (playerNumbers == 1) {
+                    levelSelect = levelNum;
+                } else if (playerNumbers == 2) {
+                    levelSelect = levelNum + 4;
+                } else if (playerNumbers == 3) {
+                    levelSelect = levelNum + 8;
+                } else if (playerNumbers == 4) {
+                    levelSelect = levelNum + 12;
+                }
+
+                levelSelectLock = true;
+            }
+
+            // Manually set each player's value to false
+            System.out.println("Size of arraylsit" + playerNumbers);
+            ((ObjectNode) rootNode).put("level" + levelSelect, true);
+
+            // Save the modified JSON back to the file
+            objectMapper.writeValue(file, rootNode);
+
+            // Print the modified JSON to verify
+            System.out.println("Completed Level" + levelSelect);
+
+        } catch (IOException s) {
+            s.printStackTrace();
+        }
+
         // GIAN reset timer here
         set("globalTimer", 1000);
 
@@ -247,14 +330,46 @@ public class PlatformerApp extends GameApplication {
             // level end scene
             return;
         }
-        // NON-BLOCKING dialogue here
+
+        showCompletionDialog();
 
         // TEMP
-        levelNum++;
-        setLevelFromMap("tmx/level" + levelNum + ".tmx");
+        levelSelect++;
+        setLevelFromMap("tmx/level" + levelSelect + ".tmx");
 
         spawnPlayers();
 
+    }
+
+    private void showCompletionDialog() {
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle("Custom Dialog");
+        dialog.setHeaderText("This is a custom dialog with a close button.");
+
+        ButtonType closeButtonType = new ButtonType("Close");
+        
+        dialog.getDialogPane().getButtonTypes().add(closeButtonType);
+
+        // Handle button click
+        dialog.setResultConverter(buttonType -> {
+            if (buttonType == closeButtonType) {
+                dialog.close();
+            }
+            return null;
+        });
+        dialogShown = true;
+
+        activePlayers.forEach(player -> {
+            player.getComponent(PlayerComponent.class).stop();
+            player.getComponent(PhysicsComponent.class).getVelocityX();
+
+        });
+
+        globalTimerPaused = true;
+        dialog.showAndWait();
+
+        dialogShown = false;
+        globalTimerPaused = false;
     }
 
     private void spawnPlayers() {
@@ -300,7 +415,7 @@ public class PlatformerApp extends GameApplication {
 
         Viewport viewport = getGameScene().getViewport();
         viewport.setBounds(-1500, 0, 250 * 70, getAppHeight());
-        // viewport.bindToEntity(player, getAppWidth() / 2, getAppHeight() / 2);
+        viewport.bindToEntity(activePlayers.get(0), getAppWidth() / 2, getAppHeight() / 2);
         viewport.setLazy(true);
     }
 
@@ -384,6 +499,10 @@ public class PlatformerApp extends GameApplication {
     protected void onUpdate(double tpf) {
         // inc("levelTime", tpf);
 
+        if (globalTimerPaused) {
+            return;
+        }
+
         for (Entity player : activePlayers) {
             if (player != null && player.getY() > getAppHeight()) {
                 onPlayerDied();
@@ -391,7 +510,7 @@ public class PlatformerApp extends GameApplication {
         }
         // resets the properties of the buttons
         if (globalTimerOn) {
-            if(FXGL.geti("globalTimer") > 0){
+            if (FXGL.geti("globalTimer") > 0) {
                 inc("globalTimer", -1);
             }
         }
