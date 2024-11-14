@@ -356,9 +356,9 @@ public class PlatformerApp extends GameApplication {
         getGameWorld().removeEntity(background);
 
         if (levelSelect % 2 == 0) {
-            background = spawn("background2");
-        } else {
             background = spawn("background");
+        } else {
+            background = spawn("background2");
         }
 
         globalTimerValue = getLevelValue(levelSelect);
@@ -419,7 +419,7 @@ public class PlatformerApp extends GameApplication {
         spawnPlayers();
         bindKeys();
 
-        background = spawn("background");
+        background = spawn("background2");
 
         // setViewPort();
         // resetUINodes();
