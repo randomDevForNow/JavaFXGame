@@ -18,13 +18,12 @@ import javafx.stage.Stage;
 
 public class LevelCompletionScene extends FXGLMenu {
 
-    public LevelCompletionScene(){
+    public LevelCompletionScene(boolean isSuccess) {
         super(MenuType.GAME_MENU);
         Media hoverSound = new Media(getClass().getResource("/assets/sounds/hoverSoundfx.mp3").toExternalForm());
         MediaPlayer hoverMedia = new MediaPlayer(hoverSound);
         Media clickedSound = new Media(getClass().getResource("/assets/sounds/clickedSoundfx.mp3").toExternalForm());
         MediaPlayer clickedMedia = new MediaPlayer(clickedSound);
-
 
         VBox blackVbox = new VBox(10);
         blackVbox.setAlignment(javafx.geometry.Pos.CENTER);
@@ -37,18 +36,26 @@ public class LevelCompletionScene extends FXGLMenu {
         HBox redHbox = new HBox(10);
         redHbox.setAlignment(javafx.geometry.Pos.CENTER);
 
-
         redHbox.setPrefWidth(860);
         redHbox.setPrefHeight(400);
         redHbox.setMaxWidth(860);
         redHbox.setMaxHeight(400);
-        redHbox.setStyle(
-            "-fx-background-color: transparent; " +
-            "-fx-border-width: 5; " +
-            "-fx-border-radius: 5; " +
-            "-fx-background-image: url('/assets/textures/background/levelCompleted.png'); " +
-            "-fx-background-position: center; "
-        );
+        if (isSuccess) {
+            redHbox.setStyle(
+                    "-fx-background-color: transparent; " +
+                            "-fx-border-width: 5; " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-background-image: url('/assets/textures/background/levelEnd.png'); " +
+                            "-fx-background-position: center; ");
+        } else {
+            redHbox.setStyle(
+                    "-fx-background-color: transparent; " +
+                            "-fx-border-width: 5; " +
+                            "-fx-border-radius: 5; " +
+                            "-fx-background-image: url('/assets/textures/background/levelFail.png'); " +
+                            "-fx-background-position: center; ");
+        }
+
         redHbox.setPadding(new Insets(90, 250, 0, 140));
 
 
@@ -59,7 +66,6 @@ public class LevelCompletionScene extends FXGLMenu {
 
         blueHbox.setPrefWidth(150);
         blueHbox.setPrefHeight(100);
-
 
         VBox blueHbox2 = new VBox(10);
         blueHbox2.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
@@ -84,7 +90,9 @@ public class LevelCompletionScene extends FXGLMenu {
 
         Button menuButton2 = new Button("");
         menuButton2.setBackground(Background.EMPTY);
-        Image menuImage = new Image(getClass().getResource("/assets/textures/buttons/menuButton2.png").toExternalForm());
+
+        Image menuImage = new Image(
+                getClass().getResource("/assets/textures/buttons/menuButton2.png").toExternalForm());
         ImageView menuImageView = new ImageView(menuImage);
         menuImageView.setFitWidth(150);
         menuImageView.setFitHeight(80);
@@ -100,7 +108,7 @@ public class LevelCompletionScene extends FXGLMenu {
         });
 
         blackVbox.getChildren().addAll(redHbox);
-        redHbox.getChildren().addAll(blueHbox,  blueHbox2);
+        redHbox.getChildren().addAll(blueHbox, blueHbox2);
         blueHbox.getChildren().addAll(menuButton2);
         blueHbox2.getChildren().addAll(resumeButton);
         getContentRoot().getChildren().add(blackVbox);

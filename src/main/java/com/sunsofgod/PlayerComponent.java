@@ -22,8 +22,6 @@ public class PlayerComponent extends Component {
     private AnimatedTexture texture;
     private AnimationChannel animIdle, animWalk;
 
-    private static final double MAX_VELOCITY_X = 300.0;
-
     // Player Dimensions
     public int pWidth = 32;
     public int pHeight = 42;
@@ -63,8 +61,6 @@ public class PlayerComponent extends Component {
         movementSpeed = 170;
     }
 
-    private List<Entity> topPlayers = new ArrayList<>();
-
     /* For Adding Animations */
     public PlayerComponent(Image img) {
         Image image = img;
@@ -101,40 +97,6 @@ public class PlayerComponent extends Component {
             }
         });
 
-        HitBox topSensor = new HitBox("TOP_SENSOR", new Point2D(1, 0), BoundingShape.box(30, 1));
-
-        SensorCollisionHandler s = new SensorCollisionHandler() {
-            @Override
-            protected void onCollisionBegin(Entity other) {
-                if (other.getType() == EntityType.PLAYER) {
-                    topPlayers.add(other); // Add the player on top
-                    // Check if the player above has any riders and propagate
-                    propagateRiders(other);
-                }
-            }
-
-            @Override
-            protected void onCollisionEnd(Entity other) {
-                if (other.getType() == EntityType.PLAYER) {
-                    topPlayers.remove(other); // Remove the player when it moves away
-                }
-            }
-        };
-        physics.addSensor(topSensor, s);
-    }
-
-    private void propagateRiders(Entity playerAbove) {
-        playerAbove.getComponent(PlayerComponent.class).setSlip(false);
-        PlayerComponent abovePlayerComp = playerAbove.getComponent(PlayerComponent.class);
-        abovePlayerComp.setPlayerSpeed(170);
-        abovePlayerComp.setSlip(false);
-        for (Entity rider : abovePlayerComp.topPlayers) {
-            if (!topPlayers.contains(rider)) {
-                topPlayers.add(rider);
-                // Recursively propagate if that rider also has riders
-                propagateRiders(rider);
-            }
-        }
     }
 
     @Override
@@ -152,12 +114,6 @@ public class PlayerComponent extends Component {
 
         if (!isOnGround) {
             stopped = false;
-        }
-
-        if (slip) {
-            for (Entity rider : topPlayers) {
-                rider.getComponent(PhysicsComponent.class).setVelocityX(physics.getVelocityX());
-            }
         }
 
     }

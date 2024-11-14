@@ -59,7 +59,6 @@ public class PlatformerApp extends GameApplication {
 
     private int globalTimerValue = 0;
 
-    // handles the state so that levelselect will not be changed by fnished level
     // function
     private boolean levelSelectLock = false;
 
@@ -158,7 +157,6 @@ public class PlatformerApp extends GameApplication {
         getInput().clearAll();
         int i = 0;
         for (Entity player : activePlayers) {
-            System.out.println(player);
             getInput().addAction(new UserAction("Jump" + i) {
                 @Override
                 protected void onActionBegin() {
@@ -226,7 +224,6 @@ public class PlatformerApp extends GameApplication {
 
     private void bindMousePlayer() {
         try {
-            System.out.println("MOUSERRRR");
             MouseUIController controller = new MouseUIController();
             controller.setPlayer(activePlayers.get(3));
             controller.setButton(getGameWorld().getEntitiesByType(BUTTON));
@@ -250,7 +247,7 @@ public class PlatformerApp extends GameApplication {
     /* For Global Variables (Refunds of each player) */
     @Override
     protected void initGameVars(Map<String, Object> vars) {
-        
+
         vars.put("globalTimer", 1000);
     }
 
@@ -277,17 +274,13 @@ public class PlatformerApp extends GameApplication {
     }
 
     private void createLevel() {
-       
+
         int playerNumbers2 = 0;
         for (int i = 0; i < 4; i++) {
             if (players[i]) {
                 playerNumbers2++;
             }
         }
-
-        System.out.println("THIS NEW" + playerNumbers2);
-
-        System.out.println("ACTIVE PLAYERS");
 
         if (playerNumbers2 == 1) {
             levelSelect = levelNum;
@@ -312,10 +305,6 @@ public class PlatformerApp extends GameApplication {
 
             x = 0;
 
-            resumeBGMusic();
-
-
-           
             set("globalTimer", globalTimerValue);
             setLevelFromMap("tmx/level" + levelNum + ".tmx");
 
@@ -348,29 +337,22 @@ public class PlatformerApp extends GameApplication {
                 levelSelectLock = true;
             }
 
-            // Manually set each player's value to false
-            System.out.println("Size of arraylsit" + playerNumbers);
             ((ObjectNode) rootNode).put("level" + levelSelect, true);
 
-            // Save the modified JSON back to the file
             objectMapper.writeValue(file, rootNode);
-
-            // Print the modified JSON to verify
-            System.out.println("Completed Level" + levelSelect);
 
         } catch (IOException s) {
             s.printStackTrace();
         }
 
         // GIAN reset timer here
-        
 
         if (levelNum % 4 == 0) {
             // level end scene
             return;
         }
 
-        getSceneService().pushSubScene(new LevelCompletionScene());
+        getSceneService().pushSubScene(new LevelCompletionScene(true));
         dialogShown = false;
 
         levelSelect++;
@@ -385,15 +367,10 @@ public class PlatformerApp extends GameApplication {
     private void spawnPlayers() {
         spawnpoint = getGameWorld().getEntitiesByType(SPAWNPOINT).get(0);
 
-        for (int i = 0; i < 4; i++) {
-            System.out.println(players[i]);
-        }
-        // Spawn Activated Playerss
         if (activePlayers.isEmpty()) {
             for (int i = 0; i < 4; i++) {
                 if (players[i]) {
-                    activePlayers.add(spawn("player" + (i + 1), spawnpoint.getX() + x, spawnpoint.getY()));
-                    System.out.println(activePlayers.size());
+                    activePlayers.add(spawn("player" + (i + 1), spawnpoint.getX() + (i * 50), spawnpoint.getY()));
                 }
             }
         } else {
@@ -403,10 +380,8 @@ public class PlatformerApp extends GameApplication {
                 player.setZIndex(Integer.MAX_VALUE);
             });
         }
-        System.out.println(activePlayers.size());
         x += 50;
     }
-
 
     public static int getLevelValue(int levelNum) {
         // Create an ObjectMapper instance
@@ -465,6 +440,7 @@ public class PlatformerApp extends GameApplication {
 
             if ("NORMAL".equals(platformType)) {
                 player.getComponent(PlayerComponent.class).setSlip(false);
+                player.getComponent(PlayerComponent.class).setPlayerSpeed(170);
 
                 if (!player.getComponent(PlayerComponent.class).getStopped()) {
                     player.getComponent(PlayerComponent.class).stop();
@@ -477,6 +453,9 @@ public class PlatformerApp extends GameApplication {
                 player.getComponent(PlayerComponent.class).setPlayerSpeed(85);
             } else if ("SLIP".equals(platformType)) {
                 player.getComponent(PlayerComponent.class).setSlip(true);
+            } else {
+                player.getComponent(PlayerComponent.class).setSlip(false);
+                player.getComponent(PlayerComponent.class).setPlayerSpeed(170);
             }
         });
 
@@ -539,12 +518,14 @@ public class PlatformerApp extends GameApplication {
             if (player != null && player.getY() > getAppHeight()) {
                 activePlayers.forEach(p -> {
                     p.getComponent(PhysicsComponent.class)
-                            .overwritePosition(new Point2D(spawnpoint.getX() + x, spawnpoint.getY()));
+                            .overwritePosition(new Point2D(spawnpoint.getX() + (x * 50), spawnpoint.getY()));
                     p.setZIndex(Integer.MAX_VALUE);
                 });
             }
+            x++;
         }
-        // resets the properties of the buttons
+        x = 0;
+
         if (globalTimerOn) {
             if (FXGL.geti("globalTimer") > 0) {
                 inc("globalTimer", -1);
@@ -552,35 +533,15 @@ public class PlatformerApp extends GameApplication {
         }
 
         if (FXGL.geti("globalTimer") == 0) {
-            onPlayerDied();
+            // Display!
+            getSceneService().pushSubScene(new LevelCompletionScene(false));
+            activePlayers.forEach(p -> {
+                p.getComponent(PhysicsComponent.class)
+                        .overwritePosition(new Point2D(spawnpoint.getX() + (x * 50), spawnpoint.getY()));
+                p.setZIndex(Integer.MAX_VALUE);
+            });
         }
 
-    }
-
-    public void onPlayerDied() {
-
-        /* ADD THE IF STATEMENT FOR VIDEOKE */
-        // if (!bgMusicPaused) {
-        System.out.println("I run");
-        pauseBGMusic();
-        playDeathSFX();
-        // }
-        // Add videoke sound here
-    }
-
-    private void pauseBGMusic() {
-        System.out.println("pausing...");
-    }
-
-    private void resumeBGMusic() {
-        System.out.println("resuming...");
-    }
-
-    private void playDeathSFX() {
-        // Play death sound effect
-        play("dead.wav");
-
-        resetLevel();
     }
 
     public static void main(String[] args) {
