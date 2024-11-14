@@ -62,7 +62,7 @@ public class LevelEndScene extends FXGLMenu {
         Button menuButton2 = new Button("");
         menuButton2.setBackground(Background.EMPTY);
         Image menuImage = new Image(
-                getClass().getResource("/assets/textures/buttons/menuButton2.png").toExternalForm());
+                getClass().getResource("/assets/textures/buttons/levelexit.png").toExternalForm());
         ImageView menuImageView = new ImageView(menuImage);
         menuImageView.setFitWidth(150);
         menuImageView.setFitHeight(80);
