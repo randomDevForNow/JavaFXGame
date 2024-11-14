@@ -21,7 +21,7 @@
 </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="23" type="spawnpoint" x="5.33333" y="214.667" width="128" height="42"/>
+  <object id="23" type="spawnpoint" x="1.33333" y="260.667" width="128" height="42"/>
   <object id="15" type="platform" x="-2" y="351" width="424" height="39">
    <properties>
     <property name="Type" value="NORMAL"/>
