@@ -69,6 +69,15 @@ public class LevelEndScene extends FXGLMenu {
         menuButton2.setGraphic(menuImageView);
         Animation.applyHoverAndClickEffects(menuButton2, hoverMedia, clickedMedia);
 
+        menuButton2.setOnMouseReleased(event -> {
+            
+            System.out.println("Exit button pressed. Terminating program.");
+            System.exit(0); // This will close the application
+       
+     
+        });
+
+
         blackVbox.getChildren().addAll(redHbox);
         redHbox.getChildren().addAll(blueHbox, blueHbox2);
         blueHbox.getChildren().addAll(menuButton2);
