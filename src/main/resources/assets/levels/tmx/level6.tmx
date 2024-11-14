@@ -150,10 +150,7 @@
     <property name="type" value="SLIP"/>
    </properties>
   </object>
-  <object id="50" type="button" x="247" y="537">
-   <point/>
-  </object>
-  <object id="51" type="button" x="3319" y="397">
+  <object id="50" type="button" x="4012.33" y="361">
    <point/>
   </object>
   <object id="52" type="platform" x="2522.26" y="634.5" width="275.987" height="39">

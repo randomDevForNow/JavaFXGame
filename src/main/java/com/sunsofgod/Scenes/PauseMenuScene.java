@@ -109,7 +109,7 @@ public class PauseMenuScene extends FXGLMenu {
         Image menuImage = new Image(getClass().getResource("/assets/textures/buttons/levelexit.png").toExternalForm());
         ImageView menuImageView = new ImageView(menuImage);
         menuImageView.setFitWidth(250);
-        menuImageView.setFitHeight(100);
+        menuImageView.setFitHeight(60);
         menuButton.setGraphic(menuImageView);
         Animation.applyHoverAndClickEffects(menuButton, hoverMedia, clickedMedia);
 
