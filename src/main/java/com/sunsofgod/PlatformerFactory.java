@@ -278,4 +278,18 @@ public class PlatformerFactory implements EntityFactory {
                                 .with("keyEntity", keyEntity)
                                 .build();
         }
+
+        @Spawns("button2")
+        public Entity newButton2(SpawnData data) {
+                var keyEntity = getGameWorld().create("keyCode",
+                                new SpawnData(data.getX(), data.getY() - 50).put("key", "E"));
+                keyEntity.getViewComponent().setOpacity(0);
+
+                return entityBuilder(data)
+                                .type(BUTTON)
+                                .viewWithBBox(texture("button2.png", 20, 18))
+                                .with(new CollidableComponent(true))
+                                .with("keyEntity", keyEntity)
+                                .build();
+        }
 }
