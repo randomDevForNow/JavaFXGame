@@ -273,7 +273,7 @@ public class PlatformerFactory implements EntityFactory {
 
                 return entityBuilder(data)
                                 .type(BUTTON)
-                                .viewWithBBox(texture("button.png", 20, 18))
+                                .viewWithBBox(texture("button.png", 150,213 ))
                                 .with(new CollidableComponent(true))
                                 .with("keyEntity", keyEntity)
                                 .build();
@@ -287,7 +287,7 @@ public class PlatformerFactory implements EntityFactory {
 
                 return entityBuilder(data)
                                 .type(BUTTON)
-                                .viewWithBBox(texture("button2.png", 20, 18))
+                                .viewWithBBox(texture("button2.png", 250, 142))
                                 .with(new CollidableComponent(true))
                                 .with("keyEntity", keyEntity)
                                 .build();
