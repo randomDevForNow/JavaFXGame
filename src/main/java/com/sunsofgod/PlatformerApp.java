@@ -251,7 +251,7 @@ public class PlatformerApp extends GameApplication {
     @Override
     protected void initGameVars(Map<String, Object> vars) {
         
-        vars.put("globalTimer", 0);
+        vars.put("globalTimer", 1000);
     }
 
     @Override
@@ -300,6 +300,7 @@ public class PlatformerApp extends GameApplication {
         }
 
         globalTimerValue = getLevelValue(levelSelect);
+        set("globalTimer", globalTimerValue);
         System.out.println("Selected level" + levelSelect);
 
         setLevelFromMap("tmx/level" + levelSelect + ".tmx");
