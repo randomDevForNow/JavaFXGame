@@ -81,6 +81,7 @@ public class PlatformerApp extends GameApplication {
 
     // sets the timer to be off at the start
     private ArrayList<Entity> activePlayers = new ArrayList<>();
+    private Entity background;
 
     /* Set to Private */
     private boolean[] players = { false, false, false, false };
@@ -352,11 +353,19 @@ public class PlatformerApp extends GameApplication {
 
         levelSelect++;
         setLevelFromMap("tmx/level" + levelSelect + ".tmx");
+        getGameWorld().removeEntity(background);
+
+        if (levelSelect % 2 == 0) {
+            background = spawn("background2");
+        } else {
+            background = spawn("background");
+        }
 
         globalTimerValue = getLevelValue(levelSelect);
         set("globalTimer", globalTimerValue);
 
         spawnPlayers();
+
     }
 
     private void spawnPlayers() {
@@ -410,7 +419,7 @@ public class PlatformerApp extends GameApplication {
         spawnPlayers();
         bindKeys();
 
-        spawn("background");
+        background = spawn("background");
 
         // setViewPort();
         // resetUINodes();

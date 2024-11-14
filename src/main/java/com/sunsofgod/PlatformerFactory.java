@@ -37,6 +37,17 @@ public class PlatformerFactory implements EntityFactory {
                                 .build();
         }
 
+        @Spawns("background2")
+        public Entity newBackground2(SpawnData data) {
+                return entityBuilder()
+                                .view(new ScrollingBackgroundView(texture("background/building.png").getImage(),
+                                                getAppWidth(),
+                                                getAppHeight()))
+                                .zIndex(-1)
+                                .with(new IrremovableComponent())
+                                .build();
+        }
+
         @Spawns("spawnpoint")
         public Entity newSpawnPoint(SpawnData data) {
                 return entityBuilder()
