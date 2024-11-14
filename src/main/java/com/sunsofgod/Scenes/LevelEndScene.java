@@ -16,13 +16,12 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class LevelEndScene extends FXGLMenu {
- public LevelEndScene(){
+    public LevelEndScene() {
         super(MenuType.GAME_MENU);
         Media hoverSound = new Media(getClass().getResource("/assets/sounds/hoverSoundfx.mp3").toExternalForm());
         MediaPlayer hoverMedia = new MediaPlayer(hoverSound);
         Media clickedSound = new Media(getClass().getResource("/assets/sounds/clickedSoundfx.mp3").toExternalForm());
         MediaPlayer clickedMedia = new MediaPlayer(clickedSound);
-
 
         VBox blackVbox = new VBox(10);
         blackVbox.setAlignment(javafx.geometry.Pos.CENTER);
@@ -35,29 +34,23 @@ public class LevelEndScene extends FXGLMenu {
         HBox redHbox = new HBox(10);
         redHbox.setAlignment(javafx.geometry.Pos.CENTER);
 
-
         redHbox.setPrefWidth(860);
         redHbox.setPrefHeight(400);
         redHbox.setMaxWidth(860);
         redHbox.setMaxHeight(400);
         redHbox.setStyle(
-            "-fx-background-color: transparent; " +
-            "-fx-border-width: 5; " +
-            "-fx-border-radius: 5; " +
-            "-fx-background-image: url('/assets/textures/background/levelCompleted.png'); " +
-            "-fx-background-position: center; " 
-        );
+                "-fx-background-color: transparent; " +
+                        "-fx-border-width: 5; " +
+                        "-fx-border-radius: 5; " +
+                        "-fx-background-image: url('/assets/textures/background/levelCompleted.png'); " +
+                        "-fx-background-position: center; ");
         redHbox.setPadding(new Insets(90, 250, 0, 140));
-        
 
-
-      
         VBox blueHbox = new VBox(10);
         blueHbox.setAlignment(javafx.geometry.Pos.CENTER);
 
         blueHbox.setPrefWidth(150);
         blueHbox.setPrefHeight(100);
-
 
         VBox blueHbox2 = new VBox(10);
         blueHbox2.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
@@ -65,21 +58,28 @@ public class LevelEndScene extends FXGLMenu {
         blueHbox2.setPrefWidth(150);
         blueHbox2.setPrefHeight(100);
         blueHbox2.setPadding(new Insets(0, 40, 0, 0));
-     
-
-    
 
         Button menuButton2 = new Button("");
         menuButton2.setBackground(Background.EMPTY);
-        Image menuImage = new Image(getClass().getResource("/assets/textures/buttons/menuButton2.png").toExternalForm());
+        Image menuImage = new Image(
+                getClass().getResource("/assets/textures/buttons/menuButton2.png").toExternalForm());
         ImageView menuImageView = new ImageView(menuImage);
         menuImageView.setFitWidth(150);
         menuImageView.setFitHeight(80);
         menuButton2.setGraphic(menuImageView);
         Animation.applyHoverAndClickEffects(menuButton2, hoverMedia, clickedMedia);
 
+        menuButton2.setOnMouseReleased(event -> {
+            
+            System.out.println("Exit button pressed. Terminating program.");
+            System.exit(0); // This will close the application
+       
+     
+        });
+
+
         blackVbox.getChildren().addAll(redHbox);
-        redHbox.getChildren().addAll(blueHbox,  blueHbox2);
+        redHbox.getChildren().addAll(blueHbox, blueHbox2);
         blueHbox.getChildren().addAll(menuButton2);
         blueHbox2.getChildren().addAll();
         getContentRoot().getChildren().add(blackVbox);

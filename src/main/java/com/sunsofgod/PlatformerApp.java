@@ -8,6 +8,8 @@ import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.app.scene.LoadingScene;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.app.scene.Viewport;
+import com.almasb.fxgl.audio.AudioPlayer;
+import com.almasb.fxgl.audio.Sound;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
@@ -23,6 +25,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.ImageCursor;
 import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -35,6 +38,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -57,8 +61,11 @@ import static com.sunsofgod.EntityType.*;
 public class PlatformerApp extends GameApplication {
 
     private int globalTimerValue = 0;
+    private boolean hasFell = false;
 
-    // handles the state so that levelselect will not be changed by fnished level
+    String sfx_source = getClass().getResource("/assets/sounds/clickedSoundfx.mp3").toString();
+    AudioClip deathSfx = new AudioClip(sfx_source);
+
     // function
     private boolean levelSelectLock = false;
 
@@ -157,7 +164,6 @@ public class PlatformerApp extends GameApplication {
         getInput().clearAll();
         int i = 0;
         for (Entity player : activePlayers) {
-            System.out.println(player);
             getInput().addAction(new UserAction("Jump" + i) {
                 @Override
                 protected void onActionBegin() {
@@ -225,7 +231,6 @@ public class PlatformerApp extends GameApplication {
 
     private void bindMousePlayer() {
         try {
-            System.out.println("MOUSERRRR");
             MouseUIController controller = new MouseUIController();
             controller.setPlayer(activePlayers.get(3));
             controller.setButton(getGameWorld().getEntitiesByType(BUTTON));
@@ -249,8 +254,8 @@ public class PlatformerApp extends GameApplication {
     /* For Global Variables (Refunds of each player) */
     @Override
     protected void initGameVars(Map<String, Object> vars) {
-        
-        vars.put("globalTimer", 0);
+
+        vars.put("globalTimer", 10000);
     }
 
     @Override
@@ -276,17 +281,13 @@ public class PlatformerApp extends GameApplication {
     }
 
     private void createLevel() {
-       
+
         int playerNumbers2 = 0;
         for (int i = 0; i < 4; i++) {
             if (players[i]) {
                 playerNumbers2++;
             }
         }
-
-        System.out.println("THIS NEW" + playerNumbers2);
-
-        System.out.println("ACTIVE PLAYERS");
 
         if (playerNumbers2 == 1) {
             levelSelect = levelNum;
@@ -299,25 +300,10 @@ public class PlatformerApp extends GameApplication {
         }
 
         globalTimerValue = getLevelValue(levelSelect);
+        set("globalTimer", globalTimerValue);
         System.out.println("Selected level" + levelSelect);
 
         setLevelFromMap("tmx/level" + levelSelect + ".tmx");
-    }
-
-    private void resetLevel() {
-        getGameScene().getViewport().fade(() -> {
-            spawnPlayers();
-
-            x = 0;
-
-            resumeBGMusic();
-
-
-           
-            set("globalTimer", globalTimerValue);
-            setLevelFromMap("tmx/level" + levelNum + ".tmx");
-
-        });
     }
 
     public void finishLevel() {
@@ -346,29 +332,22 @@ public class PlatformerApp extends GameApplication {
                 levelSelectLock = true;
             }
 
-            // Manually set each player's value to false
-            System.out.println("Size of arraylsit" + playerNumbers);
             ((ObjectNode) rootNode).put("level" + levelSelect, true);
 
-            // Save the modified JSON back to the file
             objectMapper.writeValue(file, rootNode);
-
-            // Print the modified JSON to verify
-            System.out.println("Completed Level" + levelSelect);
 
         } catch (IOException s) {
             s.printStackTrace();
         }
 
         // GIAN reset timer here
-        
-
-        if (levelNum % 4 == 0) {
-            // level end scene
+        System.out.println(levelSelect);
+        if (levelSelect % 4 == 0) {
+            getSceneService().pushSubScene(new LevelEndScene());
             return;
         }
 
-        getSceneService().pushSubScene(new LevelCompletionScene());
+        getSceneService().pushSubScene(new LevelCompletionScene(1));
         dialogShown = false;
 
         levelSelect++;
@@ -383,15 +362,10 @@ public class PlatformerApp extends GameApplication {
     private void spawnPlayers() {
         spawnpoint = getGameWorld().getEntitiesByType(SPAWNPOINT).get(0);
 
-        for (int i = 0; i < 4; i++) {
-            System.out.println(players[i]);
-        }
-        // Spawn Activated Playerss
         if (activePlayers.isEmpty()) {
             for (int i = 0; i < 4; i++) {
                 if (players[i]) {
-                    activePlayers.add(spawn("player" + (i + 1), spawnpoint.getX() + x, spawnpoint.getY()));
-                    System.out.println(activePlayers.size());
+                    activePlayers.add(spawn("player" + (i + 1), spawnpoint.getX() + (i * 50), spawnpoint.getY()));
                 }
             }
         } else {
@@ -399,12 +373,11 @@ public class PlatformerApp extends GameApplication {
                 player.getComponent(PhysicsComponent.class)
                         .overwritePosition(new Point2D(spawnpoint.getX() + x, spawnpoint.getY()));
                 player.setZIndex(Integer.MAX_VALUE);
+                player.getComponent(PhysicsComponent.class).setVelocityX(0);
             });
         }
-        System.out.println(activePlayers.size());
         x += 50;
     }
-
 
     public static int getLevelValue(int levelNum) {
         // Create an ObjectMapper instance
@@ -456,12 +429,14 @@ public class PlatformerApp extends GameApplication {
         getPhysicsWorld().addCollisionHandler(new PlayerButtonHandler());
 
         /* Player & Blocks Physics */
-
+        Image curImage = new Image(getClass().getResource("/assets/textures/cursor.png").toExternalForm());
+        getGameScene().setCursor(new ImageCursor(curImage));
         onCollision(PLAYER, PLATFORM, (player, platform) -> {
             String platformType = platform.getString("type");
 
             if ("NORMAL".equals(platformType)) {
                 player.getComponent(PlayerComponent.class).setSlip(false);
+                player.getComponent(PlayerComponent.class).setPlayerSpeed(170);
 
                 if (!player.getComponent(PlayerComponent.class).getStopped()) {
                     player.getComponent(PlayerComponent.class).stop();
@@ -474,6 +449,9 @@ public class PlatformerApp extends GameApplication {
                 player.getComponent(PlayerComponent.class).setPlayerSpeed(85);
             } else if ("SLIP".equals(platformType)) {
                 player.getComponent(PlayerComponent.class).setSlip(true);
+            } else {
+                player.getComponent(PlayerComponent.class).setSlip(false);
+                player.getComponent(PlayerComponent.class).setPlayerSpeed(170);
             }
         });
 
@@ -526,22 +504,28 @@ public class PlatformerApp extends GameApplication {
 
     @Override
     protected void onUpdate(double tpf) {
-        // inc("levelTime", tpf);
-
         if (globalTimerPaused) {
             return;
         }
 
         for (Entity player : activePlayers) {
             if (player != null && player.getY() > getAppHeight()) {
+                if (!hasFell) {
+                    deathSfx.play();
+                    hasFell = true;
+                }
                 activePlayers.forEach(p -> {
                     p.getComponent(PhysicsComponent.class)
-                            .overwritePosition(new Point2D(spawnpoint.getX() + x, spawnpoint.getY()));
+                            .overwritePosition(new Point2D(spawnpoint.getX() + (x * 50), spawnpoint.getY()));
                     p.setZIndex(Integer.MAX_VALUE);
+                    player.getComponent(PhysicsComponent.class).setVelocityX(0);
                 });
             }
+            x++;
         }
-        // resets the properties of the buttons
+        x = 0;
+        hasFell = false;
+
         if (globalTimerOn) {
             if (FXGL.geti("globalTimer") > 0) {
                 inc("globalTimer", -1);
@@ -549,35 +533,17 @@ public class PlatformerApp extends GameApplication {
         }
 
         if (FXGL.geti("globalTimer") == 0) {
-            onPlayerDied();
+            getSceneService().pushSubScene(new LevelCompletionScene(0));
+            activePlayers.forEach(p -> {
+                p.getComponent(PhysicsComponent.class)
+                        .overwritePosition(new Point2D(spawnpoint.getX() + (x * 50), spawnpoint.getY()));
+                p.setZIndex(Integer.MAX_VALUE);
+                p.getComponent(PhysicsComponent.class).setVelocityX(0);
+            });
+            set("globalTimer", globalTimerValue);
+
         }
 
-    }
-
-    public void onPlayerDied() {
-
-        /* ADD THE IF STATEMENT FOR VIDEOKE */
-        // if (!bgMusicPaused) {
-        System.out.println("I run");
-        pauseBGMusic();
-        playDeathSFX();
-        // }
-        // Add videoke sound here
-    }
-
-    private void pauseBGMusic() {
-        System.out.println("pausing...");
-    }
-
-    private void resumeBGMusic() {
-        System.out.println("resuming...");
-    }
-
-    private void playDeathSFX() {
-        // Play death sound effect
-        play("dead.wav");
-
-        resetLevel();
     }
 
     public static void main(String[] args) {

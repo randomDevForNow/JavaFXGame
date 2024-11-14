@@ -261,6 +261,7 @@ public class PlayerSelectScene extends FXGLMenu {
         goBackButton.setOnAction(e -> {
             getSceneService().popSubScene();
         });
+        Animation.setCustomCursor(getContentRoot(),"/assets/textures/cursor.png");
         getContentRoot().getChildren().add(backgroundView);
         blackVbox.getChildren().addAll(yellowHbox, orangeHbox, redHbox, greenHbox, cyanHbox);
         greenHbox.getChildren().addAll(pinkVbox, purpleVbox, brownVbox, indigoVbox);
