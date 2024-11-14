@@ -47,7 +47,7 @@ public class LevelCompletionScene extends FXGLMenu {
                             "-fx-border-radius: 5; " +
                             "-fx-background-image: url('/assets/textures/background/levelEnd.png'); " +
                             "-fx-background-position: center; ");
-        } else if (levelCode == 1){
+        } else if (levelCode == 1) {
             redHbox.setStyle(
                     "-fx-background-color: transparent; " +
                             "-fx-border-width: 5; " +
@@ -57,9 +57,6 @@ public class LevelCompletionScene extends FXGLMenu {
         }
 
         redHbox.setPadding(new Insets(90, 250, 0, 140));
-
-
-
 
         VBox blueHbox = new VBox(10);
         blueHbox.setAlignment(javafx.geometry.Pos.CENTER);
@@ -74,10 +71,10 @@ public class LevelCompletionScene extends FXGLMenu {
         blueHbox2.setPrefHeight(100);
         blueHbox2.setPadding(new Insets(0, 40, 0, 0));
 
-
         Button resumeButton = new Button("");
         resumeButton.setBackground(Background.EMPTY);
-        Image resumeImage = new Image(getClass().getResource("/assets/textures/buttons/nextLevelButton.png").toExternalForm());
+        Image resumeImage = new Image(
+                getClass().getResource("/assets/textures/buttons/nextLevelButton.png").toExternalForm());
         ImageView resumeImageView = new ImageView(resumeImage);
         resumeImageView.setFitWidth(150);
         resumeImageView.setFitHeight(80);
@@ -100,11 +97,9 @@ public class LevelCompletionScene extends FXGLMenu {
         Animation.applyHoverAndClickEffects(menuButton2, hoverMedia, clickedMedia);
 
         menuButton2.setOnMouseReleased(event -> {
-            
-            System.out.println("Exit button pressed. Terminating program.");
-            System.exit(0); // This will close the application
-       
-     
+
+            System.exit(0);
+
         });
 
         blackVbox.getChildren().addAll(redHbox);

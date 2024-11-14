@@ -8,6 +8,8 @@ import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.app.scene.LoadingScene;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.app.scene.Viewport;
+import com.almasb.fxgl.audio.AudioPlayer;
+import com.almasb.fxgl.audio.Sound;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
@@ -36,6 +38,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -58,6 +61,10 @@ import static com.sunsofgod.EntityType.*;
 public class PlatformerApp extends GameApplication {
 
     private int globalTimerValue = 0;
+    private boolean hasFell = false;
+
+    String sfx_source = getClass().getResource("/assets/sounds/clickedSoundfx.mp3").toString();
+    AudioClip deathSfx = new AudioClip(sfx_source);
 
     // function
     private boolean levelSelectLock = false;
@@ -299,18 +306,6 @@ public class PlatformerApp extends GameApplication {
         setLevelFromMap("tmx/level" + levelSelect + ".tmx");
     }
 
-    private void resetLevel() {
-        getGameScene().getViewport().fade(() -> {
-            spawnPlayers();
-
-            x = 0;
-
-            set("globalTimer", globalTimerValue);
-            setLevelFromMap("tmx/level" + levelNum + ".tmx");
-
-        });
-    }
-
     public void finishLevel() {
         // reset all counts
         x = 0;
@@ -509,14 +504,16 @@ public class PlatformerApp extends GameApplication {
 
     @Override
     protected void onUpdate(double tpf) {
-        // inc("levelTime", tpf);
-
         if (globalTimerPaused) {
             return;
         }
 
         for (Entity player : activePlayers) {
             if (player != null && player.getY() > getAppHeight()) {
+                if (!hasFell) {
+                    deathSfx.play();
+                    hasFell = true;
+                }
                 activePlayers.forEach(p -> {
                     p.getComponent(PhysicsComponent.class)
                             .overwritePosition(new Point2D(spawnpoint.getX() + (x * 50), spawnpoint.getY()));
@@ -527,6 +524,7 @@ public class PlatformerApp extends GameApplication {
             x++;
         }
         x = 0;
+        hasFell = false;
 
         if (globalTimerOn) {
             if (FXGL.geti("globalTimer") > 0) {
@@ -535,8 +533,6 @@ public class PlatformerApp extends GameApplication {
         }
 
         if (FXGL.geti("globalTimer") == 0) {
-            // Display!
-            System.out.println("gasdsada");
             getSceneService().pushSubScene(new LevelCompletionScene(0));
             activePlayers.forEach(p -> {
                 p.getComponent(PhysicsComponent.class)
@@ -544,6 +540,8 @@ public class PlatformerApp extends GameApplication {
                 p.setZIndex(Integer.MAX_VALUE);
                 p.getComponent(PhysicsComponent.class).setVelocityX(0);
             });
+            set("globalTimer", globalTimerValue);
+
         }
 
     }
