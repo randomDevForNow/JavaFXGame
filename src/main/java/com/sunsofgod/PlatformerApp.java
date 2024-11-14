@@ -416,7 +416,7 @@ public class PlatformerApp extends GameApplication {
         // resetUINodes();
 
         Viewport viewport = getGameScene().getViewport();
-        viewport.setBounds(-1500, 0, 250 * 70, getAppHeight());
+        viewport.setBounds(-1500, 0, 250 * 70, 100000);
         viewport.bindToEntity(activePlayers.get(0), getAppWidth() / 2, getAppHeight() / 2);
         viewport.setLazy(true);
     }
@@ -511,7 +511,7 @@ public class PlatformerApp extends GameApplication {
         for (Entity player : activePlayers) {
             if (player != null && player.getY() > getAppHeight()) {
                 if (!hasFell) {
-                    deathSfx.play();
+                    //deathSfx.play();
                     hasFell = true;
                 }
                 activePlayers.forEach(p -> {
