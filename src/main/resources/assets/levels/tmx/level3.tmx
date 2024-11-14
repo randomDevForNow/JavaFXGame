@@ -98,10 +98,7 @@
     <property name="type" value="SLOW"/>
    </properties>
   </object>
-  <object id="59" type="button" x="382.5" y="298.5">
-   <point/>
-  </object>
-  <object id="60" type="button" x="2979" y="373">
+  <object id="59" type="button" x="4021.17" y="326.5">
    <point/>
   </object>
   <object id="61" type="platform" x="3501.11" y="260.5" width="205.789" height="19">
@@ -113,9 +110,6 @@
    <properties>
     <property name="type" value="NORMAL"/>
    </properties>
-  </object>
-  <object id="63" type="button" x="4030" y="324">
-   <point/>
   </object>
   <object id="65" type="platform" x="7.94166" y="16.7551" width="410.789" height="7" rotation="90">
    <properties>
