@@ -71,6 +71,10 @@ public class PauseMenuScene extends FXGLMenu {
         resumeButton.setGraphic(resumeImageView);
         Animation.applyHoverAndClickEffects(resumeButton, hoverMedia, clickedMedia);
 
+        resumeButton.setOnAction(event -> {
+            getSceneService().popSubScene();
+        });
+
         HBox blueHbox2 = new HBox(10);
         blueHbox2.setAlignment(javafx.geometry.Pos.CENTER);
 
@@ -110,9 +114,10 @@ public class PauseMenuScene extends FXGLMenu {
         Animation.applyHoverAndClickEffects(menuButton, hoverMedia, clickedMedia);
 
         menuButton.setOnMouseReleased(event -> {
-         getInput().clearAll();
-         getSceneService().popSubScene();  
-         getSceneService().pushSubScene(new RiderMainMenuScene()); 
+            
+                System.out.println("Exit button pressed. Terminating program.");
+                System.exit(0); // This will close the application
+           
          
         });
         HBox blueHbox4 = new HBox(10);
