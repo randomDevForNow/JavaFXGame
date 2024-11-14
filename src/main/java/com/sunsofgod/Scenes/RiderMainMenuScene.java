@@ -57,11 +57,11 @@ public class RiderMainMenuScene extends FXGLMenu {
         MediaPlayer clickedMedia = new MediaPlayer(clickedSound);
 
     
-        // Image backgroundImage = new
-        // Image(getClass().getResource("/assets/textures/backgroundMainMenu.gif").toExternalForm());
-        // ImageView backgroundView = new ImageView(backgroundImage);
-        // backgroundView.setFitWidth(1280);
-        // backgroundView.setFitHeight(720);
+        Image backgroundImage = new
+        Image(getClass().getResource("/assets/textures/MAINbg.gif").toExternalForm());
+        ImageView backgroundView = new ImageView(backgroundImage);
+        backgroundView.setFitWidth(1280);
+        backgroundView.setFitHeight(720);
 
         // black Vbox
         VBox blackVbox = new VBox(10);
@@ -199,7 +199,7 @@ public class RiderMainMenuScene extends FXGLMenu {
         });
 
         // hierarachy
-        // getContentRoot().getChildren().add(backgroundView);
+        getContentRoot().getChildren().add(backgroundView);
         Animation.setCustomCursor(getContentRoot(),"/assets/textures/cursor.png");
         blackVbox.getChildren().addAll(yellowHbox, orangeHbox);
         textStack.getChildren().addAll(gameNameOutline, gameName);

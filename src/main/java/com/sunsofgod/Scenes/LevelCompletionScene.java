@@ -92,7 +92,7 @@ public class LevelCompletionScene extends FXGLMenu {
                 getClass().getResource("/assets/textures/buttons/levelexit.png").toExternalForm());
         ImageView menuImageView = new ImageView(menuImage);
         menuImageView.setFitWidth(150);
-        menuImageView.setFitHeight(80);
+        menuImageView.setFitHeight(50);
         menuButton2.setGraphic(menuImageView);
         Animation.applyHoverAndClickEffects(menuButton2, hoverMedia, clickedMedia);
 
