@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.ImageCursor;
 import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -456,7 +457,8 @@ public class PlatformerApp extends GameApplication {
         getPhysicsWorld().addCollisionHandler(new PlayerButtonHandler());
 
         /* Player & Blocks Physics */
-
+        Image curImage = new Image(getClass().getResource("/assets/textures/cursor.png").toExternalForm());
+        getGameScene().setCursor(new ImageCursor(curImage));
         onCollision(PLAYER, PLATFORM, (player, platform) -> {
             String platformType = platform.getString("type");
 

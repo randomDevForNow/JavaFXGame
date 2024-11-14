@@ -200,6 +200,7 @@ public class RiderMainMenuScene extends FXGLMenu {
 
         // hierarachy
         // getContentRoot().getChildren().add(backgroundView);
+        Animation.setCustomCursor(getContentRoot(),"/assets/textures/cursor.png");
         blackVbox.getChildren().addAll(yellowHbox, orangeHbox);
         textStack.getChildren().addAll(gameNameOutline, gameName);
         yellowHbox.getChildren().addAll(textStack);

@@ -374,7 +374,7 @@ public class LevelSelectScene extends FXGLMenu {
         checkCompleted();
         
 
-
+        Animation.setCustomCursor(getContentRoot(),"/assets/textures/cursor.png");
         getContentRoot().getChildren().add(backgroundView);
         blackVbox.getChildren().addAll(yellowHbox, orangeHbox, greenHbox, cyanHbox);
         greenHbox.getChildren().addAll(pinkVbox, purpleVbox, brownVbox, indigoVbox);
@@ -470,7 +470,7 @@ public class LevelSelectScene extends FXGLMenu {
             }
         }
 
-
+       
         //Completed Level Clicked w highlight
         private void checkCompletedClicked(int levelChecker){
             if (playerCounter == 1) {

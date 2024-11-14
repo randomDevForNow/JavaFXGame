@@ -2,6 +2,7 @@ package com.sunsofgod.Scenes;
 
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
+import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -61,4 +62,11 @@ public class Animation {
         tilt.setDelay(Duration.millis(800)); 
         tilt.play();
     }
+
+      public static void setCustomCursor(Pane pane, String cursorImagePath) {
+        Image cursorImage = new Image(Animation.class.getResource("/assets/textures/cursor.png").toExternalForm());
+        ImageCursor customCursor = new ImageCursor(cursorImage);
+        pane.setCursor(customCursor);
+    }
+
 }
