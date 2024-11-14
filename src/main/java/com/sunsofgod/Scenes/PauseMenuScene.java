@@ -4,16 +4,20 @@ import static com.almasb.fxgl.dsl.FXGL.getSceneService;
 
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
+import com.almasb.fxgl.input.UserAction;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+
+import com.sunsofgod.karaoke.KaraokeWindow;
 
 public class PauseMenuScene extends FXGLMenu {
 
@@ -84,6 +88,11 @@ public class PauseMenuScene extends FXGLMenu {
         videokeButton.setGraphic(videokeImageView);
         Animation.applyHoverAndClickEffects(videokeButton, hoverMedia, clickedMedia);
 
+
+        videokeButton.setOnAction(event -> {
+            openMusicSelection();
+        });
+
         HBox blueHbox3 = new HBox(10);
         blueHbox3.setAlignment(javafx.geometry.Pos.CENTER);
         blueHbox3.setPrefWidth(550);
@@ -121,6 +130,16 @@ public class PauseMenuScene extends FXGLMenu {
         blueHbox3.getChildren().addAll(menuButton);
         getContentRoot().getChildren().add(blackVbox);
         
+    }
+
+    private void openMusicSelection() {
+        // Create karaoke window that returns to game when closed
+        KaraokeWindow karaokeWindow = new KaraokeWindow(() -> {
+            // No need to transition scenes since we're already in game
+            // Just hide the window and continue playing
+            System.out.println("Continuing game with new song...");
+        });
+        karaokeWindow.show();
     }
     
 }

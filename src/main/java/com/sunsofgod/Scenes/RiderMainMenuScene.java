@@ -10,6 +10,7 @@ import static com.almasb.fxgl.dsl.FXGL.getService;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.input.UserAction;
 
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -22,6 +23,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
@@ -34,6 +36,9 @@ import javafx.util.Duration;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.sunsofgod.karaoke.KaraokeWindow;
+
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
@@ -174,6 +179,11 @@ public class RiderMainMenuScene extends FXGLMenu {
         Animation.applyContinuousBounceEffect(optionButton, 1000);
         Animation.applyHoverAndClickEffects(optionButton, hoverMedia, clickedMedia);
 
+
+        optionButton.setOnAction(event -> {
+            openMusicSelection();
+        });
+
         Button exitButton = new Button("");
         exitButton.setBackground(Background.EMPTY);
         Image exitImage = new Image(getClass().getResource("/assets/textures/buttons/exitButton.png").toExternalForm());
@@ -202,5 +212,15 @@ public class RiderMainMenuScene extends FXGLMenu {
         // PANLAGAY CLIPPING ETC.)
         // Pede rin magsearch ng ano kung pano yung nagalaw na background na wallpaper
         // ng mga parcel tapos stripes background
+    }
+
+    private void openMusicSelection() {
+        // Create karaoke window that returns to game when closed
+        KaraokeWindow karaokeWindow = new KaraokeWindow(() -> {
+            // No need to transition scenes since we're already in game
+            // Just hide the window and continue playing
+            System.out.println("Continuing game with new song...");
+        });
+        karaokeWindow.show();
     }
 }
