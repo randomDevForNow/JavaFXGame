@@ -36,7 +36,7 @@
     <property name="type" value="SLOW"/>
    </properties>
   </object>
-  <object id="55" type="button" x="2265.18" y="222.424">
+  <object id="55" type="button" x="2273.18" y="191.091">
    <point/>
   </object>
   <object id="57" type="platform" x="560" y="387.5" width="66" height="39">
