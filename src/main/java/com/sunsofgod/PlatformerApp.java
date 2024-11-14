@@ -248,7 +248,7 @@ public class PlatformerApp extends GameApplication {
     @Override
     protected void initGameVars(Map<String, Object> vars) {
 
-        vars.put("globalTimer", 1000);
+        vars.put("globalTimer", 10000);
     }
 
     @Override
@@ -346,13 +346,13 @@ public class PlatformerApp extends GameApplication {
         }
 
         // GIAN reset timer here
-
-        if (levelNum % 4 == 0) {
-            // level end scene
+        System.out.println(levelSelect);
+        if (levelSelect % 4 == 0) {
+            getSceneService().pushSubScene(new LevelEndScene());
             return;
         }
 
-        getSceneService().pushSubScene(new LevelCompletionScene(true));
+        getSceneService().pushSubScene(new LevelCompletionScene(1));
         dialogShown = false;
 
         levelSelect++;
@@ -378,6 +378,7 @@ public class PlatformerApp extends GameApplication {
                 player.getComponent(PhysicsComponent.class)
                         .overwritePosition(new Point2D(spawnpoint.getX() + x, spawnpoint.getY()));
                 player.setZIndex(Integer.MAX_VALUE);
+                player.getComponent(PhysicsComponent.class).setVelocityX(0);
             });
         }
         x += 50;
@@ -520,6 +521,7 @@ public class PlatformerApp extends GameApplication {
                     p.getComponent(PhysicsComponent.class)
                             .overwritePosition(new Point2D(spawnpoint.getX() + (x * 50), spawnpoint.getY()));
                     p.setZIndex(Integer.MAX_VALUE);
+                    player.getComponent(PhysicsComponent.class).setVelocityX(0);
                 });
             }
             x++;
@@ -534,11 +536,13 @@ public class PlatformerApp extends GameApplication {
 
         if (FXGL.geti("globalTimer") == 0) {
             // Display!
-            getSceneService().pushSubScene(new LevelCompletionScene(false));
+            System.out.println("gasdsada");
+            getSceneService().pushSubScene(new LevelCompletionScene(0));
             activePlayers.forEach(p -> {
                 p.getComponent(PhysicsComponent.class)
                         .overwritePosition(new Point2D(spawnpoint.getX() + (x * 50), spawnpoint.getY()));
                 p.setZIndex(Integer.MAX_VALUE);
+                p.getComponent(PhysicsComponent.class).setVelocityX(0);
             });
         }
 

@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 
 public class LevelCompletionScene extends FXGLMenu {
 
-    public LevelCompletionScene(boolean isSuccess) {
+    public LevelCompletionScene(int levelCode) {
         super(MenuType.GAME_MENU);
         Media hoverSound = new Media(getClass().getResource("/assets/sounds/hoverSoundfx.mp3").toExternalForm());
         MediaPlayer hoverMedia = new MediaPlayer(hoverSound);
@@ -40,14 +40,14 @@ public class LevelCompletionScene extends FXGLMenu {
         redHbox.setPrefHeight(400);
         redHbox.setMaxWidth(860);
         redHbox.setMaxHeight(400);
-        if (isSuccess) {
+        if (levelCode == 0) {
             redHbox.setStyle(
                     "-fx-background-color: transparent; " +
                             "-fx-border-width: 5; " +
                             "-fx-border-radius: 5; " +
                             "-fx-background-image: url('/assets/textures/background/levelEnd.png'); " +
                             "-fx-background-position: center; ");
-        } else {
+        } else if (levelCode == 1){
             redHbox.setStyle(
                     "-fx-background-color: transparent; " +
                             "-fx-border-width: 5; " +
