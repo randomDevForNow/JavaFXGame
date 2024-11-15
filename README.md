@@ -6,10 +6,10 @@
 
 - Aaron Roland Vergel A. Araw - randomDevForNow
 
-- Jamie G. Del Rosario
+- Jamie G. Del Rosario - jemiiidr
 
-- Louis Patrick N. Jaso
+- Louis Patrick N. Jaso - CardinalisUnum
 
-- Jacob O. Duldulao
+- Jacob O. Duldulao - Pxtchvm
 
-- Marc Danielle C. Neric
+- Marc Danielle C. Neric - Neric07
