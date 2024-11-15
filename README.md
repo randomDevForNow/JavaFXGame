@@ -1,15 +1,15 @@
 #Contributors:
 
-*Adrian N. Butiu
+- Adrian N. Butiu
 
-*Gian Carlo L. Mateo -  Gheyan 
+- Gian Carlo L. Mateo -  Gheyan 
 
-*Aaron Roland Vergel A. Araw - randomDevForNow
+- Aaron Roland Vergel A. Araw - randomDevForNow
 
-*Jamie G. Del Rosario
+- Jamie G. Del Rosario
 
-*Louis Patrick N. Jaso
+- Louis Patrick N. Jaso
 
-*Jacob O. Duldulao
+- Jacob O. Duldulao
 
-*Marc Danielle C. Neric
+- Marc Danielle C. Neric
